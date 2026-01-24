@@ -7,385 +7,194 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Cairo:wght@400;600;700&display=swap');
         
-        /* --- المتغيرات اللونية --- */
         :root {
-            --bg-color: #f8f9fa;
-            --text-color: #333;
-            --text-secondary: #666;
-            --header-bg: #ffffff;
-            --card-bg: #ffffff;
-            --border-color: #eee;
-            --icon-color: #333;
-            --input-bg: #f9f9f9;
-            --shadow-color: rgba(0,0,0,0.05);
+            --bg-color: #f8f9fa; --text-color: #333; --text-secondary: #666;
+            --header-bg: #ffffff; --card-bg: #ffffff; --border-color: #eee;
+            --icon-color: #333; --input-bg: #f9f9f9; --nav-active: #ff4747;
             --modal-bg-gradient: radial-gradient(circle at center top, #e6f7ff, #ffffff 80%);
-            --modal-text: #1c1c1e;
-            --side-menu-bg: #ffffff;
-            --nav-active: #ff4747;
+            --modal-text: #1c1c1e; --side-menu-bg: #ffffff;
         }
 
         body.dark-mode {
-            --bg-color: #121212;
-            --text-color: #e0e0e0;
-            --text-secondary: #aaa;
-            --header-bg: #1e1e1e;
-            --card-bg: #1e1e1e;
-            --border-color: #333;
-            --icon-color: #fff;
-            --input-bg: #2c2c2c;
-            --shadow-color: rgba(0,0,0,0.3);
+            --bg-color: #121212; --text-color: #e0e0e0; --text-secondary: #aaa;
+            --header-bg: #1e1e1e; --card-bg: #1e1e1e; --border-color: #333;
+            --icon-color: #fff; --input-bg: #2c2c2c;
             --modal-bg-gradient: radial-gradient(circle at center top, #1a2a3a, #1e1e1e 80%);
-            --modal-text: #ffffff;
-            --side-menu-bg: #2c2c2c;
+            --modal-text: #ffffff; --side-menu-bg: #2c2c2c;
         }
 
         * { box-sizing: border-box; transition: background-color 0.3s, color 0.3s; -webkit-tap-highlight-color: transparent; }
-
-        body { 
-            font-family: 'Cairo', 'Inter', sans-serif;
-            margin: 0; 
-            background-color: var(--bg-color); 
-            color: var(--text-color);
-            padding-bottom: 80px; /* مسافة للشريط السفلي */
-            overflow-x: hidden;
-        }
-        
+        body { font-family: 'Cairo', 'Inter', sans-serif; margin: 0; background-color: var(--bg-color); color: var(--text-color); padding-bottom: 80px; overflow-x: hidden; }
         a { text-decoration: none; color: var(--text-color); }
 
-        /* --- تصميم الهيدر (رأس الصفحة) --- */
-        header { 
-            background-color: var(--header-bg); 
-            box-shadow: 0 1px 5px var(--shadow-color); 
-            position: sticky; 
-            top: 0; 
-            z-index: 1000;
-            height: 60px;
-        }
+        /* Header */
+        header { background-color: var(--header-bg); box-shadow: 0 1px 5px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 1000; height: 60px; }
+        .navbar { display: flex; justify-content: space-between; align-items: center; width: 100%; max-width: 1200px; margin: 0 auto; padding: 0 15px; height: 100%; position: relative; }
+        
+        .menu-toggle { cursor: pointer; color: var(--icon-color); display: flex; align-items: center; justify-content: flex-end; width: 40px; height: 40px; z-index: 5; }
+        .menu-toggle svg { width: 28px; height: 28px; stroke: currentColor; fill: none; stroke-width: 2; }
 
-        .navbar { 
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center; 
-            width: 100%;
-            max-width: 1200px; 
-            margin: 0 auto; 
-            padding: 0 15px;
-            height: 100%;
-            position: relative; /* ضروري للتمركز المطلق */
-        }
+        .logo-link { position: absolute; left: 50%; transform: translateX(-50%); display: flex; align-items: center; justify-content: center; height: 100%; z-index: 1; }
+        .logo-img { height: 26px; width: auto; object-fit: contain; }
 
-        /* 1. زر القائمة (يمين) - تم إعادته للعمل */
-        .menu-toggle {
-            cursor: pointer;
-            color: var(--icon-color);
-            display: flex;
-            align-items: center;
-            justify-content: flex-end; /* أقصى اليمين */
-            width: 40px; height: 40px;
-            z-index: 10; /* طبقة عليا */
-        }
-        .menu-toggle svg { width: 28px; height: 28px; stroke: var(--icon-color); }
+        /* تعديل المنطقة اليسرى لتشمل زر العربة */
+        .header-left { display: flex; align-items: center; gap: 5px; z-index: 5; }
+        .icon-btn { cursor: pointer; color: var(--icon-color); display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: 50%; transition: background 0.2s; }
+        .icon-btn:hover { background-color: var(--input-bg); }
+        .icon-btn svg { width: 22px; height: 22px; stroke: currentColor; fill: none; stroke-width: 2; }
 
-        /* 2. اللوجو (منتصف تماماً) */
-        .logo-link {
-            position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 100%;
-            z-index: 1; /* في الخلفية قليلاً حتى لا يغطي الأزرار */
-        }
-
-        .logo-img {
-            height: 26px; /* ارتفاع مناسب */
-            width: auto;
-            object-fit: contain;
-            display: block;
-        }
-
-        /* 3. الأيقونات (يسار) */
-        .header-left {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            z-index: 10; /* طبقة عليا */
-        }
-
-        .icon-btn {
-            cursor: pointer;
-            color: var(--icon-color);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 35px; height: 35px;
-            border-radius: 50%;
-            background-color: transparent; /* خلفية شفافة */
-        }
-        .icon-btn:active { background-color: var(--input-bg); }
-        .icon-btn svg { width: 22px; height: 22px; stroke: var(--icon-color); }
-
-        /* --- القائمة الجانبية (Sidebar) --- */
-        .side-menu {
-            position: fixed; top: 0; right: -300px; width: 280px; height: 100%;
-            background-color: var(--side-menu-bg); box-shadow: -5px 0 15px rgba(0,0,0,0.1);
-            z-index: 2000; transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            padding: 20px; display: flex; flex-direction: column; gap: 20px;
-        }
-        .side-menu.active { right: 0; }
-        .side-menu-header {
-            display: flex; justify-content: space-between; align-items: center;
-            margin-bottom: 20px; border-bottom: 1px solid var(--border-color); padding-bottom: 15px;
-        }
-        .close-menu { cursor: pointer; font-size: 24px; color: var(--text-color); }
-        .side-link {
-            font-size: 16px; font-weight: 600; padding: 12px; border-radius: 8px;
-            color: var(--text-color); display: flex; align-items: center; gap: 10px;
-        }
-        .side-link:hover { background-color: var(--border-color); }
-        .menu-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.5); z-index: 1500; display: none;
-        }
-        .menu-overlay.active { display: block; }
-        .menu-login-btn {
-            margin-top: auto; background: #ff4747; color: white; padding: 12px;
-            text-align: center; border-radius: 12px; font-weight: bold; cursor: pointer;
-            display: flex; align-items: center; justify-content: center; gap: 8px;
-        }
-
-        /* --- المنتجات والبانر --- */
-        .hero-banner { 
-            background: linear-gradient(135deg, #0056b3, #4dabf7); color: white; 
-            padding: 30px 20px; text-align: center; margin-bottom: 20px; border-radius: 0 0 20px 20px;
-        }
-        .hero-banner h1 { font-size: 20px; margin-bottom: 5px; }
-        .hero-banner p { font-size: 12px; opacity: 0.9; }
+        /* Product Grid */
         .container { max-width: 1200px; margin: 0 auto; padding: 0 15px; }
+        .hero-banner { background: linear-gradient(135deg, #0056b3, #4dabf7); color: white; padding: 30px 20px; text-align: center; margin-bottom: 20px; border-radius: 0 0 20px 20px; }
         .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 15px; }
-        .product-card { 
-            background: var(--card-bg); padding: 10px; border-radius: 12px; 
-            transition: transform 0.2s; cursor: pointer; position: relative;
-            box-shadow: 0 2px 10px var(--shadow-color); border: 1px solid var(--border-color);
-        }
-        .product-card:active { transform: scale(0.98); }
+        
+        .product-card { background: var(--card-bg); padding: 10px; border-radius: 12px; position: relative; box-shadow: 0 2px 10px rgba(0,0,0,0.05); border: 1px solid var(--border-color); }
         .product-img { width: 100%; height: 150px; background-color: var(--input-bg); border-radius: 8px; margin-bottom: 10px; object-fit: cover; }
-        .product-title { color: var(--text-color); font-size: 14px; }
-        .price { color: #ff4747; font-weight: bold; font-size: 16px; display: block; margin-top: 5px;}
+        .product-title { color: var(--text-color); font-size: 14px; margin-bottom: 5px; }
+        .price { color: #ff4747; font-weight: bold; font-size: 16px; }
 
-        /* --- المودال --- */
-        .modal {
-            display: none; position: fixed; z-index: 3000; left: 0; top: 0; width: 100%; height: 100%;
-            background-color: rgba(0,0,0,0.6); justify-content: center; align-items: center; backdrop-filter: blur(8px); padding: 20px;
+        .add-btn { position: absolute; bottom: 10px; left: 10px; background-color: var(--icon-color); color: var(--card-bg); width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 2px 5px rgba(0,0,0,0.2); transition: transform 0.2s; }
+        .add-btn:active { transform: scale(0.9); background-color: #ff4747; }
+        .add-btn svg { width: 18px; height: 18px; stroke: currentColor; stroke-width: 3; }
+
+        .toast { visibility: hidden; min-width: 250px; background-color: #333; color: #fff; text-align: center; border-radius: 8px; padding: 12px; position: fixed; z-index: 2000; left: 50%; bottom: 90px; transform: translateX(-50%); font-size: 14px; opacity: 0; transition: opacity 0.3s, bottom 0.3s; }
+        .toast.show { visibility: visible; opacity: 1; bottom: 100px; }
+
+        /* Bottom Nav */
+        .bottom-nav { position: fixed; bottom: 0; left: 0; width: 100%; background-color: var(--header-bg); display: flex; justify-content: space-around; align-items: center; padding: 10px 0; box-shadow: 0 -2px 10px rgba(0,0,0,0.05); z-index: 999; border-top: 1px solid var(--border-color); }
+        .nav-item { display: flex; flex-direction: column; align-items: center; justify-content: center; color: var(--text-secondary); text-decoration: none; font-size: 11px; gap: 4px; cursor: pointer; width: 25%; }
+        .nav-item.active { color: var(--nav-active); font-weight: bold; }
+        .nav-item svg { width: 24px; height: 24px; stroke: currentColor; fill: none; stroke-width: 2; }
+        
+        @media (min-width: 769px) { 
+            .bottom-nav { display: none; } 
         }
-        .modal-content {
-            background: var(--modal-bg-gradient); width: 100%; max-width: 380px; padding: 30px 20px; border-radius: 24px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3); text-align: center; position: relative; overflow: hidden; 
-            animation: popupScale 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); color: var(--modal-text);
-        }
+
+        /* Sidebar & Modal (نفس السابق) */
+        .side-menu { position: fixed; top: 0; right: -300px; width: 280px; height: 100%; background-color: var(--side-menu-bg); box-shadow: -5px 0 15px rgba(0,0,0,0.1); z-index: 2000; transition: right 0.3s; padding: 20px; display: flex; flex-direction: column; gap: 20px; }
+        .side-menu.active { right: 0; }
+        .menu-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1500; display: none; }
+        .menu-overlay.active { display: block; }
+        .side-link { font-size: 16px; font-weight: 600; padding: 12px; color: var(--text-color); display: flex; align-items: center; gap: 10px; }
+        .close-menu { cursor: pointer; font-size: 24px; color: var(--text-color); float: left; }
+        .menu-login-btn { margin-top: auto; background: #ff4747; color: white; padding: 12px; text-align: center; border-radius: 12px; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; }
+
+        .modal { display: none; position: fixed; z-index: 3000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.6); justify-content: center; align-items: center; backdrop-filter: blur(8px); padding: 20px; }
+        .modal-content { background: var(--modal-bg-gradient); width: 100%; max-width: 380px; padding: 30px 20px; border-radius: 24px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); text-align: center; position: relative; overflow: hidden; animation: popupScale 0.4s; color: var(--modal-text); }
         @keyframes popupScale { from { transform: scale(0.8) translateY(20px); opacity: 0; } to { transform: scale(1) translateY(0); opacity: 1; } }
-        .close-btn {
-            position: absolute; top: 15px; left: 15px; width: 30px; height: 30px; background: var(--card-bg); border-radius: 50%;
-            display: flex; align-items: center; justify-content: center; font-size: 20px; cursor: pointer; color: var(--text-color);
-            z-index: 20; box-shadow: 0 2px 5px var(--shadow-color);
-        }
-        .clouds-container { position: absolute; top: 0; left: 0; width: 100%; height: 120px; z-index: 1; pointer-events: none; overflow: hidden; }
-        .cloud { position: absolute; background: #fff; border-radius: 100px; opacity: 0.6; filter: blur(1px); }
-        .cloud-1 { width: 100px; height: 40px; top: 20px; left: -50px; animation: moveCloud 15s linear infinite; }
-        .cloud-2 { width: 140px; height: 50px; top: 50px; left: -90px; animation: moveCloud 20s linear infinite; animation-delay: -5s; opacity: 0.4; }
-        @keyframes moveCloud { from { transform: translateX(-100%); } to { transform: translateX(400px); } }
+        .close-btn { position: absolute; top: 15px; left: 15px; width: 30px; height: 30px; background: var(--card-bg); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 20px; cursor: pointer; color: var(--text-color); z-index: 20; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
         .login-inner { position: relative; z-index: 10; padding-top: 10px; }
-        .top-icon { 
-            width: 60px; height: 60px; background: var(--icon-bg); border-radius: 20px; display: flex; justify-content: center; align-items: center; 
-            margin: 0 auto 15px; box-shadow: 0 10px 20px var(--shadow-color); font-size: 24px;
-        }
-        .login-inner h2 { margin: 0 0 10px; color: var(--modal-text); font-size: 20px; }
-        .login-inner p { color: var(--text-secondary); font-size: 13px; margin: 0; line-height: 1.6; }
-        .google-btn-wrapper { margin-top: 25px; }
-        .social-btn-circle { 
-            width: 60px; height: 60px; border-radius: 50%; border: none; background-color: var(--card-bg); 
-            display: flex; justify-content: center; align-items: center; cursor: pointer; transition: all 0.2s; 
-            margin: 0 auto; box-shadow: 0 5px 15px var(--shadow-color);
-        }
-        .social-btn-circle:active { transform: scale(0.9); }
-        .social-btn-circle svg { width: 28px; height: 28px; }
-
-        /* ================================================= */
-        /* --- شريط التنقل السفلي (Bottom Navigation) --- */
-        /* ================================================= */
-        .bottom-nav {
-            display: none;
-        }
-
-        @media (max-width: 768px) {
-            .bottom-nav {
-                position: fixed;
-                bottom: 0;
-                left: 0;
-                width: 100%;
-                background-color: var(--header-bg);
-                display: flex;
-                justify-content: space-around;
-                align-items: center;
-                padding: 10px 0;
-                box-shadow: 0 -2px 10px var(--shadow-color);
-                z-index: 999;
-                border-top: 1px solid var(--border-color);
-            }
-
-            .nav-item {
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                justify-content: center;
-                color: var(--text-secondary);
-                text-decoration: none;
-                font-size: 11px;
-                gap: 4px;
-                cursor: pointer;
-                transition: 0.2s;
-                width: 25%;
-            }
-
-            .nav-item.active {
-                color: var(--nav-active);
-                font-weight: bold;
-            }
-
-            .nav-item svg {
-                width: 24px;
-                height: 24px;
-                fill: none;
-                stroke: currentColor;
-                stroke-width: 2;
-                stroke-linecap: round;
-                stroke-linejoin: round;
-            }
-        }
-
+        .top-icon { width: 60px; height: 60px; background: var(--input-bg); border-radius: 20px; display: flex; justify-content: center; align-items: center; margin: 0 auto 15px; box-shadow: 0 10px 20px rgba(0,0,0,0.05); font-size: 24px; }
+        .social-btn-circle { width: 60px; height: 60px; border-radius: 50%; border: none; background-color: var(--card-bg); display: flex; justify-content: center; align-items: center; cursor: pointer; margin: 20px auto 0; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
     </style>
 </head>
 <body>
 
     <header>
         <div class="navbar">
+            <div class="menu-toggle" onclick="toggleMenu()"><svg viewBox="0 0 24 24"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></div>
             
-            <div class="menu-toggle" onclick="toggleMenu()">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <line x1="3" y1="12" x2="21" y2="12"></line>
-                    <line x1="3" y1="6" x2="21" y2="6"></line>
-                    <line x1="3" y1="18" x2="21" y2="18"></line>
-                </svg>
-            </div>
-
-            <a href="#" class="logo-link">
-                <img id="app-logo" src="https://i.ibb.co/4R8nMfcs/image.png" alt="Wusooly Logo" class="logo-img">
-            </a>
-
+            <a href="#" class="logo-link"><img id="app-logo" src="https://i.ibb.co/4R8nMfcs/image.png" alt="Wusooly" class="logo-img"></a>
+            
             <div class="header-left">
-                <div class="icon-btn search-trigger">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <circle cx="11" cy="11" r="8"></circle>
-                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-                    </svg>
-                </div>
-                <div class="icon-btn theme-toggle" onclick="toggleThemeManual()">
-                     <svg id="theme-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-                     </svg>
-                </div>
+                <a href="cart.html" class="icon-btn">
+                    <svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+                </a>
+                
+                <div class="icon-btn search-trigger"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></div>
+                
+                <div class="icon-btn" onclick="toggleThemeManual()"><svg id="theme-icon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg></div>
             </div>
         </div>
     </header>
 
-    <div class="bottom-nav">
-        <div class="nav-item" onclick="openLoginModal()">
-            <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
-            <span>الحساب</span>
-        </div>
-        <div class="nav-item">
-            <svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
-            <span>العربة</span>
-        </div>
-        <div class="nav-item" onclick="toggleMenu()">
-            <svg viewBox="0 0 24 24"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><line x1="3" y1="6" x2="3.01" y2="6"></line><line x1="3" y1="12" x2="3.01" y2="12"></line><line x1="3" y1="18" x2="3.01" y2="18"></line></svg>
-            <span>الفئة</span>
-        </div>
-        <div class="nav-item active" onclick="window.scrollTo(0,0)">
-            <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
-            <span>الرئيسية</span>
-        </div>
-    </div>
-
     <div class="menu-overlay" onclick="toggleMenu()"></div>
     <div class="side-menu" id="sideMenu">
-        <div class="side-menu-header">
-            <span style="font-weight:bold; font-size:20px;">القائمة</span>
-            <span class="close-menu" onclick="toggleMenu()">&times;</span>
-        </div>
-        <a href="#" class="side-link">👜 الشنط والأكسسوارات</a>
-        <a href="#" class="side-link">🎁 بكجات الهدايا</a>
-        <a href="#" class="side-link">✨ العناية بالبشرة</a>
-        <a href="#" class="side-link">👢 الأحذية</a>
-        <div class="menu-login-btn" onclick="openLoginModal(); toggleMenu()">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
-            <span id="menu-user-name">تسجيل الدخول</span>
-        </div>
+        <div><span class="close-menu" onclick="toggleMenu()">&times;</span> <h3 style="margin:0; color:var(--text-color)">القائمة</h3></div>
+        <a href="#" class="side-link">👜 الشنط</a>
+        <a href="#" class="side-link">🎁 الهدايا</a>
+        <a href="profile.html" class="side-link" style="color:#ff4747">👤 حسابي</a>
+        <div class="menu-login-btn" onclick="openLoginModal(); toggleMenu()">تسجيل دخول سريع</div>
     </div>
 
     <div class="hero-banner">
-        <h1>عروض الشتاء الكبرى في Wusooly</h1>
-        <p>انقر مرتين على أي منتج لتسجيل الدخول والشراء!</p>
+        <h1>عروض الشتاء الكبرى</h1>
+        <p>تسوق الآن واحصل على أفضل الأسعار</p>
     </div>
 
     <div class="container">
         <div class="product-grid">
-            <div class="product-card" ondblclick="openLoginModal()">
-                <img src="https://via.placeholder.com/200?text=Product+1" class="product-img">
+            <div class="product-card">
+                <img src="https://via.placeholder.com/200?text=Watch" class="product-img">
                 <div class="product-title">ساعة ذكية رياضية</div>
                 <span class="price">$25.00</span>
+                <div class="add-btn" onclick="addToCart('ساعة ذكية رياضية', 25.00, 'https://via.placeholder.com/200?text=Watch')">
+                    <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                </div>
             </div>
-            <div class="product-card" ondblclick="openLoginModal()">
-                <img src="https://via.placeholder.com/200?text=Product+2" class="product-img">
+            <div class="product-card">
+                <img src="https://via.placeholder.com/200?text=Bag" class="product-img">
                 <div class="product-title">حقيبة جلد فاخرة</div>
                 <span class="price">$40.00</span>
+                <div class="add-btn" onclick="addToCart('حقيبة جلد فاخرة', 40.00, 'https://via.placeholder.com/200?text=Bag')">
+                    <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                </div>
             </div>
-            <div class="product-card" ondblclick="openLoginModal()">
-                <img src="https://via.placeholder.com/200?text=Product+3" class="product-img">
+            <div class="product-card">
+                <img src="https://via.placeholder.com/200?text=Headset" class="product-img">
                 <div class="product-title">سماعات بلوتوث</div>
                 <span class="price">$15.00</span>
+                <div class="add-btn" onclick="addToCart('سماعات بلوتوث', 15.00, 'https://via.placeholder.com/200?text=Headset')">
+                    <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                </div>
             </div>
-             <div class="product-card" ondblclick="openLoginModal()">
-                <img src="https://via.placeholder.com/200?text=Product+4" class="product-img">
-                <div class="product-title">حذاء رياضي مريح</div>
+             <div class="product-card">
+                <img src="https://via.placeholder.com/200?text=Shoes" class="product-img">
+                <div class="product-title">حذاء رياضي</div>
                 <span class="price">$99.00</span>
+                <div class="add-btn" onclick="addToCart('حذاء رياضي', 99.00, 'https://via.placeholder.com/200?text=Shoes')">
+                    <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                </div>
             </div>
         </div>
+    </div>
+
+    <div id="toast" class="toast">تمت إضافة المنتج للعربة ✅</div>
+
+    <div class="bottom-nav">
+        <a href="profile.html" class="nav-item">
+            <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+            <span>الحساب</span>
+        </a>
+        <a href="cart.html" class="nav-item">
+            <svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+            <span>العربة</span>
+        </a>
+        <div class="nav-item" onclick="toggleMenu()">
+            <svg viewBox="0 0 24 24"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><line x1="3" y1="6" x2="3.01" y2="6"></line><line x1="3" y1="12" x2="3.01" y2="12"></line><line x1="3" y1="18" x2="3.01" y2="18"></line></svg>
+            <span>الفئة</span>
+        </div>
+        <a href="index.html" class="nav-item active">
+            <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+            <span>الرئيسية</span>
+        </a>
     </div>
 
     <div id="loginModal" class="modal">
         <div class="modal-content">
             <div class="close-btn" onclick="closeLoginModal()">&times;</div>
-            <div class="clouds-container">
-                <div class="cloud cloud-1"></div>
-                <div class="cloud cloud-2"></div>
-            </div>
             <div class="login-inner">
                 <div class="top-icon">🔐</div>
-                <h2>تسجيل الدخول إلى Wusooly</h2>
-                <p>سجل الدخول للمتابعة وإتمام الشراء<br>بكل سهولة وأمان</p>
-                <div class="google-btn-wrapper">
-                    <p style="font-size:12px; color:var(--text-secondary); margin-bottom:10px;">اضغط أيقونة جوجل للمتابعة</p>
-                    <button id="google-login-btn" class="social-btn-circle">
-                        <svg viewBox="0 0 24 24">
-                            <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
-                            <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
-                            <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
-                            <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
-                        </svg>
-                    </button>
-                </div>
+                <h2>تسجيل الدخول</h2>
+                <p>سجل الدخول للمتابعة</p>
+                <button id="google-login-btn" class="social-btn-circle">
+                    <svg viewBox="0 0 24 24" width="28" height="28">
+                        <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+                        <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+                        <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
+                        <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+                    </svg>
+                </button>
             </div>
         </div>
     </div>
@@ -408,35 +217,41 @@
         const auth = getAuth(app);
         const provider = new GoogleAuthProvider();
 
+        window.addToCart = function(name, price, image) {
+            let cart = JSON.parse(localStorage.getItem('wusooly_cart')) || [];
+            let existingItem = cart.find(item => item.name === name);
+            if (existingItem) { existingItem.qty += 1; } 
+            else { cart.push({ name: name, price: price, image: image, qty: 1 }); }
+            localStorage.setItem('wusooly_cart', JSON.stringify(cart));
+            showToast();
+        }
+
+        function showToast() {
+            var x = document.getElementById("toast");
+            x.className = "toast show";
+            setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+        }
+
         const lightLogoUrl = "https://i.ibb.co/4R8nMfcs/image.png";
         const darkLogoUrl = "https://i.ibb.co/k6QxrwjQ/image.png";
-        
         const logoImg = document.getElementById('app-logo');
         const themeIcon = document.getElementById('theme-icon');
-
         const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)');
 
         function applyTheme(isDark) {
-            if (isDark) {
-                document.body.classList.add('dark-mode');
-                logoImg.src = darkLogoUrl;
+            if (isDark) { 
+                document.body.classList.add('dark-mode'); 
+                logoImg.src = darkLogoUrl; 
                 themeIcon.innerHTML = '<circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>';
-            } else {
-                document.body.classList.remove('dark-mode');
-                logoImg.src = lightLogoUrl;
+            } else { 
+                document.body.classList.remove('dark-mode'); 
+                logoImg.src = lightLogoUrl; 
                 themeIcon.innerHTML = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';
             }
         }
-
-        // تطبيق الثيم بناءً على الهاتف فوراً
         applyTheme(systemPrefersDark.matches);
-
-        // الاستماع للتغييرات
-        systemPrefersDark.addEventListener('change', (e) => {
-            applyTheme(e.matches);
-        });
-
-        // التبديل اليدوي (مؤقت)
+        systemPrefersDark.addEventListener('change', (e) => applyTheme(e.matches));
+        
         window.toggleThemeManual = function() {
             const isDark = document.body.classList.contains('dark-mode');
             applyTheme(!isDark);
@@ -446,6 +261,7 @@
             document.getElementById('sideMenu').classList.toggle('active');
             document.querySelector('.menu-overlay').classList.toggle('active');
         }
+        
         window.openLoginModal = function() { document.getElementById('loginModal').style.display = 'flex'; }
         window.closeLoginModal = function() { document.getElementById('loginModal').style.display = 'none'; }
         window.onclick = function(event) { if (event.target == document.getElementById('loginModal')) document.getElementById('loginModal').style.display = "none"; }
@@ -454,10 +270,8 @@
         loginBtn.addEventListener('click', () => {
             signInWithPopup(auth, provider)
             .then((result) => {
-                const user = result.user;
-                alert("مرحباً " + user.displayName);
+                alert("تم تسجيل الدخول: " + result.user.displayName);
                 closeLoginModal();
-                document.getElementById('menu-user-name').innerText = user.displayName;
             }).catch((error) => {
                 console.error(error);
                 alert("خطأ: " + error.message);
