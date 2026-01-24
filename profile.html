@@ -5,79 +5,100 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>حسابي - Wusooly</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Cairo:wght@400;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap');
         
         :root {
-            --bg-color: #f8f9fa; --text-color: #333; --text-secondary: #666;
-            --header-bg: #ffffff; --card-bg: #ffffff; --border-color: #eee;
-            --icon-color: #333; --input-bg: #f9f9f9; --shadow-color: rgba(0,0,0,0.05);
-            --nav-active: #ff4747; --btn-danger: #ff4747;
+            --bg-color: #F8F9FA; --header-bg: #FFFFFF; --text-main: #1C1C1E; --text-sub: #8A8A8E;
+            --accent-color: #1C1C1E; --card-bg: #FFFFFF; --input-bg: #F2F2F7;
+            --nav-bar-bg: #FFFFFF; --nav-text: #B0B0B0; --nav-active: #1C1C1E;
+            --shadow-soft: 0 4px 20px rgba(0,0,0,0.03); --radius-lg: 20px;
         }
 
         body.dark-mode {
-            --bg-color: #121212; --text-color: #e0e0e0; --text-secondary: #aaa;
-            --header-bg: #1e1e1e; --card-bg: #1e1e1e; --border-color: #333;
-            --icon-color: #fff; --input-bg: #2c2c2c; --shadow-color: rgba(0,0,0,0.3);
+            --bg-color: #121212; --header-bg: #1C1C1E; --text-main: #FFFFFF; --text-sub: #A1A1A1;
+            --accent-color: #FFFFFF; --card-bg: #2C2C2E; --input-bg: #3A3A3C;
+            --nav-bar-bg: #2C2C2E; --nav-text: #636366; --nav-active: #FFFFFF;
+            --shadow-soft: 0 4px 20px rgba(0,0,0,0.3);
         }
 
-        * { box-sizing: border-box; transition: background-color 0.3s, color 0.3s; -webkit-tap-highlight-color: transparent; }
-        body { font-family: 'Cairo', 'Inter', sans-serif; margin: 0; background-color: var(--bg-color); color: var(--text-color); padding-bottom: 80px; overflow-x: hidden; }
-        a { text-decoration: none; color: var(--text-color); }
+        * { box-sizing: border-box; transition: all 0.3s ease; -webkit-tap-highlight-color: transparent; }
+        body { font-family: 'Cairo', sans-serif; margin: 0; background-color: var(--bg-color); color: var(--text-main); padding-bottom: 100px; overflow-x: hidden; }
+        a { text-decoration: none; color: inherit; }
 
-        /* --- Header --- */
-        header { background-color: var(--header-bg); box-shadow: 0 1px 5px var(--shadow-color); position: sticky; top: 0; z-index: 1000; height: 60px; display: flex; align-items: center; justify-content: center; }
-        .logo-img { height: 26px; width: auto; object-fit: contain; }
+        /* Header */
+        header { padding: 15px 20px; background-color: var(--header-bg); position: sticky; top: 0; z-index: 100; display: flex; justify-content: center; align-items: center; box-shadow: 0 1px 0 rgba(0,0,0,0.05); }
+        .logo-img { height: 28px; width: auto; object-fit: contain; }
 
-        /* --- Profile Section --- */
-        .container { max-width: 600px; margin: 20px auto; padding: 0 20px; text-align: center; }
+        /* Profile Styles */
+        .container { max-width: 600px; margin: 0 auto; padding: 20px; }
         
         .profile-card {
-            background-color: var(--card-bg);
-            border-radius: 20px;
+            background: var(--card-bg);
+            border-radius: var(--radius-lg);
             padding: 40px 20px;
-            box-shadow: 0 5px 20px var(--shadow-color);
-            margin-top: 50px;
-            border: 1px solid var(--border-color);
+            text-align: center;
+            box-shadow: var(--shadow-soft);
+            margin-top: 20px;
+            display: none; /* مخفي حتى يتم التحقق من الدخول */
+        }
+
+        .avatar-wrapper {
+            width: 100px; height: 100px;
+            margin: 0 auto 20px;
+            border-radius: 50%;
+            padding: 3px;
+            border: 2px dashed var(--accent-color);
         }
 
         .profile-img {
-            width: 100px; height: 100px;
+            width: 100%; height: 100%;
             border-radius: 50%;
-            background-color: var(--input-bg);
-            margin: 0 auto 20px;
-            display: block;
             object-fit: cover;
-            border: 3px solid var(--border-color);
-        }
-
-        .user-name { font-size: 22px; font-weight: bold; margin-bottom: 5px; }
-        .user-email { font-size: 14px; color: var(--text-secondary); margin-bottom: 30px; }
-
-        .btn-logout {
             background-color: var(--input-bg);
-            color: var(--btn-danger);
-            border: 1px solid var(--border-color);
-            padding: 12px 30px;
-            border-radius: 50px;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            width: 100%;
-            justify-content: center;
         }
-        .btn-logout:active { transform: scale(0.98); }
 
-        /* --- Bottom Nav --- */
-        .bottom-nav { position: fixed; bottom: 0; left: 0; width: 100%; background-color: var(--header-bg); display: flex; justify-content: space-around; align-items: center; padding: 10px 0; box-shadow: 0 -2px 10px var(--shadow-color); z-index: 999; border-top: 1px solid var(--border-color); }
-        .nav-item { display: flex; flex-direction: column; align-items: center; justify-content: center; color: var(--text-secondary); text-decoration: none; font-size: 11px; gap: 4px; cursor: pointer; width: 25%; }
-        .nav-item.active { color: var(--nav-active); font-weight: bold; }
-        .nav-item svg { width: 24px; height: 24px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
-        
-        /* إخفاء الناف على الكمبيوتر */
-        @media (min-width: 769px) { .bottom-nav { display: none; } }
+        .user-name { font-size: 22px; font-weight: 800; margin-bottom: 5px; color: var(--text-main); }
+        .user-email { font-size: 14px; color: var(--text-sub); margin-bottom: 30px; font-weight: 600; }
+
+        .action-btn {
+            background: var(--input-bg);
+            color: #ff4747; /* لون أحمر للخروج */
+            width: 100%;
+            padding: 15px;
+            border-radius: 15px;
+            border: none;
+            font-family: 'Cairo';
+            font-weight: 700;
+            font-size: 15px;
+            cursor: pointer;
+            display: flex; align-items: center; justify-content: center; gap: 10px;
+        }
+
+        /* Not Logged In State */
+        .guest-card {
+            background: var(--card-bg);
+            border-radius: var(--radius-lg);
+            padding: 50px 20px;
+            text-align: center;
+            box-shadow: var(--shadow-soft);
+            margin-top: 20px;
+            display: none; /* مخفي افتراضياً */
+        }
+        .guest-icon { font-size: 60px; margin-bottom: 20px; display: block; }
+        .login-btn-main {
+            background: var(--text-main); color: var(--bg-color);
+            padding: 15px 40px; border-radius: 50px; font-weight: bold;
+            margin-top: 20px; display: inline-block; cursor: pointer;
+        }
+
+        /* Floating Nav (نفس الستايل تماماً) */
+        .floating-nav { position: fixed; bottom: 20px; left: 20px; right: 20px; background-color: var(--nav-bar-bg); height: 70px; border-radius: 25px; display: flex; justify-content: space-around; align-items: center; padding: 0 10px; box-shadow: 0 10px 40px rgba(0,0,0,0.1); z-index: 999; border: 1px solid rgba(0,0,0,0.05); }
+        .nav-link { display: flex; flex-direction: column; align-items: center; justify-content: center; color: var(--nav-text); text-decoration: none; transition: 0.3s; gap: 4px; }
+        .nav-link.active { color: var(--nav-active); }
+        .nav-link.active::after { content: ''; width: 5px; height: 5px; background: var(--nav-active); border-radius: 50%; margin-top: 2px; }
+        .nav-link svg { width: 26px; height: 26px; stroke-width: 2; fill: none; stroke: currentColor; }
+        .nav-link.active svg { fill: currentColor; stroke: none; }
+        @media (min-width: 769px) { .floating-nav { display: none; } }
 
     </style>
 </head>
@@ -85,47 +106,48 @@
 
     <header>
         <a href="index.html">
-            <img id="app-logo" src="https://i.ibb.co/4R8nMfcs/image.png" alt="Wusooly Logo" class="logo-img">
+            <img id="app-logo" src="https://i.ibb.co/4R8nMfcs/image.png" alt="Wusooly" class="logo-img">
         </a>
     </header>
 
     <div class="container">
-        <div id="loading" style="margin-top: 50px; color: var(--text-secondary);">جاري التحميل...</div>
+        <h2 style="margin-bottom: 20px; font-weight: 800;">الملف الشخصي</h2>
 
-        <div id="user-profile" class="profile-card" style="display: none;">
-            <img id="user-img" src="" alt="Profile" class="profile-img">
-            <div id="user-name" class="user-name">اسم المستخدم</div>
+        <div id="loading" style="text-align: center; color: var(--text-sub);">جاري التحقق...</div>
+
+        <div id="user-profile" class="profile-card">
+            <div class="avatar-wrapper">
+                <img id="user-img" src="" class="profile-img">
+            </div>
+            <div id="user-name" class="user-name">User Name</div>
             <div id="user-email" class="user-email">email@example.com</div>
             
-            <button class="btn-logout" onclick="logout()">
+            <button class="action-btn" onclick="logout()">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
                 تسجيل الخروج
             </button>
         </div>
 
-        <div id="guest-profile" class="profile-card" style="display: none;">
-            <div style="font-size: 50px; margin-bottom: 20px;">👤</div>
-            <h2 style="margin: 0 0 10px;">أنت غير مسجل</h2>
-            <p style="color: var(--text-secondary); margin-bottom: 20px;">يرجى تسجيل الدخول للوصول إلى حسابك</p>
-            <a href="index.html" class="btn-logout" style="background: #1c1c1e; color: white; text-decoration: none;">الذهاب للرئيسية للتسجيل</a>
+        <div id="guest-profile" class="guest-card">
+            <span class="guest-icon">🔒</span>
+            <h3>أنت غير مسجل</h3>
+            <p style="color:var(--text-sub)">قم بتسجيل الدخول للوصول إلى طلباتك</p>
+            <div class="login-btn-main" onclick="window.location.href='index.html'">الذهاب للرئيسية للدخول</div>
         </div>
     </div>
 
-    <div class="bottom-nav">
-        <div class="nav-item active"> <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
-            <span>الحساب</span>
-        </div>
-        <a href="cart.html" class="nav-item">
-            <svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
-            <span>العربة</span>
-        </a>
-        <a href="index.html" class="nav-item">
-            <svg viewBox="0 0 24 24"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><line x1="3" y1="6" x2="3.01" y2="6"></line><line x1="3" y1="12" x2="3.01" y2="12"></line><line x1="3" y1="18" x2="3.01" y2="18"></line></svg>
-            <span>الفئة</span>
-        </a>
-        <a href="index.html" class="nav-item">
+    <div class="floating-nav">
+        <a href="index.html" class="nav-link">
             <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
-            <span>الرئيسية</span>
+        </a>
+        <a href="#" class="nav-link">
+            <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+        </a>
+        <a href="cart.html" class="nav-link">
+            <svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+        </a>
+        <a href="#" class="nav-link active">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
         </a>
     </div>
 
@@ -133,7 +155,6 @@
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
         import { getAuth, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
-        // إعدادات مشروعك
         const firebaseConfig = {
             apiKey: "AIzaSyBa0RwEcbVqWYAKeUFeZy2IDihaxUxtNKY",
             authDomain: "wusooly-1906b.firebaseapp.com",
@@ -147,7 +168,7 @@
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
 
-        // التعامل مع الوضع الليلي (نفس منطق الصفحة الرئيسية)
+        // Theme Logic
         const lightLogoUrl = "https://i.ibb.co/4R8nMfcs/image.png";
         const darkLogoUrl = "https://i.ibb.co/k6QxrwjQ/image.png";
         const logoImg = document.getElementById('app-logo');
@@ -158,34 +179,26 @@
             else { document.body.classList.remove('dark-mode'); logoImg.src = lightLogoUrl; }
         }
         applyTheme(systemPrefersDark.matches);
-        systemPrefersDark.addEventListener('change', (e) => { applyTheme(e.matches); });
+        systemPrefersDark.addEventListener('change', (e) => applyTheme(e.matches));
 
-        // التحقق من حالة تسجيل الدخول
+        // Auth Logic
         onAuthStateChanged(auth, (user) => {
             document.getElementById('loading').style.display = 'none';
             if (user) {
-                // المستخدم مسجل دخول
                 document.getElementById('user-profile').style.display = 'block';
                 document.getElementById('guest-profile').style.display = 'none';
-                
                 document.getElementById('user-name').innerText = user.displayName;
                 document.getElementById('user-email').innerText = user.email;
                 if(user.photoURL) document.getElementById('user-img').src = user.photoURL;
                 else document.getElementById('user-img').src = "https://via.placeholder.com/100";
             } else {
-                // المستخدم غير مسجل
                 document.getElementById('user-profile').style.display = 'none';
                 document.getElementById('guest-profile').style.display = 'block';
             }
         });
 
-        // دالة تسجيل الخروج
         window.logout = function() {
-            signOut(auth).then(() => {
-                window.location.href = "index.html";
-            }).catch((error) => {
-                alert("حدث خطأ أثناء الخروج");
-            });
+            signOut(auth).then(() => { window.location.href = "index.html"; }).catch((error) => { alert("Error"); });
         }
     </script>
 </body>
