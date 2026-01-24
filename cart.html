@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>السلة - Wusooly</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Cairo:wght@400;600;700&display=swap');
+        
+        :root {
+            --bg-color: #f8f9fa; --text-color: #333; --text-secondary: #666;
+            --header-bg: #ffffff; --card-bg: #ffffff; --border-color: #eee;
+            --input-bg: #f9f9f9; --nav-active: #ff4747; --btn-primary: #1c1c1e;
+        }
+
+        body.dark-mode {
+            --bg-color: #121212; --text-color: #e0e0e0; --text-secondary: #aaa;
+            --header-bg: #1e1e1e; --card-bg: #1e1e1e; --border-color: #333;
+            --input-bg: #2c2c2c;
+        }
+
+        * { box-sizing: border-box; transition: background-color 0.3s, color 0.3s; }
+        body { font-family: 'Cairo', 'Inter', sans-serif; margin: 0; background-color: var(--bg-color); color: var(--text-color); padding-bottom: 80px; overflow-x: hidden; }
+        a { text-decoration: none; color: var(--text-color); }
+
+        /* Header */
+        header { background-color: var(--header-bg); box-shadow: 0 1px 5px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 1000; height: 60px; display: flex; align-items: center; justify-content: center; }
+        .logo-img { height: 26px; width: auto; object-fit: contain; }
+
+        /* Cart Styles */
+        .container { max-width: 800px; margin: 20px auto; padding: 0 15px; }
+        .cart-title { font-size: 24px; font-weight: bold; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
+        
+        /* البطاقة التي ستتكرر */
+        .cart-item {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 15px;
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            border: 1px solid var(--border-color);
+            position: relative;
+        }
+
+        .item-img {
+            width: 80px; height: 80px;
+            border-radius: 8px;
+            background-color: var(--input-bg);
+            object-fit: cover;
+        }
+
+        .item-details { flex-grow: 1; }
+        .item-name { font-weight: bold; font-size: 16px; margin-bottom: 5px; }
+        .item-price { color: var(--nav-active); font-weight: bold; font-size: 18px; }
+        .item-qty { color: var(--text-secondary); font-size: 12px; margin-top: 5px; display: flex; gap: 10px; }
+
+        /* زر الحذف */
+        .remove-btn {
+            color: #ff4747;
+            background: none; border: none;
+            cursor: pointer; font-size: 12px;
+            padding: 5px;
+        }
+
+        .empty-cart-msg { text-align: center; margin-top: 50px; color: var(--text-secondary); }
+
+        .checkout-btn {
+            background-color: var(--btn-primary);
+            color: white; width: 100%; padding: 15px; border-radius: 12px;
+            font-size: 18px; font-weight: bold; border: none; cursor: pointer; margin-top: 20px;
+        }
+
+        /* Bottom Nav */
+        .bottom-nav { position: fixed; bottom: 0; left: 0; width: 100%; background-color: var(--header-bg); display: flex; justify-content: space-around; align-items: center; padding: 10px 0; box-shadow: 0 -2px 10px rgba(0,0,0,0.05); z-index: 999; border-top: 1px solid var(--border-color); }
+        .nav-item { display: flex; flex-direction: column; align-items: center; justify-content: center; color: var(--text-secondary); text-decoration: none; font-size: 11px; gap: 4px; cursor: pointer; width: 25%; }
+        .nav-item.active { color: var(--nav-active); font-weight: bold; }
+        .nav-item svg { width: 24px; height: 24px; stroke: currentColor; fill: none; stroke-width: 2; }
+        @media (min-width: 769px) { .bottom-nav { display: none; } }
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="index.html"><img id="app-logo" src="https://i.ibb.co/4R8nMfcs/image.png" alt="Wusooly" class="logo-img"></a>
+    </header>
+
+    <div class="container">
+        <div class="cart-title">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+            سلة التسوق
+        </div>
+
+        <div id="cart-container"></div>
+
+        <button id="checkout-btn" class="checkout-btn" style="display:none;" onclick="alert('سيتم تحويلك للدفع قريباً!')">إتمام الشراء</button>
+    </div>
+
+    <div class="bottom-nav">
+        <a href="profile.html" class="nav-item">
+            <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+            <span>الحساب</span>
+        </a>
+        <div class="nav-item active">
+            <svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+            <span>العربة</span>
+        </div>
+        <a href="index.html" class="nav-item">
+            <svg viewBox="0 0 24 24"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><line x1="3" y1="6" x2="3.01" y2="6"></line><line x1="3" y1="12" x2="3.01" y2="12"></line><line x1="3" y1="18" x2="3.01" y2="18"></line></svg>
+            <span>الفئة</span>
+        </a>
+        <a href="index.html" class="nav-item">
+            <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+            <span>الرئيسية</span>
+        </a>
+    </div>
+
+    <script>
+        // --- منطق عرض السلة ---
+        function renderCart() {
+            // جلب البيانات من الذاكرة
+            const cart = JSON.parse(localStorage.getItem('wusooly_cart')) || [];
+            const container = document.getElementById('cart-container');
+            const checkoutBtn = document.getElementById('checkout-btn');
+            
+            container.innerHTML = ''; // مسح المحتوى القديم
+            let total = 0;
+
+            if (cart.length === 0) {
+                container.innerHTML = '<div class="empty-cart-msg">سلتك فارغة حالياً 🛒</div>';
+                checkoutBtn.style.display = 'none';
+                return;
+            }
+
+            // إنشاء العناصر
+            cart.forEach((item, index) => {
+                total += item.price * item.qty;
+                
+                const itemHTML = `
+                    <div class="cart-item">
+                        <img src="${item.image}" class="item-img">
+                        <div class="item-details">
+                            <div class="item-name">${item.name}</div>
+                            <div class="item-price">$${item.price}</div>
+                            <div class="item-qty">
+                                <span>الكمية: ${item.qty}</span>
+                                <button class="remove-btn" onclick="removeItem(${index})">حذف</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                container.innerHTML += itemHTML;
+            });
+
+            // تحديث زر الدفع
+            checkoutBtn.style.display = 'block';
+            checkoutBtn.innerText = `إتمام الشراء ($${total.toFixed(2)})`;
+        }
+
+        // حذف منتج
+        window.removeItem = function(index) {
+            let cart = JSON.parse(localStorage.getItem('wusooly_cart'));
+            cart.splice(index, 1); // حذف العنصر
+            localStorage.setItem('wusooly_cart', JSON.stringify(cart));
+            renderCart(); // إعادة رسم السلة
+        }
+
+        // تشغيل الدالة عند فتح الصفحة
+        renderCart();
+
+        // --- الثيم (للتناسق) ---
+        const lightLogoUrl = "https://i.ibb.co/4R8nMfcs/image.png";
+        const darkLogoUrl = "https://i.ibb.co/k6QxrwjQ/image.png";
+        const logoImg = document.getElementById('app-logo');
+        const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)');
+
+        function applyTheme(isDark) {
+            if (isDark) { document.body.classList.add('dark-mode'); logoImg.src = darkLogoUrl; }
+            else { document.body.classList.remove('dark-mode'); logoImg.src = lightLogoUrl; }
+        }
+        applyTheme(systemPrefersDark.matches);
+    </script>
+
+</body>
+</html>
