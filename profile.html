@@ -8,15 +8,15 @@
         @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap');
         
         :root {
-            --bg-color: #F8F9FA; --header-bg: #FFFFFF; --text-main: #1C1C1E; --text-sub: #8A8A8E;
-            --accent-color: #1C1C1E; --card-bg: #FFFFFF; --input-bg: #F2F2F7;
-            --nav-bar-bg: #FFFFFF; --nav-text: #B0B0B0; --nav-active: #1C1C1E;
+            --bg-color: #F8F9FA; --header-bg: #FFFFFF; --text-main: #333; --text-sub: #666;
+            --accent-color: #0056b3; --card-bg: #FFFFFF; --input-bg: #F2F2F7;
+            --nav-bar-bg: #FFFFFF; --nav-text: #999; --nav-active: #0056b3;
             --shadow-soft: 0 4px 20px rgba(0,0,0,0.03); --radius-lg: 20px;
         }
 
         body.dark-mode {
             --bg-color: #121212; --header-bg: #1C1C1E; --text-main: #FFFFFF; --text-sub: #A1A1A1;
-            --accent-color: #FFFFFF; --card-bg: #2C2C2E; --input-bg: #3A3A3C;
+            --accent-color: #4dabf7; --card-bg: #2C2C2E; --input-bg: #3A3A3C;
             --nav-bar-bg: #2C2C2E; --nav-text: #636366; --nav-active: #FFFFFF;
             --shadow-soft: 0 4px 20px rgba(0,0,0,0.3);
         }
@@ -25,11 +25,9 @@
         body { font-family: 'Cairo', sans-serif; margin: 0; background-color: var(--bg-color); color: var(--text-main); padding-bottom: 100px; overflow-x: hidden; }
         a { text-decoration: none; color: inherit; }
 
-        /* Header */
         header { padding: 15px 20px; background-color: var(--header-bg); position: sticky; top: 0; z-index: 100; display: flex; justify-content: center; align-items: center; box-shadow: 0 1px 0 rgba(0,0,0,0.05); }
         .logo-img { height: 28px; width: auto; object-fit: contain; }
 
-        /* Profile Styles */
         .container { max-width: 600px; margin: 0 auto; padding: 20px; }
         
         .profile-card {
@@ -39,7 +37,7 @@
             text-align: center;
             box-shadow: var(--shadow-soft);
             margin-top: 20px;
-            display: none; /* مخفي حتى يتم التحقق من الدخول */
+            display: none; 
         }
 
         .avatar-wrapper {
@@ -62,7 +60,7 @@
 
         .action-btn {
             background: var(--input-bg);
-            color: #ff4747; /* لون أحمر للخروج */
+            color: #ff4747; 
             width: 100%;
             padding: 15px;
             border-radius: 15px;
@@ -82,7 +80,7 @@
             text-align: center;
             box-shadow: var(--shadow-soft);
             margin-top: 20px;
-            display: none; /* مخفي افتراضياً */
+            display: none; 
         }
         .guest-icon { font-size: 60px; margin-bottom: 20px; display: block; }
         .login-btn-main {
@@ -91,7 +89,7 @@
             margin-top: 20px; display: inline-block; cursor: pointer;
         }
 
-        /* Floating Nav (نفس الستايل تماماً) */
+        /* Floating Nav */
         .floating-nav { position: fixed; bottom: 20px; left: 20px; right: 20px; background-color: var(--nav-bar-bg); height: 70px; border-radius: 25px; display: flex; justify-content: space-around; align-items: center; padding: 0 10px; box-shadow: 0 10px 40px rgba(0,0,0,0.1); z-index: 999; border: 1px solid rgba(0,0,0,0.05); }
         .nav-link { display: flex; flex-direction: column; align-items: center; justify-content: center; color: var(--nav-text); text-decoration: none; transition: 0.3s; gap: 4px; }
         .nav-link.active { color: var(--nav-active); }
@@ -168,7 +166,6 @@
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
 
-        // Theme Logic
         const lightLogoUrl = "https://i.ibb.co/4R8nMfcs/image.png";
         const darkLogoUrl = "https://i.ibb.co/k6QxrwjQ/image.png";
         const logoImg = document.getElementById('app-logo');
@@ -181,7 +178,6 @@
         applyTheme(systemPrefersDark.matches);
         systemPrefersDark.addEventListener('change', (e) => applyTheme(e.matches));
 
-        // Auth Logic
         onAuthStateChanged(auth, (user) => {
             document.getElementById('loading').style.display = 'none';
             if (user) {
