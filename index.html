@@ -13,8 +13,8 @@
             --header-bg: #ffffff;
             --text-main: #333333;
             --text-sub: #666666;
-            --accent-color: #0056b3; /* أزرق أساسي */
-            --secondary-accent: #ff4747; /* أحمر للتنبيهات والأسعار */
+            --accent-color: #0056b3;
+            --secondary-accent: #ff4747;
             --card-bg: #ffffff;
             --input-bg: #f9f9f9;
             --nav-bar-bg: #ffffff;
@@ -30,7 +30,7 @@
             --header-bg: #1e1e1e;
             --text-main: #e0e0e0;
             --text-sub: #aaaaaa;
-            --accent-color: #4dabf7; /* أزرق فاتح للداكن */
+            --accent-color: #4dabf7;
             --secondary-accent: #ff6b6b;
             --card-bg: #1e1e1e;
             --input-bg: #2c2c2c;
@@ -79,7 +79,7 @@
         .search-box input { border: none; background: transparent; width: 100%; outline: none; font-family: 'Cairo'; color: var(--text-main); font-size: 15px; font-weight: 600; }
         .search-box svg { color: var(--text-sub); width: 22px; }
 
-        /* Banner (الأزرق) */
+        /* Banner */
         .banner-container { padding: 0 20px; margin-bottom: 25px; }
         .promo-card {
             background: linear-gradient(135deg, #0056b3, #4dabf7);
@@ -125,10 +125,10 @@
         }
         .cat-icon img { width: 100%; height: 100%; object-fit: contain; }
         
-        /* جعل الأيقونات الأخرى بيضاء في الوضع الليلي (ماعدا التيشيرت لأنه صورة مخصصة) */
+        /* في الوضع الليلي، نعكس ألوان الأيقونات لتصبح بيضاء (ما عدا التيشيرت لأننا نتحكم به بالكود) */
         body.dark-mode .cat-icon img:not(#cat-tshirt-img) { filter: brightness(0) invert(1); }
 
-        .cat-name { font-size: 13px; color: var(--text-main); font-weight: 700; }
+        .cat-name { font-size: 13px; color: var(--text-main); font-weight: 700; white-space: nowrap; }
 
         /* Product Grid */
         .product-grid {
@@ -271,27 +271,37 @@
 
         <div class="cat-item">
             <div class="cat-icon">
-                <img src="https://cdn-icons-png.flaticon.com/512/2390/2390116.png" alt="بنطال">
+                <img src="https://cdn-icons-png.flaticon.com/512/4213/4213958.png" alt="هدايا">
             </div>
-            <div class="cat-name">بنطال</div>
+            <div class="cat-name">بكجات هدايا</div>
         </div>
+
         <div class="cat-item">
             <div class="cat-icon">
-                <img src="https://cdn-icons-png.flaticon.com/512/2784/2784554.png" alt="فستان">
+                <img src="https://cdn-icons-png.flaticon.com/512/599/599324.png" alt="اكسسوارات">
             </div>
-            <div class="cat-name">فستان</div>
+            <div class="cat-name">اكسسوارات</div>
         </div>
+
         <div class="cat-item">
             <div class="cat-icon">
-                <img src="https://cdn-icons-png.flaticon.com/512/2806/2806240.png" alt="جاكيت">
+                <img src="https://cdn-icons-png.flaticon.com/512/2661/2661279.png" alt="شنط">
             </div>
-            <div class="cat-name">جاكيت</div>
+            <div class="cat-name">شنط</div>
         </div>
+
         <div class="cat-item">
             <div class="cat-icon">
-                <img src="https://cdn-icons-png.flaticon.com/512/2742/2742674.png" alt="أحذية">
+                <img src="https://cdn-icons-png.flaticon.com/512/3062/3062369.png" alt="أحذية نسائية">
             </div>
-            <div class="cat-name">أحذية</div>
+            <div class="cat-name">أحذية نسائية</div>
+        </div>
+
+        <div class="cat-item">
+            <div class="cat-icon">
+                <img src="https://cdn-icons-png.flaticon.com/512/3659/3659899.png" alt="إلكترونيات">
+            </div>
+            <div class="cat-name">إلكترونيات</div>
         </div>
     </div>
 
