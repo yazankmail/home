@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>لوحة التحكم المطور - Wusooly</title>
+    <title>لوحة التحكم - Wusooly</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap');
         body { font-family: 'Cairo', sans-serif; background: #f4f6f8; margin: 0; padding: 20px; color: #333; }
@@ -21,6 +21,11 @@
         button { width: 100%; padding: 15px; background: #0056b3; color: white; border: none; border-radius: 12px; font-size: 16px; cursor: pointer; font-weight: bold; margin-top: 20px; transition: 0.2s; }
         button:hover { background: #004494; transform: translateY(-2px); }
         
+        /* تنسيق قسم الحذف */
+        .delete-section { margin-top: 40px; padding-top: 20px; border-top: 2px dashed #ddd; }
+        .delete-btn { background: #ff4747; }
+        .delete-btn:hover { background: #d63030; }
+
         .result-box { margin-top: 20px; padding: 15px; background: #e3f2fd; border-radius: 10px; text-align: center; display: none; border: 1px solid #bbdefb; }
         .result-box a { color: #0056b3; font-weight: bold; word-break: break-all; }
         
@@ -30,7 +35,7 @@
 <body>
 
     <div class="container">
-        <h2>إضافة منتج احترافي 📦</h2>
+        <h2>إضافة منتج جديد 📦</h2>
         
         <div class="form-grid">
             <div class="full-width">
@@ -39,7 +44,7 @@
             </div>
 
             <div>
-                <label>السعر ($)</label>
+                <label>السعر (₪)</label>
                 <input type="number" id="p-price" placeholder="50">
             </div>
 
@@ -56,16 +61,16 @@
             </div>
 
             <div class="full-width">
-                <label>الوصف (يظهر في صفحة التفاصيل)</label>
+                <label>الوصف</label>
                 <textarea id="p-desc" placeholder="اكتب وصفاً جذاباً للمنتج..."></textarea>
             </div>
 
             <div class="full-width">
-                <label>المقاسات المتاحة (افصل بينها بفاصلة)</label>
+                <label>المقاسات (افصل بفاصلة)</label>
                 <input type="text" id="p-sizes" value="S, M, L, XL" placeholder="S, M, L, XL">
             </div>
 
-            <div class="full-width section-label">الصور (روابط مباشرة)</div>
+            <div class="full-width section-label">الصور (روابط)</div>
             
             <div class="full-width">
                 <label>الصورة الرئيسية</label>
@@ -74,25 +79,33 @@
             
             <div>
                 <label>صورة إضافية 1</label>
-                <input type="text" id="p-img-1" placeholder="رابط اختياري">
+                <input type="text" id="p-img-1" placeholder="اختياري">
             </div>
             <div>
                 <label>صورة إضافية 2</label>
-                <input type="text" id="p-img-2" placeholder="رابط اختياري">
+                <input type="text" id="p-img-2" placeholder="اختياري">
             </div>
         </div>
 
-        <button id="add-btn">حفظ ونشر المنتج</button>
+        <button id="add-btn">نشر المنتج ✅</button>
         
         <div id="result" class="result-box">
-            <p>✅ تم النشر بنجاح! رابط المنتج:</p>
-            <a id="product-link" href="#" target="_blank">رابط المنتج هنا</a>
+            <p>✅ تم النشر! انسخ الـ ID للحذف مستقبلاً:</p>
+            <strong id="new-id" style="display:block; margin:10px 0; font-family:monospace; font-size:18px;"></strong>
+            <a id="product-link" href="#" target="_blank">معاينة المنتج</a>
+        </div>
+
+        <div class="delete-section">
+            <h3 style="color:#ff4747; margin-top:0;">منطقة الحذف 🗑️</h3>
+            <label>أدخل ID المنتج لحذفه</label>
+            <input type="text" id="delete-id" placeholder="الصق الـ ID هنا..." style="border-color:#ff4747;">
+            <button id="delete-btn" class="delete-btn">حذف المنتج نهائياً</button>
         </div>
     </div>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-        import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+        import { getFirestore, collection, addDoc, doc, deleteDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyBa0RwEcbVqWYAKeUFeZy2IDihaxUxtNKY",
@@ -107,38 +120,39 @@
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
+        // 1. كود إضافة المنتج
         document.getElementById('add-btn').addEventListener('click', async () => {
             const btn = document.getElementById('add-btn');
             btn.innerText = "جاري الحفظ...";
             btn.disabled = true;
 
             try {
-                // تجميع الصور في مصفوفة
                 const images = [];
                 const mainImg = document.getElementById('p-img-main').value;
                 if(mainImg) images.push(mainImg);
                 if(document.getElementById('p-img-1').value) images.push(document.getElementById('p-img-1').value);
                 if(document.getElementById('p-img-2').value) images.push(document.getElementById('p-img-2').value);
 
-                // حفظ البيانات
                 const docRef = await addDoc(collection(db, "products"), {
                     name: document.getElementById('p-name').value,
                     price: Number(document.getElementById('p-price').value),
                     category: document.getElementById('p-category').value,
                     description: document.getElementById('p-desc').value,
-                    sizes: document.getElementById('p-sizes').value.split(',').map(s => s.trim()), // تحويل النص لقائمة
-                    image: mainImg, // الصورة الرئيسية للعرض في القوائم
-                    images: images, // قائمة الصور للمعرض
+                    sizes: document.getElementById('p-sizes').value.split(',').map(s => s.trim()),
+                    image: mainImg,
+                    images: images,
                     createdAt: Date.now()
                 });
 
-                // عرض الرابط
+                // عرض النتيجة والـ ID
                 const resultBox = document.getElementById('result');
                 const link = document.getElementById('product-link');
-                const newUrl = `product_details.html?id=${docRef.id}`; // الرابط الجديد يعتمد على ID
+                const idDisplay = document.getElementById('new-id');
+                const newUrl = `product_details.html?id=${docRef.id}`;
                 
                 link.href = newUrl;
-                link.innerText = window.location.origin + '/' + newUrl;
+                link.innerText = "اضغط هنا لمعاينة المنتج";
+                idDisplay.innerText = docRef.id; // عرض الـ ID للمستخدم لينسخه
                 resultBox.style.display = 'block';
                 
                 btn.innerText = "نشر منتج آخر";
@@ -149,6 +163,37 @@
                 alert("حدث خطأ: " + error.message);
                 btn.innerText = "حاول مرة أخرى";
                 btn.disabled = false;
+            }
+        });
+
+        // 2. كود حذف المنتج (الجديد)
+        document.getElementById('delete-btn').addEventListener('click', async () => {
+            const idToDelete = document.getElementById('delete-id').value.trim();
+            
+            if (!idToDelete) {
+                alert("الرجاء إدخال ID المنتج أولاً!");
+                return;
+            }
+
+            if (!confirm("⚠️ هل أنت متأكد تماماً؟ سيتم حذف المنتج نهائياً ولا يمكن استرجاعه.")) {
+                return;
+            }
+
+            const delBtn = document.getElementById('delete-btn');
+            delBtn.innerText = "جاري الحذف...";
+            delBtn.disabled = true;
+
+            try {
+                await deleteDoc(doc(db, "products", idToDelete));
+                alert("تم حذف المنتج بنجاح 🗑️");
+                document.getElementById('delete-id').value = ""; // تفريغ الحقل
+                delBtn.innerText = "حذف المنتج نهائياً";
+                delBtn.disabled = false;
+            } catch (error) {
+                console.error("Error deleting:", error);
+                alert("فشل الحذف! تأكد أن الـ ID صحيح.");
+                delBtn.innerText = "حذف المنتج نهائياً";
+                delBtn.disabled = false;
             }
         });
     </script>
