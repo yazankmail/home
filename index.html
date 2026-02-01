@@ -7,218 +7,89 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap');
         
-        /* --- الألوان الزرقاء الكلاسيكية --- */
         :root {
-            --bg-color: #f8f9fa;
-            --header-bg: #ffffff;
-            --text-main: #333333;
-            --text-sub: #666666;
-            --accent-color: #0056b3;
-            --secondary-accent: #ff4747;
-            --card-bg: #ffffff;
-            --input-bg: #f9f9f9;
-            --nav-bar-bg: #ffffff;
-            --nav-text: #999999;
-            --nav-active: #0056b3;
-            --shadow-soft: 0 4px 20px rgba(0,0,0,0.05);
-            --radius-lg: 20px;
-            --radius-md: 12px;
+            --bg-color: #f8f9fa; --header-bg: #ffffff; --text-main: #333333; --text-sub: #666666;
+            --accent-color: #0056b3; --secondary-accent: #ff4747; --card-bg: #ffffff; --input-bg: #f9f9f9;
+            --nav-bar-bg: #ffffff; --nav-text: #999999; --nav-active: #0056b3;
+            --shadow-soft: 0 4px 20px rgba(0,0,0,0.05); --radius-lg: 20px; --radius-md: 12px;
         }
 
         body.dark-mode {
-            --bg-color: #121212;
-            --header-bg: #1e1e1e;
-            --text-main: #e0e0e0;
-            --text-sub: #aaaaaa;
-            --accent-color: #4dabf7;
-            --secondary-accent: #ff6b6b;
-            --card-bg: #1e1e1e;
-            --input-bg: #2c2c2c;
-            --nav-bar-bg: #1e1e1e;
-            --nav-text: #666666;
-            --nav-active: #ffffff;
+            --bg-color: #121212; --header-bg: #1e1e1e; --text-main: #e0e0e0; --text-sub: #aaaaaa;
+            --accent-color: #4dabf7; --secondary-accent: #ff6b6b; --card-bg: #1e1e1e; --input-bg: #2c2c2c;
+            --nav-bar-bg: #1e1e1e; --nav-text: #666666; --nav-active: #ffffff;
             --shadow-soft: 0 4px 20px rgba(0,0,0,0.3);
         }
 
-        * { box-sizing: border-box; transition: all 0.3s ease; -webkit-tap-highlight-color: transparent; }
-        body { 
-            font-family: 'Cairo', sans-serif; 
-            margin: 0; 
-            background-color: var(--bg-color); 
-            color: var(--text-main); 
-            padding-bottom: 100px;
-            overflow-x: hidden;
-        }
-        
+        * { box-sizing: border-box; transition: background-color 0.3s, color 0.3s; -webkit-tap-highlight-color: transparent; }
+        body { font-family: 'Cairo', sans-serif; margin: 0; background-color: var(--bg-color); color: var(--text-main); padding-bottom: 100px; overflow-x: hidden; }
         a { text-decoration: none; color: inherit; }
 
-        /* Header */
-        header { 
-            padding: 15px 20px; 
-            background-color: var(--header-bg); 
-            position: sticky; top: 0; z-index: 100;
-            display: flex; justify-content: space-between; align-items: center;
-            box-shadow: 0 1px 5px rgba(0,0,0,0.05);
-        }
-
+        header { padding: 15px 20px; background-color: var(--header-bg); position: sticky; top: 0; z-index: 1000; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 1px 5px rgba(0,0,0,0.05); }
         .logo-img { height: 28px; width: auto; object-fit: contain; }
-        
         .header-actions { display: flex; gap: 15px; align-items: center; }
         .icon-btn { cursor: pointer; color: var(--text-main); display: flex; align-items: center; justify-content: center; width: 35px; height: 35px; border-radius: 50%; background: var(--input-bg); }
         .icon-btn svg { width: 20px; height: 20px; stroke-width: 2; }
 
-        /* Search */
+        .moon-icon { display: block; }
+        .sun-icon { display: none; }
+        body.dark-mode .moon-icon { display: none; }
+        body.dark-mode .sun-icon { display: block; }
+
         .search-container { padding: 15px 20px; }
-        .search-box {
-            background: var(--input-bg);
-            border-radius: var(--radius-lg);
-            padding: 14px 20px;
-            display: flex; align-items: center; gap: 10px;
-            border: 1px solid rgba(0,0,0,0.05);
-        }
+        .search-box { background: var(--input-bg); border-radius: var(--radius-lg); padding: 14px 20px; display: flex; align-items: center; gap: 10px; border: 1px solid rgba(0,0,0,0.05); }
         .search-box input { border: none; background: transparent; width: 100%; outline: none; font-family: 'Cairo'; color: var(--text-main); font-size: 15px; font-weight: 600; }
         .search-box svg { color: var(--text-sub); width: 22px; }
 
-        /* Banner */
         .banner-container { padding: 0 20px; margin-bottom: 25px; }
-        .promo-card {
-            background: linear-gradient(135deg, #0056b3, #4dabf7);
-            border-radius: 25px;
-            padding: 25px;
-            display: flex; justify-content: space-between; align-items: center;
-            position: relative; overflow: hidden;
-            height: 180px;
-            box-shadow: 0 10px 30px rgba(0, 86, 179, 0.3);
-        }
-        
+        .promo-card { background: linear-gradient(135deg, #0056b3, #4dabf7); border-radius: 25px; padding: 25px; display: flex; justify-content: space-between; align-items: center; position: relative; overflow: hidden; height: 180px; box-shadow: 0 10px 30px rgba(0, 86, 179, 0.3); }
         .promo-text { position: relative; z-index: 2; max-width: 60%; }
         .promo-text h2 { margin: 0 0 8px; font-size: 22px; color: #ffffff; font-weight: 800; line-height: 1.2; }
         .promo-text p { margin: 0 0 15px; font-size: 13px; color: rgba(255,255,255,0.9); font-weight: 600; }
-        .shop-now-btn {
-            background: #ffffff; color: #0056b3;
-            padding: 10px 24px; border-radius: 50px; font-size: 13px; font-weight: bold; cursor: pointer;
-            display: inline-block; box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        }
-        .promo-img { 
-            height: 110%; position: absolute; left: -20px; bottom: -10px; 
-            object-fit: cover; z-index: 1; transform: scaleX(-1);
-        }
+        .shop-now-btn { background: #ffffff; color: #0056b3; padding: 10px 24px; border-radius: 50px; font-size: 13px; font-weight: bold; cursor: pointer; display: inline-block; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        .promo-img { height: 110%; position: absolute; left: -20px; bottom: -10px; object-fit: cover; z-index: 1; transform: scaleX(-1); }
 
-        /* Categories */
         .section-title { padding: 0 20px; font-size: 18px; font-weight: 800; margin-bottom: 15px; display: flex; justify-content: space-between; align-items: center; }
         .section-title span { font-size: 13px; color: var(--accent-color); font-weight: 600; cursor: pointer; }
 
-        .categories-scroll {
-            display: flex; gap: 15px; padding: 0 20px; overflow-x: auto; scrollbar-width: none; margin-bottom: 30px;
-        }
+        .categories-scroll { display: flex; gap: 15px; padding: 0 20px; overflow-x: auto; scrollbar-width: none; margin-bottom: 30px; }
         .categories-scroll::-webkit-scrollbar { display: none; }
-        
         .cat-item { display: flex; flex-direction: column; align-items: center; gap: 8px; min-width: 70px; cursor: pointer; }
-        .cat-icon {
-            width: 65px; height: 65px;
-            background: var(--card-bg);
-            border-radius: 20px;
-            display: flex; align-items: center; justify-content: center;
-            box-shadow: var(--shadow-soft);
-            padding: 15px;
-            border: 1px solid rgba(0,0,0,0.03);
-        }
+        
+        .cat-icon { width: 65px; height: 65px; background: var(--card-bg); border-radius: 20px; display: flex; align-items: center; justify-content: center; box-shadow: var(--shadow-soft); padding: 15px; border: 1px solid rgba(0,0,0,0.03); }
         .cat-icon img { width: 100%; height: 100%; object-fit: contain; }
         
-        /* في الوضع الليلي، نعكس ألوان الأيقونات لتصبح بيضاء (ما عدا التيشيرت لأننا نتحكم به بالكود) */
-        body.dark-mode .cat-icon img:not(#cat-tshirt-img) { filter: brightness(0) invert(1); }
+        body.dark-mode .cat-icon img:not(.dynamic-icon) { filter: brightness(0) invert(1); }
+        body.dark-mode .cat-icon img.dynamic-icon { filter: none; }
 
         .cat-name { font-size: 13px; color: var(--text-main); font-weight: 700; white-space: nowrap; }
 
-        /* Product Grid */
-        .product-grid {
-            display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; padding: 0 20px;
-        }
-        
-        .product-card {
-            background: var(--card-bg);
-            border-radius: 20px;
-            padding: 10px;
-            position: relative;
-            box-shadow: var(--shadow-soft);
-            transition: transform 0.2s;
-            border: 1px solid var(--input-bg);
-        }
+        .product-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; padding: 0 20px; }
+        .product-card { background: var(--card-bg); border-radius: 20px; padding: 10px; position: relative; box-shadow: var(--shadow-soft); transition: transform 0.2s; border: 1px solid var(--input-bg); }
         .product-card:active { transform: scale(0.98); }
-        
-        .product-img-wrapper {
-            position: relative;
-            width: 100%; height: 160px;
-            border-radius: 15px;
-            overflow: hidden; margin-bottom: 12px;
-            background: var(--input-bg);
-        }
+        .product-img-wrapper { position: relative; width: 100%; height: 160px; border-radius: 15px; overflow: hidden; margin-bottom: 12px; background: var(--input-bg); }
         .product-img { width: 100%; height: 100%; object-fit: cover; }
-        
-        .fav-icon {
-            position: absolute; top: 10px; right: 10px;
-            background: rgba(255,255,255,0.9); width: 32px; height: 32px;
-            border-radius: 50%; display: flex; align-items: center; justify-content: center;
-            font-size: 16px; cursor: pointer; color: #ff4747; box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-
+        .fav-icon { position: absolute; top: 10px; right: 10px; background: rgba(255,255,255,0.9); width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 16px; cursor: pointer; color: #ff4747; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
         .product-info h3 { font-size: 14px; margin: 0 0 5px; color: var(--text-main); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-weight: 700; }
         .product-info p { font-size: 11px; color: var(--text-sub); margin: 0 0 8px; }
-        
         .price-row { display: flex; justify-content: space-between; align-items: center; }
         .price { font-size: 16px; font-weight: 800; color: var(--secondary-accent); }
-        
-        .add-btn-mini {
-            background: var(--text-main); color: var(--bg-color);
-            width: 32px; height: 32px; border-radius: 10px;
-            display: flex; align-items: center; justify-content: center;
-            cursor: pointer;
-        }
+        .add-btn-mini { background: var(--text-main); color: var(--bg-color); width: 32px; height: 32px; border-radius: 10px; display: flex; align-items: center; justify-content: center; cursor: pointer; }
         .add-btn-mini svg { width: 18px; height: 18px; stroke-width: 2.5; }
 
-        /* Floating Nav */
-        .floating-nav {
-            position: fixed; bottom: 20px; left: 20px; right: 20px;
-            background-color: var(--nav-bar-bg);
-            height: 70px;
-            border-radius: 25px;
-            display: flex; justify-content: space-around; align-items: center;
-            padding: 0 10px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.15);
-            z-index: 999;
-            border: 1px solid rgba(0,0,0,0.05);
-        }
-
-        .nav-link {
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
-            color: var(--nav-text); text-decoration: none;
-            transition: 0.3s; gap: 4px;
-        }
-        
-        .nav-link.active {
-            color: var(--nav-active);
-        }
-        
-        .nav-link.active::after {
-            content: ''; width: 5px; height: 5px; background: var(--nav-active); border-radius: 50%; margin-top: 2px;
-        }
-
+        .floating-nav { position: fixed; bottom: 20px; left: 20px; right: 20px; background-color: var(--nav-bar-bg); height: 70px; border-radius: 25px; display: flex; justify-content: space-around; align-items: center; padding: 0 10px; box-shadow: 0 10px 40px rgba(0,0,0,0.15); z-index: 999; border: 1px solid rgba(0,0,0,0.05); }
+        .nav-link { display: flex; flex-direction: column; align-items: center; justify-content: center; color: var(--nav-text); text-decoration: none; transition: 0.3s; gap: 4px; }
+        .nav-link.active { color: var(--nav-active); }
+        .nav-link.active::after { content: ''; width: 5px; height: 5px; background: var(--nav-active); border-radius: 50%; margin-top: 2px; }
         .nav-link svg { width: 26px; height: 26px; stroke-width: 2; fill: none; stroke: currentColor; }
         .nav-link.active svg { fill: currentColor; stroke: none; }
-
         @media (max-width: 768px) { .header-cart-icon { display: none !important; } }
         @media (min-width: 769px) { .floating-nav { display: none; } }
 
-        /* Toast & Modal */
         .toast { visibility: hidden; min-width: 250px; background-color: #333; color: #fff; text-align: center; border-radius: 50px; padding: 12px; position: fixed; z-index: 2000; left: 50%; bottom: 110px; transform: translateX(-50%); font-size: 14px; opacity: 0; transition: opacity 0.3s; box-shadow: 0 5px 20px rgba(0,0,0,0.2); }
         .toast.show { visibility: visible; opacity: 1; }
         
-        .modal { display: none; position: fixed; z-index: 3000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.6); justify-content: center; align-items: center; backdrop-filter: blur(8px); }
-        .modal-content { background: var(--card-bg); width: 90%; max-width: 350px; padding: 30px; border-radius: 30px; text-align: center; position: relative; }
-        .close-btn { position: absolute; top: 20px; left: 20px; cursor: pointer; font-size: 20px; color: var(--text-sub); }
-        .google-btn { background: #F2F2F2; border-radius: 50px; padding: 14px; width: 100%; border: none; margin-top: 20px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; font-weight: bold; color: #333; transition: 0.2s; }
-        .google-btn:active { transform: scale(0.98); }
-
+        .loading-products { text-align: center; color: var(--text-sub); width: 100%; grid-column: span 2; padding: 20px; }
     </style>
 </head>
 <body>
@@ -229,15 +100,17 @@
         </div>
 
         <a href="#" class="logo-link">
-            <img id="app-logo" src="https://i.ibb.co/4R8nMfcs/image.png" alt="Wusooly" class="logo-img">
+            <img id="app-logo" src="" alt="Wusooly" class="logo-img">
         </a>
 
         <div class="header-actions">
             <a href="cart.html" class="icon-btn header-cart-icon">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
             </a>
-            <div class="icon-btn" onclick="toggleThemeManual()">
-                <svg id="theme-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+            
+            <div class="icon-btn" onclick="window.toggleThemeManual()">
+                <svg class="moon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
             </div>
         </div>
     </header>
@@ -262,162 +135,75 @@
 
     <div class="section-title">التصنيفات <span>عرض الكل</span></div>
     <div class="categories-scroll">
-        <div class="cat-item">
-            <div class="cat-icon">
-                <img id="cat-tshirt-img" src="https://i.ibb.co/V0K4tK8N/image.png" alt="تيشيرت">
-            </div>
+        <a href="category.html?cat=تيشيرت" class="cat-item">
+            <div class="cat-icon"><img id="cat-tshirt-img" class="dynamic-icon" src=""></div>
             <div class="cat-name">تيشيرت</div>
-        </div>
-
-        <div class="cat-item">
-            <div class="cat-icon">
-                <img src="https://cdn-icons-png.flaticon.com/512/4213/4213958.png" alt="هدايا">
-            </div>
+        </a>
+        <a href="category.html?cat=بكجات هدايا" class="cat-item">
+            <div class="cat-icon"><img id="cat-gift-img" class="dynamic-icon" src=""></div>
             <div class="cat-name">بكجات هدايا</div>
-        </div>
-
-        <div class="cat-item">
-            <div class="cat-icon">
-                <img src="https://cdn-icons-png.flaticon.com/512/599/599324.png" alt="اكسسوارات">
-            </div>
+        </a>
+        <a href="category.html?cat=اكسسوارات" class="cat-item">
+            <div class="cat-icon"><img id="cat-access-img" class="dynamic-icon" src=""></div>
             <div class="cat-name">اكسسوارات</div>
-        </div>
-
-        <div class="cat-item">
-            <div class="cat-icon">
-                <img src="https://cdn-icons-png.flaticon.com/512/2661/2661279.png" alt="شنط">
-            </div>
+        </a>
+        <a href="category.html?cat=شنط" class="cat-item">
+            <div class="cat-icon"><img id="cat-bags-img" class="dynamic-icon" src=""></div>
             <div class="cat-name">شنط</div>
-        </div>
-
-        <div class="cat-item">
-            <div class="cat-icon">
-                <img src="https://cdn-icons-png.flaticon.com/512/3062/3062369.png" alt="أحذية نسائية">
-            </div>
+        </a>
+        <a href="category.html?cat=أحذية نسائية" class="cat-item">
+            <div class="cat-icon"><img id="cat-shoes-img" class="dynamic-icon" src=""></div>
             <div class="cat-name">أحذية نسائية</div>
-        </div>
-
-        <div class="cat-item">
-            <div class="cat-icon">
-                <img src="https://cdn-icons-png.flaticon.com/512/3659/3659899.png" alt="إلكترونيات">
-            </div>
+        </a>
+        <a href="category.html?cat=إلكترونيات" class="cat-item">
+            <div class="cat-icon"><img id="cat-electronics-img" class="dynamic-icon" src=""></div>
             <div class="cat-name">إلكترونيات</div>
-        </div>
+        </a>
     </div>
 
     <div class="section-title">وصل حديثاً <span>فلتر</span></div>
-    <div class="product-grid">
-        <div class="product-card">
-            <div class="fav-icon">♥</div>
-            <div class="product-img-wrapper">
-                <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=500&q=80" class="product-img">
-            </div>
-            <div class="product-info">
-                <h3>نايك إير ماكس أحمر</h3>
-                <p>أحذية رياضية</p>
-                <div class="price-row">
-                    <div class="price">$120.00</div>
-                    <div class="add-btn-mini" onclick="addToCart('نايك إير ماكس', 120, 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=500&q=80')">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="product-card">
-            <div class="fav-icon">♡</div>
-            <div class="product-img-wrapper">
-                <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=500&q=80" class="product-img">
-            </div>
-            <div class="product-info">
-                <h3>ساعة ذكية بيضاء</h3>
-                <p>إلكترونيات</p>
-                <div class="price-row">
-                    <div class="price">$55.00</div>
-                    <div class="add-btn-mini" onclick="addToCart('ساعة ذكية', 55, 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=500&q=80')">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="product-card">
-            <div class="fav-icon">♡</div>
-            <div class="product-img-wrapper">
-                <img src="https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=500&q=80" class="product-img">
-            </div>
-            <div class="product-info">
-                <h3>حقيبة جلد كلاسيك</h3>
-                <p>اكسسوارات</p>
-                <div class="price-row">
-                    <div class="price">$89.00</div>
-                    <div class="add-btn-mini" onclick="addToCart('حقيبة جلد', 89, 'https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=500&q=80')">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="product-card">
-            <div class="fav-icon">♡</div>
-            <div class="product-img-wrapper">
-                <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=500&q=80" class="product-img">
-            </div>
-            <div class="product-info">
-                <h3>سماعة رأس سوني</h3>
-                <p>صوتيات</p>
-                <div class="price-row">
-                    <div class="price">$250.00</div>
-                    <div class="add-btn-mini" onclick="addToCart('سماعة رأس', 250, 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=500&q=80')">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-                    </div>
-                </div>
-            </div>
-        </div>
+    
+    <div id="dynamic-products" class="product-grid">
+        <div class="loading-products">جاري تحميل المنتجات... 📦</div>
     </div>
 
     <div class="floating-nav">
-        <a href="#" class="nav-link active">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
-        </a>
-        <a href="#" class="nav-link">
-            <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
-        </a>
-        <a href="cart.html" class="nav-link">
-            <svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
-        </a>
-        <a href="profile.html" class="nav-link">
-            <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
-        </a>
+        <a href="#" class="nav-link active"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg></a>
+        <a href="#" class="nav-link"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg></a>
+        <a href="cart.html" class="nav-link"><svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg></a>
+        <a href="profile.html" class="nav-link"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg></a>
     </div>
 
     <div id="toast" class="toast">تمت الإضافة للسلة ✅</div>
-    <div id="loginModal" class="modal">
-        <div class="modal-content">
-            <span class="close-btn" onclick="closeLoginModal()">&times;</span>
-            <h2>أهلاً بك 👋</h2>
-            <p style="color:var(--text-sub)">سجل دخولك للمتابعة</p>
-            <button id="google-login-btn" class="google-btn">Mتابعة باستخدام Google</button>
-        </div>
-    </div>
 
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-        import { getAuth, signInWithPopup, GoogleAuthProvider } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-
-        const firebaseConfig = {
-            apiKey: "AIzaSyBa0RwEcbVqWYAKeUFeZy2IDihaxUxtNKY",
-            authDomain: "wusooly-1906b.firebaseapp.com",
-            projectId: "wusooly-1906b",
-            storageBucket: "wusooly-1906b.firebasestorage.app",
-            messagingSenderId: "95836343161",
-            appId: "1:95836343161:web:73ae3faaca406c0bf7fda8",
-            measurementId: "G-2704R4YR1M"
+    <script>
+        const imageConfig = {
+            'app-logo': {
+                light: "https://raw.githubusercontent.com/yazankmail/home/refs/heads/main/%D9%A2%D9%A0%D9%A2%D9%A6%D9%A0%D9%A1%D9%A3%D9%A1_%D9%A2%D9%A1%D9%A4%D9%A7%D9%A3%D9%A5.png",
+                dark: "https://raw.githubusercontent.com/yazankmail/home/refs/heads/main/%D9%A2%D9%A0%D9%A2%D9%A6%D9%A0%D9%A1%D9%A3%D9%A1_%D9%A2%D9%A1%D9%A4%D9%A7%D9%A1%D9%A4.png"
+            },
+            'cat-tshirt-img': { light: "https://i.ibb.co/V0K4tK8N/image.png", dark: "https://i.ibb.co/bMZ3sLgR/image.png" },
+            'cat-gift-img': { light: "https://raw.githubusercontent.com/yazankmail/home/refs/heads/main/Gift_Green.png", dark: "https://raw.githubusercontent.com/yazankmail/home/refs/heads/main/Gift_yellow.png" },
+            'cat-access-img': { light: "https://raw.githubusercontent.com/yazankmail/home/refs/heads/main/Ecc_Green.png", dark: "https://raw.githubusercontent.com/yazankmail/home/refs/heads/main/Ecc_yellow.png" },
+            'cat-bags-img': { light: "https://raw.githubusercontent.com/yazankmail/home/refs/heads/main/Bags_Green.png", dark: "https://raw.githubusercontent.com/yazankmail/home/refs/heads/main/Bags_yellow.png" },
+            'cat-shoes-img': { light: "https://raw.githubusercontent.com/yazankmail/home/refs/heads/main/shoes1_green.png", dark: "https://raw.githubusercontent.com/yazankmail/home/refs/heads/main/shoes1_yellow.png" },
+            'cat-electronics-img': { light: "https://raw.githubusercontent.com/yazankmail/home/refs/heads/main/Elkton_Green.png", dark: "https://raw.githubusercontent.com/yazankmail/home/refs/heads/main/Elkton_yellow.png" }
         };
 
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
-        const provider = new GoogleAuthProvider();
+        function updateImages(isDark) {
+            for (const [id, urls] of Object.entries(imageConfig)) {
+                const el = document.getElementById(id);
+                if (el) el.src = isDark ? urls.dark : urls.light;
+            }
+        }
+
+        // جعل الدالة عامة (Window Scope) لتجنب أي مشاكل
+        window.toggleThemeManual = function() {
+            document.body.classList.toggle('dark-mode');
+            const isDark = document.body.classList.contains('dark-mode');
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+            updateImages(isDark);
+        }
 
         window.addToCart = function(name, price, image) {
             let cart = JSON.parse(localStorage.getItem('wusooly_cart')) || [];
@@ -430,51 +216,79 @@
             setTimeout(() => { toast.className = toast.className.replace("show", ""); }, 3000);
         }
 
-        const lightLogoUrl = "https://i.ibb.co/4R8nMfcs/image.png";
-        const darkLogoUrl = "https://i.ibb.co/k6QxrwjQ/image.png";
-        const logoImg = document.getElementById('app-logo');
-        const themeIcon = document.getElementById('theme-icon');
-        const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)');
+        // تشغيل عند التحميل
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedTheme = localStorage.getItem('theme');
+            const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            let isDark = savedTheme === 'dark' || (!savedTheme && systemDark);
 
-        // صور التيشيرت المخصصة
-        const tShirtLight = "https://i.ibb.co/V0K4tK8N/image.png";
-        const tShirtDark = "https://i.ibb.co/bMZ3sLgR/image.png";
-        const tShirtImg = document.getElementById('cat-tshirt-img');
+            if (isDark) document.body.classList.add('dark-mode');
+            else document.body.classList.remove('dark-mode');
+            
+            updateImages(isDark);
+        });
+    </script>
 
-        function applyTheme(isDark) {
-            if (isDark) { 
-                document.body.classList.add('dark-mode'); 
-                logoImg.src = darkLogoUrl; 
-                themeIcon.innerHTML = '<circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>';
-                // تبديل أيقونة التيشيرت للداكن
-                if(tShirtImg) tShirtImg.src = tShirtDark;
-            } else { 
-                document.body.classList.remove('dark-mode'); 
-                logoImg.src = lightLogoUrl; 
-                themeIcon.innerHTML = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';
-                // تبديل أيقونة التيشيرت للفاتح
-                if(tShirtImg) tShirtImg.src = tShirtLight;
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyBa0RwEcbVqWYAKeUFeZy2IDihaxUxtNKY",
+            authDomain: "wusooly-1906b.firebaseapp.com",
+            projectId: "wusooly-1906b",
+            storageBucket: "wusooly-1906b.firebasestorage.app",
+            messagingSenderId: "95836343161",
+            appId: "1:95836343161:web:73ae3faaca406c0bf7fda8",
+            measurementId: "G-2704R4YR1M"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        // جلب المنتجات
+        async function fetchProducts() {
+            const container = document.getElementById('dynamic-products');
+            try {
+                const querySnapshot = await getDocs(collection(db, "products"));
+                
+                if (querySnapshot.empty) {
+                    container.innerHTML = '<div class="loading-products">لا توجد منتجات حالياً 📭</div>';
+                    return;
+                }
+
+                container.innerHTML = ''; // مسح رسالة التحميل
+
+                querySnapshot.forEach((doc) => {
+                    const product = doc.data();
+                    const html = `
+                    <div class="product-card">
+                        <div class="fav-icon">♡</div>
+                        <div class="product-img-wrapper">
+                            <img src="${product.image}" class="product-img">
+                        </div>
+                        <div class="product-info">
+                            <h3>${product.name}</h3>
+                            <p>${product.category}</p>
+                            <div class="price-row">
+                                <div class="price">$${product.price}</div>
+                                <div class="add-btn-mini" onclick="window.addToCart('${product.name}', ${product.price}, '${product.image}')">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    `;
+                    container.innerHTML += html;
+                });
+
+            } catch (error) {
+                console.error("Error getting products: ", error);
+                container.innerHTML = '<div class="loading-products">حدث خطأ في الاتصال ⚠️</div>';
             }
         }
-        applyTheme(systemPrefersDark.matches);
-        systemPrefersDark.addEventListener('change', (e) => applyTheme(e.matches));
-        
-        window.toggleThemeManual = function() {
-            const isDark = document.body.classList.contains('dark-mode');
-            applyTheme(!isDark);
-        }
 
-        window.openLoginModal = function() { document.getElementById('loginModal').style.display = 'flex'; }
-        window.closeLoginModal = function() { document.getElementById('loginModal').style.display = 'none'; }
-        
-        const loginBtn = document.getElementById('google-login-btn');
-        if(loginBtn) {
-            loginBtn.addEventListener('click', () => {
-                signInWithPopup(auth, provider)
-                .then((result) => { alert("أهلاً " + result.user.displayName); closeLoginModal(); })
-                .catch((error) => console.error(error));
-            });
-        }
+        fetchProducts();
     </script>
 </body>
 </html>
