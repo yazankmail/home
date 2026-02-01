@@ -3,46 +3,153 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>لوحة التحكم</title>
+    <title>لوحة التحكم المطور - Wusooly</title>
     <style>
-        body { font-family: sans-serif; padding: 20px; background: #f4f4f4; text-align: center; }
-        .container { max-width: 500px; margin: 0 auto; background: white; padding: 20px; border-radius: 10px; }
-        input, select, button { width: 100%; margin: 10px 0; padding: 10px; box-sizing: border-box; }
-        button { background: #0056b3; color: white; border: none; cursor: pointer; }
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap');
+        body { font-family: 'Cairo', sans-serif; background: #f4f6f8; margin: 0; padding: 20px; color: #333; }
+        .container { max-width: 700px; margin: 0 auto; background: white; padding: 30px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+        h2 { text-align: center; color: #0056b3; margin-bottom: 25px; }
+        
+        .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        .full-width { grid-column: span 2; }
+        
+        label { display: block; margin-bottom: 8px; font-weight: 700; font-size: 14px; color: #555; }
+        input, select, textarea { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 10px; box-sizing: border-box; font-family: 'Cairo'; transition: 0.3s; background: #fafafa; }
+        input:focus, textarea:focus { border-color: #0056b3; background: #fff; outline: none; }
+        textarea { height: 100px; resize: vertical; }
+        
+        button { width: 100%; padding: 15px; background: #0056b3; color: white; border: none; border-radius: 12px; font-size: 16px; cursor: pointer; font-weight: bold; margin-top: 20px; transition: 0.2s; }
+        button:hover { background: #004494; transform: translateY(-2px); }
+        
+        .result-box { margin-top: 20px; padding: 15px; background: #e3f2fd; border-radius: 10px; text-align: center; display: none; border: 1px solid #bbdefb; }
+        .result-box a { color: #0056b3; font-weight: bold; word-break: break-all; }
+        
+        .section-label { margin: 20px 0 10px; font-size: 16px; font-weight: 800; border-bottom: 2px solid #eee; padding-bottom: 5px; color: #0056b3; }
     </style>
 </head>
 <body>
+
     <div class="container">
-        <h2>إضافة منتج</h2>
-        <input type="text" id="p-name" placeholder="اسم المنتج">
-        <input type="number" id="p-price" placeholder="السعر">
-        <select id="p-category">
-            <option value="تيشيرت">تيشيرت</option>
-            <option value="بكجات هدايا">بكجات هدايا</option>
-            <option value="اكسسوارات">اكسسوارات</option>
-            <option value="شنط">شنط</option>
-            <option value="أحذية نسائية">أحذية نسائية</option>
-            <option value="إلكترونيات">إلكترونيات</option>
-        </select>
-        <input type="text" id="p-image" placeholder="رابط الصورة">
-        <button id="add-btn">نشر</button>
-        <p id="status"></p>
+        <h2>إضافة منتج احترافي 📦</h2>
+        
+        <div class="form-grid">
+            <div class="full-width">
+                <label>اسم المنتج</label>
+                <input type="text" id="p-name" placeholder="مثلاً: جاكيت شتوي بني">
+            </div>
+
+            <div>
+                <label>السعر ($)</label>
+                <input type="number" id="p-price" placeholder="50">
+            </div>
+
+            <div>
+                <label>التصنيف</label>
+                <select id="p-category">
+                    <option value="تيشيرت">تيشيرت</option>
+                    <option value="بكجات هدايا">بكجات هدايا</option>
+                    <option value="اكسسوارات">اكسسوارات</option>
+                    <option value="شنط">شنط</option>
+                    <option value="أحذية نسائية">أحذية نسائية</option>
+                    <option value="إلكترونيات">إلكترونيات</option>
+                </select>
+            </div>
+
+            <div class="full-width">
+                <label>الوصف (يظهر في صفحة التفاصيل)</label>
+                <textarea id="p-desc" placeholder="اكتب وصفاً جذاباً للمنتج..."></textarea>
+            </div>
+
+            <div class="full-width">
+                <label>المقاسات المتاحة (افصل بينها بفاصلة)</label>
+                <input type="text" id="p-sizes" value="S, M, L, XL" placeholder="S, M, L, XL">
+            </div>
+
+            <div class="full-width section-label">الصور (روابط مباشرة)</div>
+            
+            <div class="full-width">
+                <label>الصورة الرئيسية</label>
+                <input type="text" id="p-img-main" placeholder="رابط الصورة الكبيرة">
+            </div>
+            
+            <div>
+                <label>صورة إضافية 1</label>
+                <input type="text" id="p-img-1" placeholder="رابط اختياري">
+            </div>
+            <div>
+                <label>صورة إضافية 2</label>
+                <input type="text" id="p-img-2" placeholder="رابط اختياري">
+            </div>
+        </div>
+
+        <button id="add-btn">حفظ ونشر المنتج</button>
+        
+        <div id="result" class="result-box">
+            <p>✅ تم النشر بنجاح! رابط المنتج:</p>
+            <a id="product-link" href="#" target="_blank">رابط المنتج هنا</a>
+        </div>
     </div>
+
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
         import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
-        const app = initializeApp({ apiKey: "AIzaSyBa0RwEcbVqWYAKeUFeZy2IDihaxUxtNKY", authDomain: "wusooly-1906b.firebaseapp.com", projectId: "wusooly-1906b" });
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyBa0RwEcbVqWYAKeUFeZy2IDihaxUxtNKY",
+            authDomain: "wusooly-1906b.firebaseapp.com",
+            projectId: "wusooly-1906b",
+            storageBucket: "wusooly-1906b.firebasestorage.app",
+            messagingSenderId: "95836343161",
+            appId: "1:95836343161:web:73ae3faaca406c0bf7fda8",
+            measurementId: "G-2704R4YR1M"
+        };
+
+        const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
+
         document.getElementById('add-btn').addEventListener('click', async () => {
+            const btn = document.getElementById('add-btn');
+            btn.innerText = "جاري الحفظ...";
+            btn.disabled = true;
+
             try {
-                await addDoc(collection(db, "products"), {
+                // تجميع الصور في مصفوفة
+                const images = [];
+                const mainImg = document.getElementById('p-img-main').value;
+                if(mainImg) images.push(mainImg);
+                if(document.getElementById('p-img-1').value) images.push(document.getElementById('p-img-1').value);
+                if(document.getElementById('p-img-2').value) images.push(document.getElementById('p-img-2').value);
+
+                // حفظ البيانات
+                const docRef = await addDoc(collection(db, "products"), {
                     name: document.getElementById('p-name').value,
                     price: Number(document.getElementById('p-price').value),
                     category: document.getElementById('p-category').value,
-                    image: document.getElementById('p-image').value
+                    description: document.getElementById('p-desc').value,
+                    sizes: document.getElementById('p-sizes').value.split(',').map(s => s.trim()), // تحويل النص لقائمة
+                    image: mainImg, // الصورة الرئيسية للعرض في القوائم
+                    images: images, // قائمة الصور للمعرض
+                    createdAt: Date.now()
                 });
-                document.getElementById('status').innerText = "تم النشر ✅";
-            } catch (e) { document.getElementById('status').innerText = "خطأ ❌"; }
+
+                // عرض الرابط
+                const resultBox = document.getElementById('result');
+                const link = document.getElementById('product-link');
+                const newUrl = `product_details.html?id=${docRef.id}`; // الرابط الجديد يعتمد على ID
+                
+                link.href = newUrl;
+                link.innerText = window.location.origin + '/' + newUrl;
+                resultBox.style.display = 'block';
+                
+                btn.innerText = "نشر منتج آخر";
+                btn.disabled = false;
+                
+            } catch (error) {
+                console.error("Error:", error);
+                alert("حدث خطأ: " + error.message);
+                btn.innerText = "حاول مرة أخرى";
+                btn.disabled = false;
+            }
         });
     </script>
 </body>
