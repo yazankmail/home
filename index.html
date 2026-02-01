@@ -25,7 +25,6 @@
         body { font-family: 'Cairo', sans-serif; margin: 0; background: var(--bg-color); color: var(--text-main); padding-bottom: 100px; overflow-x: hidden; }
         a { text-decoration: none; color: inherit; }
 
-        /* تصميم الهيدر والبحث */
         header { padding: 15px 20px; background: var(--header-bg); position: sticky; top: 0; z-index: 1000; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 1px 5px rgba(0,0,0,0.05); }
         .logo-img { height: 28px; object-fit: contain; }
         .header-actions { display: flex; gap: 15px; }
@@ -35,14 +34,12 @@
         .search-box { background: var(--input-bg); border-radius: 20px; padding: 14px 20px; display: flex; gap: 10px; align-items: center; }
         .search-box input { border: none; background: transparent; width: 100%; outline: none; font-family: 'Cairo'; color: var(--text-main); font-weight: 600; }
 
-        /* البانر */
         .banner-container { padding: 0 20px; margin-bottom: 25px; }
         .promo-card { background: linear-gradient(135deg, #0056b3, #4dabf7); border-radius: 25px; padding: 25px; height: 180px; display: flex; justify-content: space-between; align-items: center; position: relative; overflow: hidden; color: white; box-shadow: 0 10px 30px rgba(0, 86, 179, 0.3); }
         .promo-text { z-index: 2; max-width: 60%; }
         .shop-btn { background: white; color: #0056b3; padding: 10px 24px; border-radius: 50px; font-weight: bold; cursor: pointer; display: inline-block; }
         .promo-img { height: 110%; position: absolute; left: -20px; bottom: -10px; transform: scaleX(-1); object-fit: cover; z-index: 1; }
 
-        /* التصنيفات */
         .section-title { padding: 0 20px; font-size: 18px; font-weight: 800; margin-bottom: 15px; display: flex; justify-content: space-between; }
         .categories-scroll { display: flex; gap: 15px; padding: 0 20px; overflow-x: auto; scrollbar-width: none; margin-bottom: 30px; }
         .cat-item { display: flex; flex-direction: column; align-items: center; gap: 8px; min-width: 70px; cursor: pointer; }
@@ -51,7 +48,6 @@
         body.dark-mode .cat-icon img:not(.dynamic-icon) { filter: brightness(0) invert(1); }
         .cat-name { font-size: 13px; font-weight: 700; }
 
-        /* شبكة المنتجات */
         .product-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; padding: 0 20px; }
         .product-card { 
             background: var(--card-bg); border-radius: 20px; padding: 10px; 
@@ -64,7 +60,6 @@
         .product-info h3 { font-size: 14px; margin: 0 0 5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: var(--text-main); }
         .price { color: var(--secondary-accent); font-weight: 800; font-size: 16px; }
         
-        /* الشريط السفلي */
         .floating-nav { position: fixed; bottom: 20px; left: 20px; right: 20px; background: var(--nav-bar-bg); height: 70px; border-radius: 25px; display: flex; justify-content: space-around; align-items: center; padding: 0 10px; box-shadow: 0 10px 40px rgba(0,0,0,0.15); z-index: 999; border: 1px solid rgba(0,0,0,0.05); }
         .nav-link { color: var(--nav-text); display: flex; flex-direction: column; align-items: center; }
         .nav-link.active { color: var(--nav-active); }
@@ -150,8 +145,6 @@
             if (isDark) document.body.classList.add('dark-mode');
             updateImages(isDark);
         });
-
-        // دالة السلة السريعة (إذا أحببت استخدامها داخل الصفحة)
         window.addToCart = function(name, price, image) {
             let cart = JSON.parse(localStorage.getItem('wusooly_cart')) || [];
             cart.push({ name, price, image, qty: 1 });
@@ -178,12 +171,12 @@
 
                 querySnapshot.forEach((doc) => {
                     const p = doc.data();
-                    // هنا الكود الجديد الذي يفتح صفحة التفاصيل باستخدام ID
+                    // استخدام الشيكل ₪ في السعر
                     container.innerHTML += `
                     <div class="product-card" onclick="window.location.href='product_details.html?id=${doc.id}'">
                         <div class="product-img-wrapper"><img src="${p.image}" class="product-img"></div>
                         <div class="product-info"><h3>${p.name}</h3><p>${p.category}</p>
-                        <div class="price-row"><div class="price">$${p.price}</div>
+                        <div class="price-row"><div class="price">₪${p.price}</div>
                         <div class="add-btn-mini" onclick="event.stopPropagation(); window.addToCart('${p.name}', ${p.price}, '${p.image}')">+</div></div></div>
                     </div>`;
                 });
