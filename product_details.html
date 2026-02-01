@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>تفاصيل المنتج - Wusooly</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap');
+        
+        :root {
+            --bg-color: #F8F9FA; --header-bg: #FFFFFF; --text-main: #333; --text-sub: #888;
+            --accent-color: #0056b3; /* الأزرق بدلاً من البني */
+            --card-bg: #FFFFFF; --input-bg: #F2F2F7;
+            --shadow-soft: 0 10px 30px rgba(0,0,0,0.08);
+            --radius-xl: 30px; --radius-md: 15px;
+        }
+
+        body.dark-mode {
+            --bg-color: #121212; --header-bg: #1C1C1E; --text-main: #FFF; --text-sub: #AAA;
+            --accent-color: #4dabf7; --card-bg: #2C2C2E; --input-bg: #3A3A3C;
+        }
+
+        * { box-sizing: border-box; transition: 0.3s; -webkit-tap-highlight-color: transparent; }
+        body { font-family: 'Cairo', sans-serif; margin: 0; background: var(--bg-color); color: var(--text-main); padding-bottom: 100px; }
+
+        /* الهيدر البسيط */
+        header { padding: 20px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100; background: transparent; }
+        .icon-btn { width: 45px; height: 45px; background: var(--card-bg); border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: var(--shadow-soft); cursor: pointer; color: var(--text-main); }
+        .page-title { font-weight: 800; font-size: 18px; }
+
+        /* منطقة الصورة */
+        .hero-section { padding: 0 20px; margin-bottom: 25px; text-align: center; }
+        .main-img-container { 
+            width: 100%; height: 350px; 
+            background: var(--input-bg); 
+            border-radius: var(--radius-xl); 
+            overflow: hidden; margin-bottom: 15px; 
+            box-shadow: var(--shadow-soft);
+            position: relative;
+        }
+        .main-img { width: 100%; height: 100%; object-fit: cover; }
+        
+        /* معرض الصور المصغر (وهمي للمنظر) */
+        .gallery { display: flex; gap: 10px; justify-content: center; }
+        .thumb { width: 60px; height: 60px; border-radius: 12px; background: var(--input-bg); overflow: hidden; cursor: pointer; border: 2px solid transparent; }
+        .thumb.active { border-color: var(--accent-color); }
+        .thumb img { width: 100%; height: 100%; object-fit: cover; }
+
+        /* التفاصيل */
+        .details-container { padding: 0 25px; }
+        .cat-tag { color: var(--text-sub); font-size: 13px; font-weight: 600; margin-bottom: 5px; display: block; }
+        .product-title { font-size: 24px; font-weight: 800; margin: 0 0 10px; line-height: 1.2; }
+        
+        .rating-row { display: flex; align-items: center; gap: 5px; margin-bottom: 20px; font-size: 14px; font-weight: bold; }
+        .star { color: #FFC107; }
+
+        .section-header { font-size: 16px; font-weight: 700; margin-bottom: 10px; color: var(--text-main); }
+        .description { color: var(--text-sub); font-size: 14px; line-height: 1.6; margin-bottom: 25px; }
+        .read-more { color: var(--accent-color); font-weight: 700; cursor: pointer; }
+
+        /* اختيار المقاس */
+        .size-options { display: flex; gap: 12px; margin-bottom: 30px; }
+        .size-btn { 
+            width: 45px; height: 45px; 
+            border-radius: 50%; 
+            border: 1px solid var(--input-bg); 
+            background: var(--card-bg); 
+            color: var(--text-sub);
+            display: flex; align-items: center; justify-content: center;
+            font-weight: 700; cursor: pointer;
+        }
+        .size-btn.active { background: var(--accent-color); color: white; border-color: var(--accent-color); box-shadow: 0 5px 15px rgba(0, 86, 179, 0.3); }
+
+        /* البار السفلي العائم */
+        .bottom-action-bar { 
+            position: fixed; bottom: 0; left: 0; right: 0; 
+            background: var(--card-bg); 
+            padding: 20px 30px 30px; 
+            border-radius: 30px 30px 0 0; 
+            box-shadow: 0 -10px 40px rgba(0,0,0,0.1);
+            display: flex; justify-content: space-between; align-items: center;
+            z-index: 200;
+        }
+        .price-col .label { font-size: 12px; color: var(--text-sub); display: block; }
+        .price-col .price { font-size: 24px; font-weight: 800; color: var(--text-main); }
+        
+        .add-cart-btn { 
+            background: var(--accent-color); color: white; 
+            padding: 15px 40px; border-radius: 50px; 
+            font-size: 16px; font-weight: 700; border: none; 
+            display: flex; gap: 10px; align-items: center; cursor: pointer;
+            box-shadow: 0 10px 20px rgba(0, 86, 179, 0.2);
+        }
+        .add-cart-btn:active { transform: scale(0.95); }
+
+        .toast { visibility: hidden; min-width: 250px; background-color: #333; color: #fff; text-align: center; border-radius: 50px; padding: 12px; position: fixed; z-index: 2000; top: 20px; left: 50%; transform: translateX(-50%); opacity: 0; transition: 0.3s; }
+        .toast.show { visibility: visible; opacity: 1; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="icon-btn" onclick="history.back()">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        </div>
+        <div class="page-title">تفاصيل المنتج</div>
+        <div class="icon-btn" style="color: #ff4747;">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+        </div>
+    </header>
+
+    <div class="hero-section">
+        <div class="main-img-container">
+            <img id="p-img" src="" class="main-img">
+        </div>
+        <div class="gallery">
+            <div class="thumb active"><img id="thumb-1" src=""></div>
+            <div class="thumb"><img id="thumb-2" src=""></div>
+            <div class="thumb"><img id="thumb-3" src=""></div>
+            <div class="thumb"><div style="display:flex;align-items:center;justify-content:center;height:100%;color:var(--text-sub);font-size:12px;font-weight:bold;">+3</div></div>
+        </div>
+    </div>
+
+    <div class="details-container">
+        <span id="p-cat" class="cat-tag">تصنيف</span>
+        <h1 id="p-name" class="product-title">...</h1>
+        
+        <div class="rating-row">
+            <span class="star">★</span> 4.5 
+            <span style="color:var(--text-sub); font-weight:400; margin-right:5px;">(120 مراجعة)</span>
+        </div>
+
+        <div class="section-header">تفاصيل المنتج</div>
+        <p class="description">
+            هذا المنتج مصمم بعناية فائقة ليناسب ذوقك الرفيع. يتميز بخامات عالية الجودة وتصميم عصري يضمن لك الراحة والأناقة في آن واحد. <span class="read-more">اقرأ المزيد</span>
+        </p>
+
+        <div class="section-header">اختر المقاس</div>
+        <div class="size-options">
+            <div class="size-btn" onclick="selectSize(this)">S</div>
+            <div class="size-btn active" onclick="selectSize(this)">M</div>
+            <div class="size-btn" onclick="selectSize(this)">L</div>
+            <div class="size-btn" onclick="selectSize(this)">XL</div>
+        </div>
+    </div>
+
+    <div class="bottom-action-bar">
+        <div class="price-col">
+            <span class="label">السعر الإجمالي</span>
+            <span id="p-price" class="price">$0.00</span>
+        </div>
+        <button id="add-btn" class="add-cart-btn">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+            أضف للسلة
+        </button>
+    </div>
+
+    <div id="toast" class="toast">تمت الإضافة للسلة ✅</div>
+
+    <script>
+        // إعداد الثيم
+        if (localStorage.getItem('theme') === 'dark') document.body.classList.add('dark-mode');
+
+        // جلب البيانات من الرابط (URL Parameters)
+        const params = new URLSearchParams(window.location.search);
+        const name = params.get('name');
+        const price = params.get('price');
+        const image = params.get('image');
+        const category = params.get('cat') || 'عام';
+
+        // تعبئة البيانات في الصفحة
+        if(name) {
+            document.getElementById('p-name').innerText = name;
+            document.getElementById('p-price').innerText = '$' + price;
+            document.getElementById('p-cat').innerText = category;
+            
+            document.getElementById('p-img').src = image;
+            // تعبئة الصور المصغرة بنفس الصورة (مؤقتاً)
+            document.getElementById('thumb-1').src = image;
+            document.getElementById('thumb-2').src = image;
+            document.getElementById('thumb-3').src = image;
+        }
+
+        // اختيار المقاس
+        window.selectSize = function(el) {
+            document.querySelectorAll('.size-btn').forEach(btn => btn.classList.remove('active'));
+            el.classList.add('active');
+        }
+
+        // زر الإضافة للسلة
+        document.getElementById('add-btn').onclick = function() {
+            let cart = JSON.parse(localStorage.getItem('wusooly_cart')) || [];
+            let existingItem = cart.find(item => item.name === name);
+            if (existingItem) existingItem.qty += 1;
+            else cart.push({ name: name, price: Number(price), image: image, qty: 1 });
+            localStorage.setItem('wusooly_cart', JSON.stringify(cart));
+            
+            const toast = document.getElementById("toast");
+            toast.className = "toast show";
+            setTimeout(() => { toast.className = toast.className.replace("show", ""); }, 3000);
+        }
+    </script>
+</body>
+</html>
