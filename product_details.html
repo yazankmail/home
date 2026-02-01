@@ -10,157 +10,81 @@
         body.dark-mode { --bg: #121212; --text: #FFF; --accent: #4dabf7; --card: #2C2C2E; }
         * { box-sizing: border-box; }
         body { font-family: 'Cairo', sans-serif; margin: 0; background: var(--bg); color: var(--text); padding-bottom: 100px; transition: 0.3s; }
-
         header { padding: 20px; display: flex; justify-content: space-between; position: sticky; top: 0; z-index: 100; }
         .icon-btn { width: 40px; height: 40px; background: var(--card); border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 5px 15px rgba(0,0,0,0.1); cursor: pointer; color: var(--text); }
-
         .main-img-container { width: 100%; height: 350px; background: #eee; border-radius: 0 0 30px 30px; overflow: hidden; position: relative; margin-top: -80px; z-index: 0; }
         .main-img { width: 100%; height: 100%; object-fit: cover; }
-
         .gallery { display: flex; gap: 10px; justify-content: center; margin-top: -30px; position: relative; z-index: 1; }
         .thumb { width: 60px; height: 60px; border-radius: 12px; background: var(--card); overflow: hidden; cursor: pointer; border: 2px solid white; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
         .thumb.active { border-color: var(--accent); }
         .thumb img { width: 100%; height: 100%; object-fit: cover; }
-
         .details { padding: 25px; }
         .title { font-size: 24px; font-weight: 800; margin: 10px 0 5px; }
         .price { font-size: 22px; font-weight: 800; color: var(--accent); }
         .desc { color: #777; font-size: 14px; line-height: 1.6; margin: 20px 0; }
-        
         .sizes { display: flex; gap: 10px; margin-top: 10px; }
         .size-btn { width: 45px; height: 45px; border-radius: 50%; background: var(--card); border: 1px solid #ddd; display: flex; align-items: center; justify-content: center; cursor: pointer; font-weight: bold; }
         .size-btn.active { background: var(--accent); color: white; border-color: var(--accent); }
-
         .bottom-bar { position: fixed; bottom: 0; left: 0; right: 0; background: var(--card); padding: 20px; box-shadow: 0 -5px 20px rgba(0,0,0,0.1); display: flex; justify-content: space-between; align-items: center; border-radius: 30px 30px 0 0; }
         .add-btn { background: var(--accent); color: white; padding: 15px 40px; border-radius: 50px; border: none; font-weight: bold; font-size: 16px; cursor: pointer; display: flex; align-items: center; gap: 10px; }
-        
         .loading { text-align: center; padding: 50px; font-weight: bold; }
     </style>
 </head>
 <body>
-
-    <header>
-        <div class="icon-btn" onclick="history.back()">➜</div>
-        <div class="icon-btn">♡</div>
-    </header>
-
+    <header><div class="icon-btn" onclick="history.back()">➜</div><div class="icon-btn">♡</div></header>
     <div id="content" style="display:none;">
         <div class="main-img-container"><img id="main-img" class="main-img"></div>
         <div class="gallery" id="gallery-container"></div>
-
         <div class="details">
             <h1 id="p-name" class="title"></h1>
             <div class="price" id="p-price"></div>
-            
             <h3 style="font-size:16px; margin-top:20px;">الوصف</h3>
             <p id="p-desc" class="desc"></p>
-
             <h3 style="font-size:16px;">المقاس</h3>
             <div class="sizes" id="sizes-container"></div>
         </div>
-
         <div class="bottom-bar">
-            <div>
-                <span style="font-size:12px; color:#888;">السعر</span><br>
-                <strong id="bar-price" style="font-size:20px;"></strong>
-            </div>
+            <div><span style="font-size:12px; color:#888;">السعر</span><br><strong id="bar-price" style="font-size:20px;"></strong></div>
             <button class="add-btn" id="add-to-cart">أضف للسلة 🛒</button>
         </div>
     </div>
-
     <div id="loading" class="loading">جاري جلب التفاصيل...</div>
-
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
         import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
-
-        const firebaseConfig = {
-            apiKey: "AIzaSyBa0RwEcbVqWYAKeUFeZy2IDihaxUxtNKY",
-            authDomain: "wusooly-1906b.firebaseapp.com",
-            projectId: "wusooly-1906b",
-            storageBucket: "wusooly-1906b.firebasestorage.app",
-            messagingSenderId: "95836343161",
-            appId: "1:95836343161:web:73ae3faaca406c0bf7fda8",
-            measurementId: "G-2704R4YR1M"
-        };
-
-        const app = initializeApp(firebaseConfig);
+        const app = initializeApp({ apiKey: "AIzaSyBa0RwEcbVqWYAKeUFeZy2IDihaxUxtNKY", authDomain: "wusooly-1906b.firebaseapp.com", projectId: "wusooly-1906b" });
         const db = getFirestore(app);
-
-        // أهم نقطة: قراءة الـ ID من الرابط
         const urlParams = new URLSearchParams(window.location.search);
         const productId = urlParams.get('id');
-
-        if(productId) {
-            loadProduct(productId);
-        } else {
-            document.getElementById('loading').innerText = "لم يتم تحديد منتج!";
-        }
-
+        if(productId) loadProduct(productId); else document.getElementById('loading').innerText = "لم يتم تحديد منتج!";
         async function loadProduct(id) {
             try {
                 const docSnap = await getDoc(doc(db, "products", id));
                 if (docSnap.exists()) {
                     const p = docSnap.data();
-                    
-                    // تعبئة البيانات
                     document.getElementById('p-name').innerText = p.name;
-                    document.getElementById('p-price').innerText = '$' + p.price;
-                    document.getElementById('bar-price').innerText = '$' + p.price;
+                    // استخدام الشيكل ₪
+                    document.getElementById('p-price').innerText = '₪' + p.price;
+                    document.getElementById('bar-price').innerText = '₪' + p.price;
                     document.getElementById('p-desc').innerText = p.description || "لا يوجد وصف متاح.";
                     document.getElementById('main-img').src = p.image;
-
-                    // تعبئة المعرض (الصور)
                     const gallery = document.getElementById('gallery-container');
-                    if(p.images && p.images.length > 0) {
-                        p.images.forEach((imgUrl, index) => {
-                            gallery.innerHTML += `<div class="thumb ${index===0?'active':''}" onclick="changeImg('${imgUrl}', this)"><img src="${imgUrl}"></div>`;
-                        });
-                    }
-
-                    // تعبئة المقاسات
+                    if(p.images && p.images.length > 0) { p.images.forEach((imgUrl, index) => { gallery.innerHTML += `<div class="thumb ${index===0?'active':''}" onclick="changeImg('${imgUrl}', this)"><img src="${imgUrl}"></div>`; }); }
                     const sizesContainer = document.getElementById('sizes-container');
-                    if(p.sizes && p.sizes.length > 0) {
-                        p.sizes.forEach(size => {
-                            sizesContainer.innerHTML += `<div class="size-btn" onclick="selectSize(this)">${size}</div>`;
-                        });
-                    } else {
-                        sizesContainer.innerHTML = "<small>مقاس واحد</small>";
-                    }
-
-                    // إظهار المحتوى
+                    if(p.sizes && p.sizes.length > 0) { p.sizes.forEach(size => { sizesContainer.innerHTML += `<div class="size-btn" onclick="selectSize(this)">${size}</div>`; }); } else { sizesContainer.innerHTML = "<small>مقاس واحد</small>"; }
                     document.getElementById('loading').style.display = 'none';
                     document.getElementById('content').style.display = 'block';
-
-                    // تفعيل زر السلة
                     document.getElementById('add-to-cart').onclick = function() {
                         let cart = JSON.parse(localStorage.getItem('wusooly_cart')) || [];
                         cart.push({ name: p.name, price: p.price, image: p.image, qty: 1 });
                         localStorage.setItem('wusooly_cart', JSON.stringify(cart));
                         alert("تمت الإضافة للسلة ✅");
                     };
-
-                } else {
-                    document.getElementById('loading').innerText = "المنتج غير موجود!";
-                }
-            } catch (error) {
-                console.error(error);
-                document.getElementById('loading').innerText = "حدث خطأ في الاتصال";
-            }
+                } else { document.getElementById('loading').innerText = "المنتج غير موجود!"; }
+            } catch (error) { document.getElementById('loading').innerText = "حدث خطأ في الاتصال"; }
         }
-
-        // دوال مساعدة (Global)
-        window.changeImg = (src, el) => {
-            document.getElementById('main-img').src = src;
-            document.querySelectorAll('.thumb').forEach(t => t.classList.remove('active'));
-            el.classList.add('active');
-        };
-
-        window.selectSize = (el) => {
-            document.querySelectorAll('.size-btn').forEach(b => b.classList.remove('active'));
-            el.classList.add('active');
-        };
-        
+        window.changeImg = (src, el) => { document.getElementById('main-img').src = src; document.querySelectorAll('.thumb').forEach(t => t.classList.remove('active')); el.classList.add('active'); };
+        window.selectSize = (el) => { document.querySelectorAll('.size-btn').forEach(b => b.classList.remove('active')); el.classList.add('active'); };
         if(localStorage.getItem('theme') === 'dark') document.body.classList.add('dark-mode');
     </script>
 </body>
