@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>حسابي - Wusooly</title>
+    <title>حسابي - Wsooly</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap');
         
@@ -21,7 +21,7 @@
             --shadow-soft: 0 4px 20px rgba(0,0,0,0.3);
         }
 
-        * { box-sizing: border-box; transition: all 0.3s ease; -webkit-tap-highlight-color: transparent; }
+        * { box-sizing: border-box; transition: background-color 0.3s, color 0.3s; -webkit-tap-highlight-color: transparent; }
         body { font-family: 'Cairo', sans-serif; margin: 0; background-color: var(--bg-color); color: var(--text-main); padding-bottom: 100px; overflow-x: hidden; }
         a { text-decoration: none; color: inherit; }
 
@@ -30,100 +30,38 @@
 
         .container { max-width: 600px; margin: 0 auto; padding: 20px; }
         
-        .profile-card {
-            background: var(--card-bg);
-            border-radius: var(--radius-lg);
-            padding: 40px 20px;
-            text-align: center;
-            box-shadow: var(--shadow-soft);
-            margin-top: 20px;
-            display: none; 
-        }
-
-        .avatar-wrapper {
-            width: 100px; height: 100px;
-            margin: 0 auto 20px;
-            border-radius: 50%;
-            padding: 3px;
-            border: 2px dashed var(--accent-color);
-        }
-
-        .profile-img {
-            width: 100%; height: 100%;
-            border-radius: 50%;
-            object-fit: cover;
-            background-color: var(--input-bg);
-        }
-
+        .profile-card, .guest-card { background: var(--card-bg); border-radius: var(--radius-lg); padding: 40px 20px; text-align: center; box-shadow: var(--shadow-soft); margin-top: 20px; display: none; }
+        .avatar-wrapper { width: 100px; height: 100px; margin: 0 auto 20px; border-radius: 50%; padding: 3px; border: 2px dashed var(--accent-color); }
+        .profile-img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; background-color: var(--input-bg); }
         .user-name { font-size: 22px; font-weight: 800; margin-bottom: 5px; color: var(--text-main); }
         .user-email { font-size: 14px; color: var(--text-sub); margin-bottom: 30px; font-weight: 600; }
-
-        .action-btn {
-            background: var(--input-bg);
-            color: #ff4747; 
-            width: 100%;
-            padding: 15px;
-            border-radius: 15px;
-            border: none;
-            font-family: 'Cairo';
-            font-weight: 700;
-            font-size: 15px;
-            cursor: pointer;
-            display: flex; align-items: center; justify-content: center; gap: 10px;
-        }
-
-        /* Not Logged In State */
-        .guest-card {
-            background: var(--card-bg);
-            border-radius: var(--radius-lg);
-            padding: 50px 20px;
-            text-align: center;
-            box-shadow: var(--shadow-soft);
-            margin-top: 20px;
-            display: none; 
-        }
+        .action-btn { background: var(--input-bg); color: #ff4747; width: 100%; padding: 15px; border-radius: 15px; border: none; font-family: 'Cairo'; font-weight: 700; font-size: 15px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; }
         .guest-icon { font-size: 60px; margin-bottom: 20px; display: block; }
-        .login-btn-main {
-            background: var(--text-main); color: var(--bg-color);
-            padding: 15px 40px; border-radius: 50px; font-weight: bold;
-            margin-top: 20px; display: inline-block; cursor: pointer;
-        }
+        .login-btn-main { background: var(--text-main); color: var(--bg-color); padding: 15px 40px; border-radius: 50px; font-weight: bold; margin-top: 20px; display: inline-block; cursor: pointer; }
 
-        /* Floating Nav */
         .floating-nav { position: fixed; bottom: 20px; left: 20px; right: 20px; background-color: var(--nav-bar-bg); height: 70px; border-radius: 25px; display: flex; justify-content: space-around; align-items: center; padding: 0 10px; box-shadow: 0 10px 40px rgba(0,0,0,0.1); z-index: 999; border: 1px solid rgba(0,0,0,0.05); }
         .nav-link { display: flex; flex-direction: column; align-items: center; justify-content: center; color: var(--nav-text); text-decoration: none; transition: 0.3s; gap: 4px; }
         .nav-link.active { color: var(--nav-active); }
-        .nav-link.active::after { content: ''; width: 5px; height: 5px; background: var(--nav-active); border-radius: 50%; margin-top: 2px; }
         .nav-link svg { width: 26px; height: 26px; stroke-width: 2; fill: none; stroke: currentColor; }
         .nav-link.active svg { fill: currentColor; stroke: none; }
         @media (min-width: 769px) { .floating-nav { display: none; } }
-
     </style>
 </head>
 <body>
 
     <header>
-        <a href="index.html">
-            <img id="app-logo" src="https://i.ibb.co/4R8nMfcs/image.png" alt="Wusooly" class="logo-img">
-        </a>
+        <a href="index.html"><img id="app-logo" src="" alt="Wusooly" class="logo-img"></a>
     </header>
 
     <div class="container">
         <h2 style="margin-bottom: 20px; font-weight: 800;">الملف الشخصي</h2>
-
         <div id="loading" style="text-align: center; color: var(--text-sub);">جاري التحقق...</div>
 
         <div id="user-profile" class="profile-card">
-            <div class="avatar-wrapper">
-                <img id="user-img" src="" class="profile-img">
-            </div>
+            <div class="avatar-wrapper"><img id="user-img" src="" class="profile-img"></div>
             <div id="user-name" class="user-name">User Name</div>
             <div id="user-email" class="user-email">email@example.com</div>
-            
-            <button class="action-btn" onclick="logout()">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
-                تسجيل الخروج
-            </button>
+            <button class="action-btn" id="logout-btn">تسجيل الخروج</button>
         </div>
 
         <div id="guest-profile" class="guest-card">
@@ -135,19 +73,31 @@
     </div>
 
     <div class="floating-nav">
-        <a href="index.html" class="nav-link">
-            <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
-        </a>
-        <a href="#" class="nav-link">
-            <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
-        </a>
-        <a href="cart.html" class="nav-link">
-            <svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
-        </a>
-        <a href="#" class="nav-link active">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
-        </a>
+        <a href="index.html" class="nav-link"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg></a>
+        <a href="cart.html" class="nav-link"><svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg></a>
+        <a href="#" class="nav-link active"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg></a>
     </div>
+
+    <script>
+        const imageConfig = {
+            'app-logo': {
+                light: "https://raw.githubusercontent.com/yazankmail/home/refs/heads/main/%D9%A2%D9%A0%D9%A2%D9%A6%D9%A0%D9%A1%D9%A3%D9%A1_%D9%A2%D9%A1%D9%A4%D9%A7%D9%A3%D9%A5.png",
+                dark: "https://raw.githubusercontent.com/yazankmail/home/refs/heads/main/%D9%A2%D9%A0%D9%A2%D9%A6%D9%A0%D9%A1%D9%A3%D9%A1_%D9%A2%D9%A1%D9%A4%D9%A7%D9%A1%D9%A4.png"
+            }
+        };
+
+        function updateImages(isDark) {
+            const logo = document.getElementById('app-logo');
+            if(logo) logo.src = isDark ? imageConfig['app-logo'].dark : imageConfig['app-logo'].light;
+        }
+
+        const savedTheme = localStorage.getItem('theme');
+        const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        let isDark = savedTheme === 'dark' || (!savedTheme && systemDark);
+
+        if (isDark) document.body.classList.add('dark-mode');
+        document.addEventListener('DOMContentLoaded', () => updateImages(isDark));
+    </script>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
@@ -166,18 +116,6 @@
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
 
-        const lightLogoUrl = "https://i.ibb.co/4R8nMfcs/image.png";
-        const darkLogoUrl = "https://i.ibb.co/k6QxrwjQ/image.png";
-        const logoImg = document.getElementById('app-logo');
-        const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)');
-
-        function applyTheme(isDark) {
-            if (isDark) { document.body.classList.add('dark-mode'); logoImg.src = darkLogoUrl; }
-            else { document.body.classList.remove('dark-mode'); logoImg.src = lightLogoUrl; }
-        }
-        applyTheme(systemPrefersDark.matches);
-        systemPrefersDark.addEventListener('change', (e) => applyTheme(e.matches));
-
         onAuthStateChanged(auth, (user) => {
             document.getElementById('loading').style.display = 'none';
             if (user) {
@@ -193,9 +131,9 @@
             }
         });
 
-        window.logout = function() {
+        document.getElementById('logout-btn').addEventListener('click', () => {
             signOut(auth).then(() => { window.location.href = "index.html"; }).catch((error) => { alert("Error"); });
-        }
+        });
     </script>
 </body>
 </html>
