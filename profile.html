@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>حسابي - Wsooly</title>
+    <title>حسابي - Wusooly</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap');
         
@@ -21,7 +21,7 @@
             --shadow-soft: 0 4px 20px rgba(0,0,0,0.3);
         }
 
-        * { box-sizing: border-box; transition: background-color 0.3s, color 0.3s; -webkit-tap-highlight-color: transparent; }
+        * { box-sizing: border-box; transition: 0.3s; -webkit-tap-highlight-color: transparent; }
         body { font-family: 'Cairo', sans-serif; margin: 0; background-color: var(--bg-color); color: var(--text-main); padding-bottom: 100px; overflow-x: hidden; }
         a { text-decoration: none; color: inherit; }
 
@@ -35,9 +35,26 @@
         .profile-img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; background-color: var(--input-bg); }
         .user-name { font-size: 22px; font-weight: 800; margin-bottom: 5px; color: var(--text-main); }
         .user-email { font-size: 14px; color: var(--text-sub); margin-bottom: 30px; font-weight: 600; }
-        .action-btn { background: var(--input-bg); color: #ff4747; width: 100%; padding: 15px; border-radius: 15px; border: none; font-family: 'Cairo'; font-weight: 700; font-size: 15px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; }
+        
+        .action-btn { background: var(--input-bg); color: #ff4747; width: 100%; padding: 15px; border-radius: 15px; border: none; font-family: 'Cairo'; font-weight: 700; font-size: 15px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; margin-top: 10px; }
+        .admin-btn { background: var(--accent-color); color: #fff; margin-bottom: 10px; }
+
         .guest-icon { font-size: 60px; margin-bottom: 20px; display: block; }
-        .login-btn-main { background: var(--text-main); color: var(--bg-color); padding: 15px 40px; border-radius: 50px; font-weight: bold; margin-top: 20px; display: inline-block; cursor: pointer; }
+        
+        /* زر جوجل */
+        .google-btn {
+            background: #fff; color: #333; 
+            border: 1px solid #ddd;
+            padding: 12px 25px; 
+            border-radius: 50px; 
+            font-weight: bold; 
+            margin-top: 20px; 
+            display: inline-flex; align-items: center; gap: 10px;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .google-btn img { width: 20px; height: 20px; }
+        body.dark-mode .google-btn { background: #333; color: #fff; border-color: #444; }
 
         .floating-nav { position: fixed; bottom: 20px; left: 20px; right: 20px; background-color: var(--nav-bar-bg); height: 70px; border-radius: 25px; display: flex; justify-content: space-around; align-items: center; padding: 0 10px; box-shadow: 0 10px 40px rgba(0,0,0,0.1); z-index: 999; border: 1px solid rgba(0,0,0,0.05); }
         .nav-link { display: flex; flex-direction: column; align-items: center; justify-content: center; color: var(--nav-text); text-decoration: none; transition: 0.3s; gap: 4px; }
@@ -61,14 +78,24 @@
             <div class="avatar-wrapper"><img id="user-img" src="" class="profile-img"></div>
             <div id="user-name" class="user-name">User Name</div>
             <div id="user-email" class="user-email">email@example.com</div>
+            
+            <button class="action-btn admin-btn" onclick="window.location.href='admin.html'">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+                لوحة التحكم
+            </button>
+
             <button class="action-btn" id="logout-btn">تسجيل الخروج</button>
         </div>
 
         <div id="guest-profile" class="guest-card">
             <span class="guest-icon">🔒</span>
             <h3>أنت غير مسجل</h3>
-            <p style="color:var(--text-sub)">قم بتسجيل الدخول للوصول إلى طلباتك</p>
-            <div class="login-btn-main" onclick="window.location.href='index.html'">الذهاب للرئيسية للدخول</div>
+            <p style="color:var(--text-sub)">سجّل دخولك للوصول إلى طلباتك وإدارة حسابك</p>
+            
+            <button id="login-btn" class="google-btn">
+                <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google">
+                تسجيل الدخول باستخدام Google
+            </button>
         </div>
     </div>
 
@@ -100,8 +127,9 @@
     </script>
 
     <script type="module">
+        // استدعاء المكاتب اللازمة (بما فيها GoogleAuthProvider)
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-        import { getAuth, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+        import { getAuth, signOut, onAuthStateChanged, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyBa0RwEcbVqWYAKeUFeZy2IDihaxUxtNKY",
@@ -115,24 +143,43 @@
 
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
+        const provider = new GoogleAuthProvider(); // إعداد مزود جوجل
 
+        // مراقبة حالة المستخدم
         onAuthStateChanged(auth, (user) => {
             document.getElementById('loading').style.display = 'none';
             if (user) {
+                // المستخدم مسجل دخول
                 document.getElementById('user-profile').style.display = 'block';
                 document.getElementById('guest-profile').style.display = 'none';
+                
                 document.getElementById('user-name').innerText = user.displayName;
                 document.getElementById('user-email').innerText = user.email;
                 if(user.photoURL) document.getElementById('user-img').src = user.photoURL;
                 else document.getElementById('user-img').src = "https://via.placeholder.com/100";
             } else {
+                // المستخدم ضيف
                 document.getElementById('user-profile').style.display = 'none';
                 document.getElementById('guest-profile').style.display = 'block';
             }
         });
 
+        // زر تسجيل الدخول
+        document.getElementById('login-btn').addEventListener('click', () => {
+            signInWithPopup(auth, provider)
+                .then((result) => {
+                    // تم الدخول بنجاح، onAuthStateChanged ستتولى التحديث
+                }).catch((error) => {
+                    console.error(error);
+                    alert("حدث خطأ أثناء تسجيل الدخول: " + error.message);
+                });
+        });
+
+        // زر تسجيل الخروج
         document.getElementById('logout-btn').addEventListener('click', () => {
-            signOut(auth).then(() => { window.location.href = "index.html"; }).catch((error) => { alert("Error"); });
+            signOut(auth).then(() => { 
+                // تم الخروج
+            }).catch((error) => { alert("Error"); });
         });
     </script>
 </body>
