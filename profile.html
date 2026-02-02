@@ -56,10 +56,13 @@
         .input-field { width: 100%; padding: 16px; border-radius: 12px; border: 1px solid var(--border-color); background: var(--card-bg); color: var(--text-main); font-family: 'Cairo'; font-weight: 600; font-size: 15px; }
         .input-field:focus { outline: 2px solid var(--accent-color); border-color: transparent; }
         
-        /* رسائل الخطأ */
+        /* خيارات الراديو (نعم/لا) */
+        .radio-group { display: flex; gap: 20px; margin-top: 5px; }
+        .radio-label { display: flex; align-items: center; gap: 8px; font-weight: 600; cursor: pointer; }
+        .radio-label input { accent-color: var(--accent-color); transform: scale(1.2); }
+
         .error-msg { color: var(--error-color); font-size: 12px; margin-top: 5px; display: none; font-weight: bold; }
         .input-field.error { border-color: var(--error-color); background: rgba(229, 57, 53, 0.05); }
-
         .input-field:disabled { background: #EFEFEF; color: #999; cursor: not-allowed; }
         .lock-note { font-size: 11px; color: var(--error-color); margin-top: 5px; }
 
@@ -135,25 +138,25 @@
             </div>
 
             <div class="form-group">
-                <label class="label">الاسم الأول (بالعربية فقط)</label>
+                <label class="label">الاسم الأول (بالعربية)</label>
                 <input type="text" id="inp-fname" class="input-field" placeholder="مثلاً: محمد">
                 <div id="err-fname" class="error-msg">يرجى استخدام الأحرف العربية فقط</div>
             </div>
             <div class="form-group">
-                <label class="label">اسم العائلة (بالعربية فقط)</label>
+                <label class="label">اسم العائلة (بالعربية)</label>
                 <input type="text" id="inp-sname" class="input-field" placeholder="مثلاً: أحمد">
                 <div id="err-sname" class="error-msg">يرجى استخدام الأحرف العربية فقط</div>
             </div>
 
             <div class="form-group">
                 <label class="label">رقم الهاتف</label>
-                <input type="tel" id="inp-phone" class="input-field" placeholder="05xxxxxxxx أو 5xxxxxxxx" dir="ltr" style="text-align:right;">
+                <input type="tel" id="inp-phone" class="input-field" placeholder="05xxxxxxxx" dir="ltr" style="text-align:right;">
                 <div id="err-phone" class="error-msg">الرقم يجب أن يبدأ بـ 05 (10 خانات) أو 5 (9 خانات)</div>
                 <div id="phone-lock-hint" class="lock-note" style="display:none;">🔒 لا يمكن تغيير الرقم إلا بالتواصل مع الإدارة</div>
             </div>
 
             <div class="form-group">
-                <label class="label">أين تعيش؟</label>
+                <label class="label">المنطقة</label>
                 <select id="inp-region" class="input-field" onchange="updateCities()">
                     <option value="" disabled selected>اختر المنطقة</option>
                     <option value="westbank">الضفة الغربية</option>
@@ -162,10 +165,27 @@
             </div>
 
             <div class="form-group" id="city-group" style="display:none;">
-                <label class="label">المدينة / القرية</label>
-                <select id="inp-city" class="input-field">
+                <label class="label">المدينة</label>
+                <select id="inp-city" class="input-field" onchange="showVillageQuestion()">
                     <option value="" disabled selected>اختر المدينة</option>
                 </select>
+            </div>
+
+            <div class="form-group" id="village-question-group" style="display:none;">
+                <label class="label">هل تسكن في قرية/بلدة تابعة للمدينة؟</label>
+                <div class="radio-group">
+                    <label class="radio-label">
+                        <input type="radio" name="is_village" value="yes" onchange="toggleVillageInput()"> نعم
+                    </label>
+                    <label class="radio-label">
+                        <input type="radio" name="is_village" value="no" onchange="toggleVillageInput()" checked> لا (أسكن في المدينة)
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-group" id="village-input-group" style="display:none;">
+                <label class="label">اسم القرية / البلدة</label>
+                <input type="text" id="inp-village-text" class="input-field" placeholder="اكتب اسم القرية...">
             </div>
 
             <div class="form-group">
@@ -207,7 +227,6 @@
         
         let currentUser = null;
 
-        // قوائم المدن
         const cities = {
             westbank: ["رام الله", "نابلس", "الخليل", "جنين", "طولكرم", "بيت لحم", "قلقيلية", "سلفيت", "أريحا", "طوباس", "القدس"],
             interior: ["الناصرة", "حيفا", "يافا", "عكا", "أم الفحم", "الطيبة", "سخنين", "باقة الغربية", "رهط", "اللد", "الرملة"]
@@ -221,17 +240,31 @@
                 if (userDoc.exists()) {
                     const data = userDoc.data();
                     showProfile(user, data);
-                    // قفل الهاتف وتعبئة البيانات
+                    
                     const phoneInput = document.getElementById('inp-phone');
                     phoneInput.value = data.phone;
                     phoneInput.disabled = true;
                     document.getElementById('phone-lock-hint').style.display = 'block';
 
-                    // تعبئة المنطقة والمدينة
+                    // تعبئة البيانات المحفوظة
                     if(data.region) {
                         document.getElementById('inp-region').value = data.region;
-                        updateCities();
+                        updateCities(); 
                         document.getElementById('inp-city').value = data.city;
+                        
+                        // إظهار سؤال القرية
+                        document.getElementById('village-question-group').style.display = 'block';
+                        
+                        if (data.village && data.village !== "المدينة نفسها") {
+                            // المستخدم يسكن في قرية
+                            document.querySelector('input[name="is_village"][value="yes"]').checked = true;
+                            document.getElementById('village-input-group').style.display = 'block';
+                            document.getElementById('inp-village-text').value = data.village;
+                        } else {
+                            // يسكن في المدينة
+                            document.querySelector('input[name="is_village"][value="no"]').checked = true;
+                            document.getElementById('village-input-group').style.display = 'none';
+                        }
                     }
                 } else {
                     document.getElementById('inp-phone').disabled = false;
@@ -250,20 +283,20 @@
             document.getElementById('main-name').innerText = (data.firstName || "مستخدم") + " " + (data.secondName || "");
             document.getElementById('main-avatar').src = user.photoURL || "https://via.placeholder.com/150";
 
-            // تعبئة الحقول للتعديل
             document.getElementById('inp-fname').value = data.firstName || "";
             document.getElementById('inp-sname').value = data.secondName || "";
             document.getElementById('inp-street').value = data.street || "";
         }
 
-        // تحديث قائمة المدن
         window.updateCities = () => {
             const region = document.getElementById('inp-region').value;
             const citySelect = document.getElementById('inp-city');
             const cityGroup = document.getElementById('city-group');
 
             citySelect.innerHTML = '<option value="" disabled selected>اختر المدينة</option>';
-            
+            document.getElementById('village-question-group').style.display = 'none';
+            document.getElementById('village-input-group').style.display = 'none';
+
             if (cities[region]) {
                 cities[region].forEach(city => {
                     const option = document.createElement('option');
@@ -277,12 +310,21 @@
             }
         };
 
+        window.showVillageQuestion = () => {
+            document.getElementById('village-question-group').style.display = 'block';
+        };
+
+        window.toggleVillageInput = () => {
+            const isYes = document.querySelector('input[name="is_village"]:checked').value === 'yes';
+            const inputGroup = document.getElementById('village-input-group');
+            inputGroup.style.display = isYes ? 'block' : 'none';
+            if(!isYes) document.getElementById('inp-village-text').value = ""; // مسح النص
+        };
+
         window.openEditModal = () => document.getElementById('edit-modal').classList.add('open');
         window.closeEditModal = () => document.getElementById('edit-modal').classList.remove('open');
 
-        // التحقق وحفظ البيانات
         window.saveData = async () => {
-            // إعادة تعيين الأخطاء
             document.querySelectorAll('.error-msg').forEach(el => el.style.display = 'none');
             document.querySelectorAll('.input-field').forEach(el => el.classList.remove('error'));
 
@@ -292,40 +334,34 @@
             const region = document.getElementById('inp-region').value;
             const city = document.getElementById('inp-city').value;
             const street = document.getElementById('inp-street').value.trim();
+            
+            // التعامل مع القرية
+            const isVillage = document.querySelector('input[name="is_village"]:checked').value === 'yes';
+            const villageName = isVillage ? document.getElementById('inp-village-text').value.trim() : "المدينة نفسها";
 
             let isValid = true;
 
-            // 1. تحقق الاسم (عربي فقط)
             const arabicRegex = /^[\u0621-\u064A ]+$/;
-            if (!arabicRegex.test(fname)) {
-                showError('inp-fname', 'err-fname');
-                isValid = false;
-            }
-            if (!arabicRegex.test(sname)) {
-                showError('inp-sname', 'err-sname');
-                isValid = false;
-            }
+            if (!arabicRegex.test(fname)) { showError('inp-fname', 'err-fname'); isValid = false; }
+            if (!arabicRegex.test(sname)) { showError('inp-sname', 'err-sname'); isValid = false; }
 
-            // 2. تحقق الهاتف
-            // الحالة 1: يبدأ بـ 05 وطوله 10
-            // الحالة 2: يبدأ بـ 5 وطوله 9
             const isValidPhone = (phone.startsWith('05') && phone.length === 10 && /^\d+$/.test(phone)) ||
                                  (phone.startsWith('5') && phone.length === 9 && /^\d+$/.test(phone));
 
-            if (!isValidPhone) {
-                showError('inp-phone', 'err-phone');
-                isValid = false;
-            }
+            if (!isValidPhone) { showError('inp-phone', 'err-phone'); isValid = false; }
 
-            // 3. تحقق المنطقة والمدينة
             if (!region || !city) {
                 alert("يرجى اختيار المنطقة والمدينة");
                 isValid = false;
             }
 
+            if (isVillage && !villageName) {
+                alert("يرجى كتابة اسم القرية");
+                isValid = false;
+            }
+
             if (!isValid) return;
 
-            // الحفظ
             const btn = document.querySelector('.save-btn');
             btn.innerText = "جاري الحفظ...";
 
@@ -337,12 +373,11 @@
                     email: currentUser.email,
                     region: region,
                     city: city,
+                    village: villageName,
                     street: street
                 }, { merge: true });
 
                 document.getElementById('main-name').innerText = fname + " " + sname;
-                
-                // قفل الهاتف
                 document.getElementById('inp-phone').disabled = true;
                 document.getElementById('phone-lock-hint').style.display = 'block';
 
