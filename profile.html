@@ -3,116 +3,120 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>الملف الشخصي - Wusooly</title>
+    <title>الملف الشخصي</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap');
         
         :root {
-            --bg-color: #F8F9FA; --header-bg: #FFFFFF; --text-main: #333; --text-sub: #888;
-            --accent-color: #0056b3; --card-bg: #FFFFFF; --input-bg: #F2F2F7;
-            --border-color: #eee; --danger-color: #ff4747;
-            --shadow-soft: 0 5px 20px rgba(0,0,0,0.05);
+            --bg-color: #FAFAFA; --card-bg: #FFFFFF;
+            --text-main: #1D1D1D; --text-sub: #888888;
+            --accent-color: #008489; /* لون مشابه للتصميم الأخضر المزرق */
+            --border-color: #F0F0F0;
+            --shadow: 0 5px 20px rgba(0,0,0,0.04);
         }
 
         body.dark-mode {
-            --bg-color: #121212; --header-bg: #1C1C1E; --text-main: #FFFFFF; --text-sub: #A1A1A1;
-            --accent-color: #4dabf7; --card-bg: #2C2C2E; --input-bg: #3A3A3C;
-            --border-color: #444;
+            --bg-color: #121212; --card-bg: #1E1E1E;
+            --text-main: #FFFFFF; --text-sub: #AAAAAA;
+            --border-color: #333;
         }
 
         * { box-sizing: border-box; transition: 0.3s; -webkit-tap-highlight-color: transparent; }
-        body { font-family: 'Cairo', sans-serif; margin: 0; background-color: var(--bg-color); color: var(--text-main); padding-bottom: 90px; }
+        body { font-family: 'Cairo', sans-serif; margin: 0; background: var(--bg-color); color: var(--text-main); padding-bottom: 90px; }
 
-        /* الهيدر البسيط */
-        header { padding: 20px; text-align: center; background: transparent; }
-        .page-title { font-weight: 800; font-size: 18px; margin: 0; }
+        .container { max-width: 500px; margin: 0 auto; padding: 20px; }
 
-        .container { max-width: 500px; margin: 0 auto; padding: 0 20px; }
+        /* الهيدر */
+        header { text-align: center; margin-top: 20px; margin-bottom: 30px; }
+        .page-title { font-weight: 800; font-size: 20px; }
 
-        /* قسم الصورة والاسم */
-        .profile-header { text-align: center; margin-bottom: 30px; }
-        .avatar-container { 
-            position: relative; width: 110px; height: 110px; margin: 0 auto 15px; 
-            border-radius: 50%; padding: 3px; border: 2px solid var(--accent-color); 
+        /* البروفايل */
+        .profile-header { text-align: center; margin-bottom: 40px; }
+        .avatar-box { 
+            position: relative; width: 100px; height: 100px; margin: 0 auto 15px; 
         }
-        .profile-img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; background: var(--input-bg); }
-        .edit-badge {
-            position: absolute; bottom: 5px; right: 5px;
+        .profile-img { 
+            width: 100%; height: 100%; border-radius: 50%; 
+            object-fit: cover; border: 3px solid white; 
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1); 
+        }
+        .edit-icon-badge {
+            position: absolute; bottom: 0; right: 0;
             background: var(--accent-color); color: white;
             width: 30px; height: 30px; border-radius: 50%;
             display: flex; align-items: center; justify-content: center;
-            border: 2px solid var(--card-bg); cursor: pointer;
+            border: 2px solid white; cursor: pointer;
         }
-        .user-fullname { font-size: 20px; font-weight: 800; margin: 0; }
-        .user-role { font-size: 13px; color: var(--text-sub); margin-top: 5px; }
+        .user-name { font-size: 22px; font-weight: 800; margin: 0; }
+        .user-role { font-size: 14px; color: var(--text-sub); margin-top: 5px; }
 
-        /* القائمة الأنيقة (مثل الصورة) */
-        .menu-list { background: var(--card-bg); border-radius: 20px; padding: 10px 20px; box-shadow: var(--shadow-soft); }
-        .menu-item { 
-            display: flex; align-items: center; justify-content: space-between; 
-            padding: 18px 0; border-bottom: 1px solid var(--border-color); 
-            cursor: pointer; 
+        /* القائمة */
+        .menu-list { display: flex; flex-direction: column; gap: 15px; }
+        .menu-item {
+            background: var(--card-bg); padding: 15px 20px;
+            border-radius: 15px; display: flex; align-items: center; justify-content: space-between;
+            box-shadow: var(--shadow); cursor: pointer;
         }
-        .menu-item:last-child { border-bottom: none; }
+        .item-left { display: flex; align-items: center; gap: 15px; }
+        .item-icon { 
+            width: 40px; height: 40px; border-radius: 10px; 
+            background: rgba(0, 132, 137, 0.1); color: var(--accent-color);
+            display: flex; align-items: center; justify-content: center;
+        }
+        .item-text { font-weight: 700; font-size: 15px; }
         
-        .menu-left { display: flex; align-items: center; gap: 15px; }
-        .menu-icon { 
-            width: 35px; height: 35px; border-radius: 10px; 
-            background: var(--input-bg); color: var(--accent-color);
-            display: flex; align-items: center; justify-content: center; 
-        }
-        .menu-text { font-weight: 600; font-size: 15px; }
-        .arrow-icon { color: var(--text-sub); width: 18px; }
-
-        /* زر تسجيل الخروج */
         .logout-btn {
             background: var(--accent-color); color: white;
-            width: 100%; padding: 15px; border-radius: 15px;
+            width: 100%; padding: 18px; border-radius: 15px;
             border: none; font-weight: bold; font-size: 16px;
-            margin-top: 25px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            margin-top: 30px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px;
         }
 
-        /* --- مودال تعديل البيانات (الشاشة الكاملة) --- */
+        /* نافذة التعديل (Full Screen Modal) */
         .edit-modal {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: var(--bg-color); z-index: 2000;
             padding: 20px; overflow-y: auto;
-            transform: translateY(100%); transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            transform: translateY(100%); transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
         }
         .edit-modal.open { transform: translateY(0); }
 
-        .modal-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 30px; }
-        .back-btn { width: 40px; height: 40px; border-radius: 12px; background: var(--input-bg); display: flex; align-items: center; justify-content: center; cursor: pointer; }
+        .modal-nav { display: flex; align-items: center; margin-bottom: 30px; }
+        .back-btn { 
+            width: 40px; height: 40px; background: var(--card-bg); 
+            border-radius: 10px; display: flex; align-items: center; justify-content: center; 
+            box-shadow: var(--shadow); cursor: pointer; 
+        }
 
         .form-group { margin-bottom: 20px; }
         .label { display: block; font-size: 13px; font-weight: 700; color: var(--text-sub); margin-bottom: 8px; }
         .input-field {
-            width: 100%; padding: 15px; border-radius: 15px;
+            width: 100%; padding: 16px; border-radius: 12px;
             border: 1px solid var(--border-color); background: var(--card-bg);
-            color: var(--text-main); font-family: 'Cairo'; font-weight: 600;
-            font-size: 15px;
+            color: var(--text-main); font-family: 'Cairo'; font-weight: 600; font-size: 15px;
         }
-        .input-field:focus { border-color: var(--accent-color); outline: none; }
         
         /* الحقول المغلقة */
-        .input-field:disabled { background: var(--input-bg); color: var(--text-sub); cursor: not-allowed; border: 1px dashed var(--border-color); }
-        .lock-hint { font-size: 11px; color: var(--danger-color); margin-top: 5px; display: flex; align-items: center; gap: 4px; }
+        .input-field:disabled { background: #EFEFEF; color: #999; cursor: not-allowed; }
+        .lock-note { font-size: 11px; color: #E53935; margin-top: 5px; }
 
         .save-btn {
-            background: var(--accent-color); color: white; width: 100%; padding: 16px;
+            background: var(--accent-color); color: white; width: 100%; padding: 18px;
             border-radius: 50px; border: none; font-weight: bold; font-size: 16px;
-            position: sticky; bottom: 20px; margin-top: 20px; cursor: pointer;
+            margin-top: 20px; cursor: pointer; box-shadow: 0 10px 20px rgba(0, 132, 137, 0.2);
         }
 
-        /* نافذة الضيف */
-        .guest-view { text-align: center; padding: 50px 20px; display: none; }
-        .google-btn { background: white; color: #333; padding: 12px 25px; border-radius: 50px; font-weight: bold; border: 1px solid #ddd; display: inline-flex; align-items: center; gap: 10px; cursor: pointer; margin-top: 20px; }
-
-        .loading { text-align: center; padding: 20px; color: var(--text-sub); }
+        /* واجهة الضيف */
+        .guest-view { text-align: center; padding: 60px 20px; display: none; }
+        .google-btn { 
+            background: white; color: #333; padding: 12px 30px; 
+            border-radius: 50px; font-weight: bold; border: 1px solid #ddd; 
+            display: inline-flex; align-items: center; gap: 10px; cursor: pointer; 
+            margin-top: 20px; box-shadow: var(--shadow);
+        }
 
         /* الشريط السفلي */
-        .floating-nav { position: fixed; bottom: 20px; left: 20px; right: 20px; background: var(--header-bg); height: 70px; border-radius: 25px; display: flex; justify-content: space-around; align-items: center; box-shadow: 0 10px 40px rgba(0,0,0,0.1); z-index: 900; }
+        .floating-nav { position: fixed; bottom: 20px; left: 20px; right: 20px; background: white; height: 70px; border-radius: 25px; display: flex; justify-content: space-around; align-items: center; box-shadow: 0 10px 40px rgba(0,0,0,0.1); z-index: 900; }
         .nav-link svg { width: 26px; height: 26px; stroke: #999; fill: none; stroke-width: 2; }
         .nav-link.active svg { stroke: var(--accent-color); }
         @media (min-width: 769px) { .floating-nav { display: none; } }
@@ -120,109 +124,103 @@
 </head>
 <body>
 
-    <div id="loading-screen" class="loading">جاري تحميل البيانات...</div>
-
     <div id="user-view" style="display: none;">
-        <header>
-            <h1 class="page-title">الملف الشخصي</h1>
-        </header>
+        <header><div class="page-title">الملف الشخصي</div></header>
 
         <div class="container">
             <div class="profile-header">
-                <div class="avatar-container">
+                <div class="avatar-box">
                     <img id="main-avatar" src="" class="profile-img">
-                    <div class="edit-badge" onclick="openEditModal()">
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg>
+                    <div class="edit-icon-badge" onclick="openEditModal()">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
                     </div>
                 </div>
-                <h2 id="main-name" class="user-fullname">...</h2>
-                <div id="main-role" class="user-role">عميل مميز</div>
+                <h2 id="main-name" class="user-name">...</h2>
+                <div class="user-role">عميل مميز</div>
             </div>
 
             <div class="menu-list">
                 <div class="menu-item" onclick="openEditModal()">
-                    <div class="menu-left">
-                        <div class="menu-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg></div>
-                        <span class="menu-text">تعديل الملف الشخصي</span>
+                    <div class="item-left">
+                        <div class="item-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg></div>
+                        <span class="item-text">تعديل الملف الشخصي</span>
                     </div>
-                    <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="2"><polyline points="15 18 9 12 15 6"></polyline></svg>
                 </div>
 
                 <div class="menu-item">
-                    <div class="menu-left">
-                        <div class="menu-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg></div>
-                        <span class="menu-text">عنوان الشحن</span>
+                    <div class="item-left">
+                        <div class="item-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg></div>
+                        <span class="item-text">عنوان الشحن</span>
                     </div>
-                    <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="2"><polyline points="15 18 9 12 15 6"></polyline></svg>
                 </div>
 
-                <div class="menu-item" onclick="contactAdmin()">
-                    <div class="menu-left">
-                        <div class="menu-icon" style="color:#ff4747; background:rgba(255, 71, 71, 0.1);"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg></div>
-                        <span class="menu-text">تغيير الرقم/الإيميل</span>
+                <div class="menu-item" onclick="alert('تواصل معنا: support@wusooly.com')">
+                    <div class="item-left">
+                        <div class="item-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg></div>
+                        <span class="item-text">تغيير الرقم / الإيميل</span>
                     </div>
-                    <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="2"><polyline points="15 18 9 12 15 6"></polyline></svg>
                 </div>
             </div>
 
-            <button class="logout-btn" id="logout-btn">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
-                تسجيل الخروج
-            </button>
+            <button class="logout-btn" id="logout-btn">تسجيل الخروج</button>
         </div>
     </div>
 
     <div id="guest-view" class="guest-view">
-        <span style="font-size:60px; display:block; margin-bottom:20px;">🔒</span>
-        <h2>سجّل دخولك أولاً</h2>
-        <p style="color:var(--text-sub)">لإدارة حسابك والوصول إلى ملفك الشخصي</p>
+        <span style="font-size:60px;">🔒</span>
+        <h2>تسجيل الدخول مطلوب</h2>
+        <p style="color:var(--text-sub)">للوصول إلى ملفك الشخصي</p>
         <button id="login-btn" class="google-btn">
             <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" width="20">
-            دخول عبر Google
+            المتابعة باستخدام Google
         </button>
     </div>
 
     <div id="edit-modal" class="edit-modal">
-        <div class="modal-header">
-            <div class="back-btn" onclick="closeEditModal()">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
+        <div class="container">
+            <div class="modal-nav">
+                <div class="back-btn" onclick="closeEditModal()">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                </div>
+                <h3 style="flex-grow:1; text-align:center;">تعديل البيانات</h3>
+                <div style="width:40px;"></div>
             </div>
-            <h3 style="margin:0;">تعديل البيانات</h3>
-            <div style="width:40px;"></div>
-        </div>
 
-        <div class="form-group">
-            <label class="label">الاسم الأول</label>
-            <input type="text" id="inp-fname" class="input-field" placeholder="الاسم الأول">
-        </div>
-        <div class="form-group">
-            <label class="label">الاسم الثاني</label>
-            <input type="text" id="inp-sname" class="input-field" placeholder="الاسم الثاني">
-        </div>
-        
-        <div class="form-group">
-            <label class="label">رقم الهاتف</label>
-            <input type="text" id="inp-phone" class="input-field" disabled>
-            <div class="lock-hint">🔒 للتعديل يرجى التواصل مع الإدارة</div>
-        </div>
+            <div class="form-group">
+                <label class="label">الاسم الأول</label>
+                <input type="text" id="inp-fname" class="input-field" placeholder="مثلاً: محمد">
+            </div>
+            <div class="form-group">
+                <label class="label">اسم العائلة</label>
+                <input type="text" id="inp-sname" class="input-field" placeholder="مثلاً: أحمد">
+            </div>
 
-        <div class="form-group">
-            <label class="label">البريد الإلكتروني</label>
-            <input type="email" id="inp-email" class="input-field" disabled>
-            <div class="lock-hint">🔒 للتعديل يرجى التواصل مع الإدارة</div>
-        </div>
+            <div class="form-group">
+                <label class="label">رقم الهاتف</label>
+                <input type="text" id="inp-phone" class="input-field" placeholder="أدخل رقمك للتواصل">
+                <div id="phone-lock-hint" class="lock-note" style="display:none;">🔒 لا يمكن تغيير الرقم إلا بالتواصل مع الإدارة</div>
+            </div>
 
-        <div class="form-group">
-            <label class="label">المدينة</label>
-            <input type="text" id="inp-city" class="input-field">
-        </div>
+            <div class="form-group">
+                <label class="label">البريد الإلكتروني</label>
+                <input type="email" id="inp-email" class="input-field" disabled>
+                <div class="lock-note">🔒 مرتبط بحساب Google</div>
+            </div>
 
-        <div class="form-group">
-            <label class="label">الشارع</label>
-            <input type="text" id="inp-street" class="input-field">
-        </div>
+            <div class="form-group">
+                <label class="label">المدينة</label>
+                <input type="text" id="inp-city" class="input-field">
+            </div>
+            <div class="form-group">
+                <label class="label">الشارع</label>
+                <input type="text" id="inp-street" class="input-field">
+            </div>
 
-        <button class="save-btn" onclick="saveData()">حفظ التعديلات</button>
+            <button class="save-btn" onclick="saveData()">حفظ التغييرات</button>
+        </div>
     </div>
 
     <div class="floating-nav">
@@ -238,7 +236,7 @@
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
         import { getAuth, signOut, onAuthStateChanged, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-        import { getFirestore, doc, getDoc, updateDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+        import { getFirestore, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyBa0RwEcbVqWYAKeUFeZy2IDihaxUxtNKY",
@@ -257,75 +255,96 @@
         
         let currentUser = null;
 
-        // التحقق من المستخدم
         onAuthStateChanged(auth, async (user) => {
-            document.getElementById('loading-screen').style.display = 'none';
             if (user) {
                 currentUser = user;
-                // جلب بيانات إضافية من Firestore
+                // جلب البيانات بدون إظهار أخطاء
                 const userDoc = await getDoc(doc(db, "users", user.uid));
+                
                 if (userDoc.exists()) {
                     const data = userDoc.data();
-                    // تعبئة الواجهة الرئيسية
-                    document.getElementById('main-name').innerText = `${data.firstName} ${data.secondName}`;
-                    document.getElementById('main-avatar').src = user.photoURL || "https://via.placeholder.com/150";
-                    
-                    // تعبئة فورم التعديل (لتكون جاهزة)
-                    document.getElementById('inp-fname').value = data.firstName;
-                    document.getElementById('inp-sname').value = data.secondName;
-                    document.getElementById('inp-phone').value = data.phone; // للقراءة فقط
-                    document.getElementById('inp-email').value = user.email; // للقراءة فقط
-                    document.getElementById('inp-city').value = data.city;
-                    document.getElementById('inp-street').value = data.street;
-
-                    document.getElementById('user-view').style.display = 'block';
+                    showProfile(user, data);
+                    // إذا كان مسجلاً، نقفل حقل الهاتف
+                    document.getElementById('inp-phone').disabled = true;
+                    document.getElementById('phone-lock-hint').style.display = 'block';
                 } else {
-                    // في حال كان مسجلاً دخول ولكن لا يملك بيانات في القاعدة (نادر)
-                    alert("يرجى إكمال بيانات التسجيل أولاً");
-                    window.location.reload(); 
+                    // *** هنا الحل للمشكلة ***
+                    // لا نظهر تنبيه، بل نفتح نافذة التعديل تلقائياً لتعبئة البيانات
+                    document.getElementById('inp-email').value = user.email;
+                    document.getElementById('inp-phone').disabled = false; // نفتح الهاتف لأول مرة
+                    document.getElementById('phone-lock-hint').style.display = 'none';
+                    openEditModal(); 
                 }
             } else {
                 document.getElementById('guest-view').style.display = 'block';
+                document.getElementById('user-view').style.display = 'none';
             }
         });
 
-        // دوال المودال (النافذة)
+        function showProfile(user, data) {
+            document.getElementById('guest-view').style.display = 'none';
+            document.getElementById('user-view').style.display = 'block';
+
+            document.getElementById('main-name').innerText = (data.firstName || "User") + " " + (data.secondName || "");
+            document.getElementById('main-avatar').src = user.photoURL || "https://via.placeholder.com/150";
+
+            // تعبئة الحقول في الخلفية
+            document.getElementById('inp-fname').value = data.firstName || "";
+            document.getElementById('inp-sname').value = data.secondName || "";
+            document.getElementById('inp-phone').value = data.phone || "";
+            document.getElementById('inp-email').value = user.email;
+            document.getElementById('inp-city').value = data.city || "";
+            document.getElementById('inp-street').value = data.street || "";
+        }
+
         window.openEditModal = () => document.getElementById('edit-modal').classList.add('open');
         window.closeEditModal = () => document.getElementById('edit-modal').classList.remove('open');
-        
-        window.contactAdmin = () => {
-            alert("للتواصل مع الإدارة لتغيير الرقم أو الإيميل:\n📧 support@wusooly.com\n📞 059xxxxxxx");
-        };
 
-        // حفظ التعديلات
         window.saveData = async () => {
-            const fname = document.getElementById('inp-fname').value;
-            const sname = document.getElementById('inp-sname').value;
-            const city = document.getElementById('inp-city').value;
-            const street = document.getElementById('inp-street').value;
-            
+            const fname = document.getElementById('inp-fname').value.trim();
+            const sname = document.getElementById('inp-sname').value.trim();
+            const phone = document.getElementById('inp-phone').value.trim();
+            const city = document.getElementById('inp-city').value.trim();
+            const street = document.getElementById('inp-street').value.trim();
+
+            if(!fname || !phone) {
+                alert("يرجى تعبئة الاسم ورقم الهاتف");
+                return;
+            }
+
             const btn = document.querySelector('.save-btn');
             btn.innerText = "جاري الحفظ...";
 
             try {
-                await updateDoc(doc(db, "users", currentUser.uid), {
+                // استخدام setDoc مع merge لتحديث أو إنشاء البيانات
+                await setDoc(doc(db, "users", currentUser.uid), {
                     firstName: fname,
                     secondName: sname,
+                    phone: phone,
+                    email: currentUser.email,
                     city: city,
                     street: street
-                });
-                
+                }, { merge: true });
+
                 // تحديث الواجهة فوراً
-                document.getElementById('main-name').innerText = `${fname} ${sname}`;
+                document.getElementById('main-name').innerText = fname + " " + sname;
+                
+                // قفل الهاتف بعد أول حفظ ناجح
+                document.getElementById('inp-phone').disabled = true;
+                document.getElementById('phone-lock-hint').style.display = 'block';
+
                 closeEditModal();
-                alert("تم حفظ التعديلات بنجاح ✅");
+                // إظهار واجهة المستخدم في حال كان جديداً
+                document.getElementById('guest-view').style.display = 'none';
+                document.getElementById('user-view').style.display = 'block';
+
             } catch (error) {
-                alert("حدث خطأ أثناء الحفظ");
+                console.error(error);
+                alert("حدث خطأ في الحفظ");
             }
-            btn.innerText = "حفظ التعديلات";
+            btn.innerText = "حفظ التغييرات";
         };
 
-        // تسجيل الدخول والخروج
         document.getElementById('login-btn').addEventListener('click', () => signInWithPopup(auth, provider));
         document.getElementById('logout-btn').addEventListener('click', () => signOut(auth).then(() => location.reload()));
     </script>
