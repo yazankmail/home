@@ -10,9 +10,9 @@
         :root {
             --bg-color: #FAFAFA; --card-bg: #FFFFFF;
             --text-main: #1D1D1D; --text-sub: #888888;
-            --accent-color: #008489; /* لون مشابه للتصميم الأخضر المزرق */
+            --accent-color: #008489;
             --border-color: #F0F0F0;
-            --shadow: 0 5px 20px rgba(0,0,0,0.04);
+            --error-color: #E53935;
         }
 
         body.dark-mode {
@@ -26,96 +26,50 @@
 
         .container { max-width: 500px; margin: 0 auto; padding: 20px; }
 
-        /* الهيدر */
+        /* الهيدر والبروفايل */
         header { text-align: center; margin-top: 20px; margin-bottom: 30px; }
         .page-title { font-weight: 800; font-size: 20px; }
-
-        /* البروفايل */
         .profile-header { text-align: center; margin-bottom: 40px; }
-        .avatar-box { 
-            position: relative; width: 100px; height: 100px; margin: 0 auto 15px; 
-        }
-        .profile-img { 
-            width: 100%; height: 100%; border-radius: 50%; 
-            object-fit: cover; border: 3px solid white; 
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1); 
-        }
-        .edit-icon-badge {
-            position: absolute; bottom: 0; right: 0;
-            background: var(--accent-color); color: white;
-            width: 30px; height: 30px; border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
-            border: 2px solid white; cursor: pointer;
-        }
+        .avatar-box { position: relative; width: 100px; height: 100px; margin: 0 auto 15px; }
+        .profile-img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; border: 3px solid white; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        .edit-icon-badge { position: absolute; bottom: 0; right: 0; background: var(--accent-color); color: white; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 2px solid white; cursor: pointer; }
         .user-name { font-size: 22px; font-weight: 800; margin: 0; }
         .user-role { font-size: 14px; color: var(--text-sub); margin-top: 5px; }
 
         /* القائمة */
         .menu-list { display: flex; flex-direction: column; gap: 15px; }
-        .menu-item {
-            background: var(--card-bg); padding: 15px 20px;
-            border-radius: 15px; display: flex; align-items: center; justify-content: space-between;
-            box-shadow: var(--shadow); cursor: pointer;
-        }
+        .menu-item { background: var(--card-bg); padding: 15px 20px; border-radius: 15px; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 2px 10px rgba(0,0,0,0.03); cursor: pointer; }
         .item-left { display: flex; align-items: center; gap: 15px; }
-        .item-icon { 
-            width: 40px; height: 40px; border-radius: 10px; 
-            background: rgba(0, 132, 137, 0.1); color: var(--accent-color);
-            display: flex; align-items: center; justify-content: center;
-        }
+        .item-icon { width: 40px; height: 40px; border-radius: 10px; background: rgba(0, 132, 137, 0.1); color: var(--accent-color); display: flex; align-items: center; justify-content: center; }
         .item-text { font-weight: 700; font-size: 15px; }
         
-        .logout-btn {
-            background: var(--accent-color); color: white;
-            width: 100%; padding: 18px; border-radius: 15px;
-            border: none; font-weight: bold; font-size: 16px;
-            margin-top: 30px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px;
-        }
+        .logout-btn { background: var(--accent-color); color: white; width: 100%; padding: 18px; border-radius: 15px; border: none; font-weight: bold; font-size: 16px; margin-top: 30px; cursor: pointer; }
 
-        /* نافذة التعديل (Full Screen Modal) */
-        .edit-modal {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: var(--bg-color); z-index: 2000;
-            padding: 20px; overflow-y: auto;
-            transform: translateY(100%); transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
-        }
+        /* نافذة التعديل */
+        .edit-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--bg-color); z-index: 2000; padding: 20px; overflow-y: auto; transform: translateY(100%); transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1); }
         .edit-modal.open { transform: translateY(0); }
-
         .modal-nav { display: flex; align-items: center; margin-bottom: 30px; }
-        .back-btn { 
-            width: 40px; height: 40px; background: var(--card-bg); 
-            border-radius: 10px; display: flex; align-items: center; justify-content: center; 
-            box-shadow: var(--shadow); cursor: pointer; 
-        }
+        .back-btn { width: 40px; height: 40px; background: var(--card-bg); border-radius: 10px; display: flex; align-items: center; justify-content: center; cursor: pointer; }
 
         .form-group { margin-bottom: 20px; }
         .label { display: block; font-size: 13px; font-weight: 700; color: var(--text-sub); margin-bottom: 8px; }
-        .input-field {
-            width: 100%; padding: 16px; border-radius: 12px;
-            border: 1px solid var(--border-color); background: var(--card-bg);
-            color: var(--text-main); font-family: 'Cairo'; font-weight: 600; font-size: 15px;
-        }
+        .input-field { width: 100%; padding: 16px; border-radius: 12px; border: 1px solid var(--border-color); background: var(--card-bg); color: var(--text-main); font-family: 'Cairo'; font-weight: 600; font-size: 15px; }
+        .input-field:focus { outline: 2px solid var(--accent-color); border-color: transparent; }
         
-        /* الحقول المغلقة */
-        .input-field:disabled { background: #EFEFEF; color: #999; cursor: not-allowed; }
-        .lock-note { font-size: 11px; color: #E53935; margin-top: 5px; }
+        /* رسائل الخطأ */
+        .error-msg { color: var(--error-color); font-size: 12px; margin-top: 5px; display: none; font-weight: bold; }
+        .input-field.error { border-color: var(--error-color); background: rgba(229, 57, 53, 0.05); }
 
-        .save-btn {
-            background: var(--accent-color); color: white; width: 100%; padding: 18px;
-            border-radius: 50px; border: none; font-weight: bold; font-size: 16px;
-            margin-top: 20px; cursor: pointer; box-shadow: 0 10px 20px rgba(0, 132, 137, 0.2);
-        }
+        .input-field:disabled { background: #EFEFEF; color: #999; cursor: not-allowed; }
+        .lock-note { font-size: 11px; color: var(--error-color); margin-top: 5px; }
+
+        .save-btn { background: var(--accent-color); color: white; width: 100%; padding: 18px; border-radius: 50px; border: none; font-weight: bold; font-size: 16px; margin-top: 20px; cursor: pointer; box-shadow: 0 10px 20px rgba(0, 132, 137, 0.2); }
 
         /* واجهة الضيف */
         .guest-view { text-align: center; padding: 60px 20px; display: none; }
-        .google-btn { 
-            background: white; color: #333; padding: 12px 30px; 
-            border-radius: 50px; font-weight: bold; border: 1px solid #ddd; 
-            display: inline-flex; align-items: center; gap: 10px; cursor: pointer; 
-            margin-top: 20px; box-shadow: var(--shadow);
-        }
+        .google-btn { background: white; color: #333; padding: 12px 30px; border-radius: 50px; font-weight: bold; border: 1px solid #ddd; display: inline-flex; align-items: center; gap: 10px; cursor: pointer; margin-top: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
 
-        /* الشريط السفلي */
+        /* القائمة السفلية */
         .floating-nav { position: fixed; bottom: 20px; left: 20px; right: 20px; background: white; height: 70px; border-radius: 25px; display: flex; justify-content: space-around; align-items: center; box-shadow: 0 10px 40px rgba(0,0,0,0.1); z-index: 900; }
         .nav-link svg { width: 26px; height: 26px; stroke: #999; fill: none; stroke-width: 2; }
         .nav-link.active svg { stroke: var(--accent-color); }
@@ -148,15 +102,7 @@
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="2"><polyline points="15 18 9 12 15 6"></polyline></svg>
                 </div>
 
-                <div class="menu-item">
-                    <div class="item-left">
-                        <div class="item-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg></div>
-                        <span class="item-text">عنوان الشحن</span>
-                    </div>
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="2"><polyline points="15 18 9 12 15 6"></polyline></svg>
-                </div>
-
-                <div class="menu-item" onclick="alert('تواصل معنا: support@wusooly.com')">
+                <div class="menu-item" onclick="alert('تواصل مع الدعم: support@wusooly.com')">
                     <div class="item-left">
                         <div class="item-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg></div>
                         <span class="item-text">تغيير الرقم / الإيميل</span>
@@ -172,7 +118,6 @@
     <div id="guest-view" class="guest-view">
         <span style="font-size:60px;">🔒</span>
         <h2>تسجيل الدخول مطلوب</h2>
-        <p style="color:var(--text-sub)">للوصول إلى ملفك الشخصي</p>
         <button id="login-btn" class="google-btn">
             <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" width="20">
             المتابعة باستخدام Google
@@ -190,32 +135,41 @@
             </div>
 
             <div class="form-group">
-                <label class="label">الاسم الأول</label>
+                <label class="label">الاسم الأول (بالعربية فقط)</label>
                 <input type="text" id="inp-fname" class="input-field" placeholder="مثلاً: محمد">
+                <div id="err-fname" class="error-msg">يرجى استخدام الأحرف العربية فقط</div>
             </div>
             <div class="form-group">
-                <label class="label">اسم العائلة</label>
+                <label class="label">اسم العائلة (بالعربية فقط)</label>
                 <input type="text" id="inp-sname" class="input-field" placeholder="مثلاً: أحمد">
+                <div id="err-sname" class="error-msg">يرجى استخدام الأحرف العربية فقط</div>
             </div>
 
             <div class="form-group">
                 <label class="label">رقم الهاتف</label>
-                <input type="text" id="inp-phone" class="input-field" placeholder="أدخل رقمك للتواصل">
+                <input type="tel" id="inp-phone" class="input-field" placeholder="05xxxxxxxx أو 5xxxxxxxx" dir="ltr" style="text-align:right;">
+                <div id="err-phone" class="error-msg">الرقم يجب أن يبدأ بـ 05 (10 خانات) أو 5 (9 خانات)</div>
                 <div id="phone-lock-hint" class="lock-note" style="display:none;">🔒 لا يمكن تغيير الرقم إلا بالتواصل مع الإدارة</div>
             </div>
 
             <div class="form-group">
-                <label class="label">البريد الإلكتروني</label>
-                <input type="email" id="inp-email" class="input-field" disabled>
-                <div class="lock-note">🔒 مرتبط بحساب Google</div>
+                <label class="label">أين تعيش؟</label>
+                <select id="inp-region" class="input-field" onchange="updateCities()">
+                    <option value="" disabled selected>اختر المنطقة</option>
+                    <option value="westbank">الضفة الغربية</option>
+                    <option value="interior">الداخل المحتل</option>
+                </select>
+            </div>
+
+            <div class="form-group" id="city-group" style="display:none;">
+                <label class="label">المدينة / القرية</label>
+                <select id="inp-city" class="input-field">
+                    <option value="" disabled selected>اختر المدينة</option>
+                </select>
             </div>
 
             <div class="form-group">
-                <label class="label">المدينة</label>
-                <input type="text" id="inp-city" class="input-field">
-            </div>
-            <div class="form-group">
-                <label class="label">الشارع</label>
+                <label class="label">الشارع / معلم قريب</label>
                 <input type="text" id="inp-street" class="input-field">
             </div>
 
@@ -229,9 +183,7 @@
         <a href="#" class="nav-link active"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg></a>
     </div>
 
-    <script>
-        if (localStorage.getItem('theme') === 'dark') document.body.classList.add('dark-mode');
-    </script>
+    <script>if (localStorage.getItem('theme') === 'dark') document.body.classList.add('dark-mode');</script>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
@@ -255,23 +207,34 @@
         
         let currentUser = null;
 
+        // قوائم المدن
+        const cities = {
+            westbank: ["رام الله", "نابلس", "الخليل", "جنين", "طولكرم", "بيت لحم", "قلقيلية", "سلفيت", "أريحا", "طوباس", "القدس"],
+            interior: ["الناصرة", "حيفا", "يافا", "عكا", "أم الفحم", "الطيبة", "سخنين", "باقة الغربية", "رهط", "اللد", "الرملة"]
+        };
+
         onAuthStateChanged(auth, async (user) => {
             if (user) {
                 currentUser = user;
-                // جلب البيانات بدون إظهار أخطاء
                 const userDoc = await getDoc(doc(db, "users", user.uid));
                 
                 if (userDoc.exists()) {
                     const data = userDoc.data();
                     showProfile(user, data);
-                    // إذا كان مسجلاً، نقفل حقل الهاتف
-                    document.getElementById('inp-phone').disabled = true;
+                    // قفل الهاتف وتعبئة البيانات
+                    const phoneInput = document.getElementById('inp-phone');
+                    phoneInput.value = data.phone;
+                    phoneInput.disabled = true;
                     document.getElementById('phone-lock-hint').style.display = 'block';
+
+                    // تعبئة المنطقة والمدينة
+                    if(data.region) {
+                        document.getElementById('inp-region').value = data.region;
+                        updateCities();
+                        document.getElementById('inp-city').value = data.city;
+                    }
                 } else {
-                    // *** هنا الحل للمشكلة ***
-                    // لا نظهر تنبيه، بل نفتح نافذة التعديل تلقائياً لتعبئة البيانات
-                    document.getElementById('inp-email').value = user.email;
-                    document.getElementById('inp-phone').disabled = false; // نفتح الهاتف لأول مرة
+                    document.getElementById('inp-phone').disabled = false;
                     document.getElementById('phone-lock-hint').style.display = 'none';
                     openEditModal(); 
                 }
@@ -284,66 +247,118 @@
         function showProfile(user, data) {
             document.getElementById('guest-view').style.display = 'none';
             document.getElementById('user-view').style.display = 'block';
-
-            document.getElementById('main-name').innerText = (data.firstName || "User") + " " + (data.secondName || "");
+            document.getElementById('main-name').innerText = (data.firstName || "مستخدم") + " " + (data.secondName || "");
             document.getElementById('main-avatar').src = user.photoURL || "https://via.placeholder.com/150";
 
-            // تعبئة الحقول في الخلفية
+            // تعبئة الحقول للتعديل
             document.getElementById('inp-fname').value = data.firstName || "";
             document.getElementById('inp-sname').value = data.secondName || "";
-            document.getElementById('inp-phone').value = data.phone || "";
-            document.getElementById('inp-email').value = user.email;
-            document.getElementById('inp-city').value = data.city || "";
             document.getElementById('inp-street').value = data.street || "";
         }
+
+        // تحديث قائمة المدن
+        window.updateCities = () => {
+            const region = document.getElementById('inp-region').value;
+            const citySelect = document.getElementById('inp-city');
+            const cityGroup = document.getElementById('city-group');
+
+            citySelect.innerHTML = '<option value="" disabled selected>اختر المدينة</option>';
+            
+            if (cities[region]) {
+                cities[region].forEach(city => {
+                    const option = document.createElement('option');
+                    option.value = city;
+                    option.innerText = city;
+                    citySelect.appendChild(option);
+                });
+                cityGroup.style.display = 'block';
+            } else {
+                cityGroup.style.display = 'none';
+            }
+        };
 
         window.openEditModal = () => document.getElementById('edit-modal').classList.add('open');
         window.closeEditModal = () => document.getElementById('edit-modal').classList.remove('open');
 
+        // التحقق وحفظ البيانات
         window.saveData = async () => {
+            // إعادة تعيين الأخطاء
+            document.querySelectorAll('.error-msg').forEach(el => el.style.display = 'none');
+            document.querySelectorAll('.input-field').forEach(el => el.classList.remove('error'));
+
             const fname = document.getElementById('inp-fname').value.trim();
             const sname = document.getElementById('inp-sname').value.trim();
             const phone = document.getElementById('inp-phone').value.trim();
-            const city = document.getElementById('inp-city').value.trim();
+            const region = document.getElementById('inp-region').value;
+            const city = document.getElementById('inp-city').value;
             const street = document.getElementById('inp-street').value.trim();
 
-            if(!fname || !phone) {
-                alert("يرجى تعبئة الاسم ورقم الهاتف");
-                return;
+            let isValid = true;
+
+            // 1. تحقق الاسم (عربي فقط)
+            const arabicRegex = /^[\u0621-\u064A ]+$/;
+            if (!arabicRegex.test(fname)) {
+                showError('inp-fname', 'err-fname');
+                isValid = false;
+            }
+            if (!arabicRegex.test(sname)) {
+                showError('inp-sname', 'err-sname');
+                isValid = false;
             }
 
+            // 2. تحقق الهاتف
+            // الحالة 1: يبدأ بـ 05 وطوله 10
+            // الحالة 2: يبدأ بـ 5 وطوله 9
+            const isValidPhone = (phone.startsWith('05') && phone.length === 10 && /^\d+$/.test(phone)) ||
+                                 (phone.startsWith('5') && phone.length === 9 && /^\d+$/.test(phone));
+
+            if (!isValidPhone) {
+                showError('inp-phone', 'err-phone');
+                isValid = false;
+            }
+
+            // 3. تحقق المنطقة والمدينة
+            if (!region || !city) {
+                alert("يرجى اختيار المنطقة والمدينة");
+                isValid = false;
+            }
+
+            if (!isValid) return;
+
+            // الحفظ
             const btn = document.querySelector('.save-btn');
             btn.innerText = "جاري الحفظ...";
 
             try {
-                // استخدام setDoc مع merge لتحديث أو إنشاء البيانات
                 await setDoc(doc(db, "users", currentUser.uid), {
                     firstName: fname,
                     secondName: sname,
                     phone: phone,
                     email: currentUser.email,
+                    region: region,
                     city: city,
                     street: street
                 }, { merge: true });
 
-                // تحديث الواجهة فوراً
                 document.getElementById('main-name').innerText = fname + " " + sname;
                 
-                // قفل الهاتف بعد أول حفظ ناجح
+                // قفل الهاتف
                 document.getElementById('inp-phone').disabled = true;
                 document.getElementById('phone-lock-hint').style.display = 'block';
 
                 closeEditModal();
-                // إظهار واجهة المستخدم في حال كان جديداً
-                document.getElementById('guest-view').style.display = 'none';
-                document.getElementById('user-view').style.display = 'block';
-
+                alert("تم حفظ البيانات بنجاح ✅");
             } catch (error) {
                 console.error(error);
                 alert("حدث خطأ في الحفظ");
             }
             btn.innerText = "حفظ التغييرات";
         };
+
+        function showError(inputId, errorId) {
+            document.getElementById(inputId).classList.add('error');
+            document.getElementById(errorId).style.display = 'block';
+        }
 
         document.getElementById('login-btn').addEventListener('click', () => signInWithPopup(auth, provider));
         document.getElementById('logout-btn').addEventListener('click', () => signOut(auth).then(() => location.reload()));
