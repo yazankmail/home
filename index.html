@@ -25,72 +25,41 @@
         body { font-family: 'Cairo', sans-serif; margin: 0; background-color: var(--bg-color); color: var(--text-main); padding-bottom: 100px; overflow-x: hidden; }
         a { text-decoration: none; color: inherit; }
 
-        /* الهيدر */
         header { padding: 15px 20px; background-color: var(--header-bg); position: sticky; top: 0; z-index: 1000; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 1px 5px rgba(0,0,0,0.05); }
         .logo-img { height: 28px; width: auto; object-fit: contain; }
         .header-actions { display: flex; gap: 15px; align-items: center; }
         .icon-btn { cursor: pointer; color: var(--text-main); display: flex; align-items: center; justify-content: center; width: 35px; height: 35px; border-radius: 50%; background: var(--input-bg); }
         .icon-btn svg { width: 20px; height: 20px; stroke-width: 2; }
 
-        /* التحكم في أيقونات المود */
-        .moon-icon { display: block; }
-        .sun-icon { display: none; }
-        body.dark-mode .moon-icon { display: none; }
-        body.dark-mode .sun-icon { display: block; }
+        .moon-icon { display: block; } .sun-icon { display: none; }
+        body.dark-mode .moon-icon { display: none; } body.dark-mode .sun-icon { display: block; }
 
-        /* البحث */
         .search-container { padding: 15px 20px; }
         .search-box { background: var(--input-bg); border-radius: var(--radius-lg); padding: 14px 20px; display: flex; align-items: center; gap: 10px; border: 1px solid rgba(0,0,0,0.05); }
         .search-box input { border: none; background: transparent; width: 100%; outline: none; font-family: 'Cairo'; color: var(--text-main); font-size: 15px; font-weight: 600; }
         .search-box svg { color: var(--text-sub); width: 22px; }
 
-        /* تعديل البانر (أزياء الصيف) ليكون أنسب */
         .banner-container { padding: 0 20px; margin-bottom: 25px; }
-        .promo-card { 
-            background: linear-gradient(135deg, #0056b3, #4dabf7); 
-            border-radius: 25px; 
-            padding: 25px; 
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center; 
-            position: relative; 
-            overflow: hidden; 
-            height: 160px; /* تقليل الارتفاع قليلاً ليكون أنسب للهاتف */
-            box-shadow: 0 10px 30px rgba(0, 86, 179, 0.3); 
-        }
+        .promo-card { background: linear-gradient(135deg, #0056b3, #4dabf7); border-radius: 25px; padding: 25px; display: flex; justify-content: space-between; align-items: center; position: relative; overflow: hidden; height: 160px; box-shadow: 0 10px 30px rgba(0, 86, 179, 0.3); }
         .promo-text { position: relative; z-index: 2; max-width: 60%; }
         .promo-text h2 { margin: 0 0 8px; font-size: 20px; color: #ffffff; font-weight: 800; line-height: 1.3; }
         .promo-text p { margin: 0 0 15px; font-size: 12px; color: rgba(255,255,255,0.9); font-weight: 600; }
         .shop-now-btn { background: #ffffff; color: #0056b3; padding: 8px 20px; border-radius: 50px; font-size: 12px; font-weight: bold; cursor: pointer; display: inline-block; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
-        .promo-img { 
-            height: 115%; 
-            position: absolute; 
-            left: -10px; 
-            bottom: -15px; 
-            object-fit: cover; 
-            z-index: 1; 
-            transform: scaleX(-1); /* عكس الصورة لتناسب العربية */
-        }
+        .promo-img { height: 115%; position: absolute; left: -10px; bottom: -15px; object-fit: cover; z-index: 1; transform: scaleX(-1); }
 
-        /* التصنيفات */
         .section-title { padding: 0 20px; font-size: 18px; font-weight: 800; margin-bottom: 15px; display: flex; justify-content: space-between; align-items: center; }
         .section-title span { font-size: 13px; color: var(--accent-color); font-weight: 600; cursor: pointer; }
 
         .categories-scroll { display: flex; gap: 15px; padding: 0 20px; overflow-x: auto; scrollbar-width: none; margin-bottom: 30px; }
         .categories-scroll::-webkit-scrollbar { display: none; }
-        .cat-item { display: flex; flex-direction: column; align-items: center; gap: 8px; min-width: 70px; cursor: pointer; }
-        
+        .cat-item { display: flex; flex-direction: column; align-items: center; gap: 8px; min-width: 70px; cursor: pointer; text-decoration: none; }
         .cat-icon { width: 65px; height: 65px; background: var(--card-bg); border-radius: 20px; display: flex; align-items: center; justify-content: center; box-shadow: var(--shadow-soft); padding: 15px; border: 1px solid rgba(0,0,0,0.03); }
         .cat-icon img { width: 100%; height: 100%; object-fit: contain; }
-        
         body.dark-mode .cat-icon img:not(.dynamic-icon) { filter: brightness(0) invert(1); }
-        body.dark-mode .cat-icon img.dynamic-icon { filter: none; }
-
         .cat-name { font-size: 13px; color: var(--text-main); font-weight: 700; white-space: nowrap; }
 
-        /* المنتجات */
         .product-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; padding: 0 20px; }
-        .product-card { background: var(--card-bg); border-radius: 20px; padding: 10px; position: relative; box-shadow: var(--shadow-soft); transition: transform 0.2s; border: 1px solid var(--input-bg); }
+        .product-card { background: var(--card-bg); border-radius: 20px; padding: 10px; position: relative; box-shadow: var(--shadow-soft); transition: transform 0.2s; border: 1px solid var(--input-bg); cursor: pointer; }
         .product-card:active { transform: scale(0.98); }
         .product-img-wrapper { position: relative; width: 100%; height: 160px; border-radius: 15px; overflow: hidden; margin-bottom: 12px; background: var(--input-bg); }
         .product-img { width: 100%; height: 100%; object-fit: cover; }
@@ -102,48 +71,35 @@
         .add-btn-mini { background: var(--text-main); color: var(--bg-color); width: 32px; height: 32px; border-radius: 10px; display: flex; align-items: center; justify-content: center; cursor: pointer; }
         .add-btn-mini svg { width: 18px; height: 18px; stroke-width: 2.5; }
 
-        /* الشريط السفلي */
         .floating-nav { position: fixed; bottom: 20px; left: 20px; right: 20px; background-color: var(--nav-bar-bg); height: 70px; border-radius: 25px; display: flex; justify-content: space-around; align-items: center; padding: 0 10px; box-shadow: 0 10px 40px rgba(0,0,0,0.15); z-index: 999; border: 1px solid rgba(0,0,0,0.05); }
         .nav-link { display: flex; flex-direction: column; align-items: center; justify-content: center; color: var(--nav-text); text-decoration: none; transition: 0.3s; gap: 4px; }
         .nav-link.active { color: var(--nav-active); }
-        .nav-link.active::after { content: ''; width: 5px; height: 5px; background: var(--nav-active); border-radius: 50%; margin-top: 2px; }
         .nav-link svg { width: 26px; height: 26px; stroke-width: 2; fill: none; stroke: currentColor; }
-        .nav-link.active svg { fill: currentColor; stroke: none; }
         
-        /* 🔥 تعديل هام: إخفاء سلة الهيدر في الموبايل فقط */
-        @media (max-width: 768px) {
-            .header-cart-icon { display: none !important; }
-        }
-        /* إخفاء الشريط السفلي في الكمبيوتر */
-        @media (min-width: 769px) {
-            .floating-nav { display: none; }
-        }
+        @media (max-width: 768px) { .header-cart-icon { display: none !important; } }
+        @media (min-width: 769px) { .floating-nav { display: none; } }
 
         .toast { visibility: hidden; min-width: 250px; background-color: #333; color: #fff; text-align: center; border-radius: 50px; padding: 12px; position: fixed; z-index: 2000; left: 50%; bottom: 110px; transform: translateX(-50%); font-size: 14px; opacity: 0; transition: opacity 0.3s; box-shadow: 0 5px 20px rgba(0,0,0,0.2); }
         .toast.show { visibility: visible; opacity: 1; }
-        
         .loading-products { text-align: center; color: var(--text-sub); width: 100%; grid-column: span 2; padding: 20px; }
     </style>
 </head>
 <body>
 
     <header>
-        <div class="icon-btn" onclick="alert('القائمة الجانبية')">
+        <div class="icon-btn" onclick="alert('القائمة')">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
         </div>
-
         <a href="#" class="logo-link">
-            <img id="app-logo" src="" alt="Wusooly" class="logo-img">
+            <img id="app-logo" src="https://raw.githubusercontent.com/yazankmail/home/refs/heads/main/%D9%A2%D9%A0%D9%A2%D9%A6%D9%A0%D9%A1%D9%A3%D9%A1_%D9%A2%D9%A1%D9%A4%D9%A7%D9%A3%D9%A5.png" alt="Wusooly" class="logo-img">
         </a>
-
         <div class="header-actions">
             <a href="cart.html" class="icon-btn header-cart-icon">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
             </a>
-            
             <div class="icon-btn" onclick="window.toggleThemeManual()">
                 <svg class="moon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
-                <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line></svg>
             </div>
         </div>
     </header>
@@ -151,7 +107,7 @@
     <div class="search-container">
         <div class="search-box">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-            <input type="text" placeholder="ابحث عن منتج، ماركة...">
+            <input type="text" placeholder="ابحث عن منتج...">
         </div>
     </div>
 
@@ -169,40 +125,38 @@
     <div class="section-title">التصنيفات <span>عرض الكل</span></div>
     <div class="categories-scroll">
         <a href="tshirt.html" class="cat-item">
-            <div class="cat-icon"><img id="cat-tshirt-img" class="dynamic-icon" src=""></div>
-            <div class="cat-name">تيشيرت</div>
+            <div class="cat-icon"><img id="cat-tshirt-img" class="dynamic-icon" src="https://i.ibb.co/V0K4tK8N/image.png"></div>
+            <div class="cat-name">ملابس</div>
         </a>
         <a href="gifts.html" class="cat-item">
-            <div class="cat-icon"><img id="cat-gift-img" class="dynamic-icon" src=""></div>
+            <div class="cat-icon"><img id="cat-gift-img" class="dynamic-icon" src="https://raw.githubusercontent.com/yazankmail/home/refs/heads/main/Gift_Green.png"></div>
             <div class="cat-name">بكجات هدايا</div>
         </a>
         <a href="accessories.html" class="cat-item">
-            <div class="cat-icon"><img id="cat-access-img" class="dynamic-icon" src=""></div>
+            <div class="cat-icon"><img id="cat-access-img" class="dynamic-icon" src="https://raw.githubusercontent.com/yazankmail/home/refs/heads/main/Ecc_Green.png"></div>
             <div class="cat-name">اكسسوارات</div>
         </a>
         <a href="bags.html" class="cat-item">
-            <div class="cat-icon"><img id="cat-bags-img" class="dynamic-icon" src=""></div>
+            <div class="cat-icon"><img id="cat-bags-img" class="dynamic-icon" src="https://raw.githubusercontent.com/yazankmail/home/refs/heads/main/Bags_Green.png"></div>
             <div class="cat-name">شنط</div>
         </a>
         <a href="shoes.html" class="cat-item">
-            <div class="cat-icon"><img id="cat-shoes-img" class="dynamic-icon" src=""></div>
-            <div class="cat-name">أحذية نسائية</div>
+            <div class="cat-icon"><img id="cat-shoes-img" class="dynamic-icon" src="https://raw.githubusercontent.com/yazankmail/home/refs/heads/main/shoes1_green.png"></div>
+            <div class="cat-name">أحذية</div>
         </a>
         <a href="electronics.html" class="cat-item">
-            <div class="cat-icon"><img id="cat-electronics-img" class="dynamic-icon" src=""></div>
+            <div class="cat-icon"><img id="cat-electronics-img" class="dynamic-icon" src="https://raw.githubusercontent.com/yazankmail/home/refs/heads/main/Elkton_Green.png"></div>
             <div class="cat-name">إلكترونيات</div>
         </a>
     </div>
 
     <div class="section-title">وصل حديثاً <span>فلتر</span></div>
-    
     <div id="dynamic-products" class="product-grid">
         <div class="loading-products">جاري تحميل المنتجات... 📦</div>
     </div>
 
     <div class="floating-nav">
         <a href="#" class="nav-link active"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg></a>
-        <a href="#" class="nav-link"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg></a>
         <a href="cart.html" class="nav-link"><svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg></a>
         <a href="profile.html" class="nav-link"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg></a>
     </div>
@@ -230,7 +184,6 @@
             }
         }
 
-        // دالة تبديل المود (تم إصلاحها للتأكد من أنها تعمل عند النقر)
         window.toggleThemeManual = function() {
             document.body.classList.toggle('dark-mode');
             const isDark = document.body.classList.contains('dark-mode');
@@ -249,7 +202,6 @@
             setTimeout(() => { toast.className = toast.className.replace("show", ""); }, 3000);
         }
 
-        // تشغيل عند التحميل
         document.addEventListener('DOMContentLoaded', () => {
             const savedTheme = localStorage.getItem('theme');
             const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
@@ -264,7 +216,7 @@
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-        import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+        import { getFirestore, collection, getDocs, limit, query } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyBa0RwEcbVqWYAKeUFeZy2IDihaxUxtNKY",
@@ -272,55 +224,54 @@
             projectId: "wusooly-1906b",
             storageBucket: "wusooly-1906b.firebasestorage.app",
             messagingSenderId: "95836343161",
-            appId: "1:95836343161:web:73ae3faaca406c0bf7fda8",
-            measurementId: "G-2704R4YR1M"
+            appId: "1:95836343161:web:73ae3faaca406c0bf7fda8"
         };
 
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
-        // جلب المنتجات
         async function fetchProducts() {
             const container = document.getElementById('dynamic-products');
             try {
-                const querySnapshot = await getDocs(collection(db, "products"));
+                const q = query(collection(db, "products"), limit(10)); 
+                const querySnapshot = await getDocs(q);
                 
                 if (querySnapshot.empty) {
                     container.innerHTML = '<div class="loading-products">لا توجد منتجات حالياً 📭</div>';
                     return;
                 }
 
-                container.innerHTML = ''; // مسح رسالة التحميل
+                container.innerHTML = ''; 
 
                 querySnapshot.forEach((doc) => {
-                    const product = doc.data();
+                    const p = doc.data();
+                    const imageSrc = (p.images && p.images.length > 0) ? p.images[0] : (p.image || 'https://via.placeholder.com/150');
+                    
                     const html = `
                     <div class="product-card" onclick="window.location.href='product_details.html?id=${doc.id}'">
                         <div class="fav-icon">♡</div>
                         <div class="product-img-wrapper">
-                            <img src="${product.image}" class="product-img">
+                            <img src="${imageSrc}" class="product-img">
                         </div>
                         <div class="product-info">
-                            <h3>${product.name}</h3>
-                            <p>${product.category}</p>
+                            <h3>${p.name}</h3>
+                            <p>${p.category}</p>
                             <div class="price-row">
-                                <div class="price">₪${product.price}</div>
-                                <div class="add-btn-mini" onclick="event.stopPropagation(); window.addToCart('${product.name}', ${product.price}, '${product.image}')">
+                                <div class="price">₪${p.price}</div>
+                                <div class="add-btn-mini">
                                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    `;
+                    </div>`;
                     container.innerHTML += html;
                 });
 
             } catch (error) {
-                console.error("Error getting products: ", error);
+                console.error(error);
                 container.innerHTML = '<div class="loading-products">حدث خطأ في الاتصال ⚠️</div>';
             }
         }
-
         fetchProducts();
     </script>
 </body>
