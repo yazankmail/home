@@ -29,9 +29,7 @@
         <div class="page-title">اكسسوارات</div>
         <div style="width: 40px;"></div>
     </header>
-
     <div id="product-container" class="product-grid"><div class="loading-msg">جاري التحميل...</div></div>
-
     <script> if (localStorage.getItem('theme') === 'dark') document.body.classList.add('dark-mode'); </script>
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
@@ -39,14 +37,12 @@
         const app = initializeApp({ apiKey: "AIzaSyBa0RwEcbVqWYAKeUFeZy2IDihaxUxtNKY", authDomain: "wusooly-1906b.firebaseapp.com", projectId: "wusooly-1906b" });
         const db = getFirestore(app);
         
-        const currentCategory = "اكسسوارات";
-
         async function loadProducts() {
             const container = document.getElementById('product-container');
             try {
-                const q = query(collection(db, "products"), where("category", "==", currentCategory));
+                const q = query(collection(db, "products"), where("category", "==", "اكسسوارات"));
                 const querySnapshot = await getDocs(q);
-                if (querySnapshot.empty) { container.innerHTML = '<div class="loading-msg">لا توجد منتجات هنا 📭</div>'; return; }
+                if (querySnapshot.empty) { container.innerHTML = '<div class="loading-msg">لا توجد منتجات 📭</div>'; return; }
                 container.innerHTML = '';
                 querySnapshot.forEach((doc) => {
                     const p = doc.data();
@@ -54,7 +50,7 @@
                     container.innerHTML += `
                     <div class="product-card" onclick="window.location.href='product_details.html?id=${doc.id}'">
                         <div class="img-container"><img src="${imageSrc}" class="product-img"></div>
-                        <div class="product-details"><div class="product-name">${p.name}</div><div class="product-price">${p.price} ₪</div></div>
+                        <div class="product-details"><div class="product-name">${p.name}</div><div class="product-price">₪${p.price}</div></div>
                     </div>`;
                 });
             } catch (e) { container.innerHTML = '<div class="loading-msg">خطأ في الاتصال</div>'; }
