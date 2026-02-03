@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>السياسات - Wsooly</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap');
+        
+        :root {
+            --bg-color: #f8f9fa; --header-bg: #ffffff; --card-bg: #ffffff;
+            --text-main: #333; --text-sub: #666; --accent-color: #0056b3;
+            --icon-bg: #e3f2fd;
+        }
+
+        body.dark-mode {
+            --bg-color: #121212; --header-bg: #1e1e1e; --card-bg: #1e1e1e;
+            --text-main: #e0e0e0; --text-sub: #aaaaaa; --accent-color: #4dabf7;
+            --icon-bg: #1a2733;
+        }
+
+        * { box-sizing: border-box; transition: 0.3s; }
+        body { font-family: 'Cairo', sans-serif; margin: 0; background: var(--bg-color); color: var(--text-main); padding-bottom: 50px; }
+
+        header { padding: 15px 20px; background: var(--header-bg); position: sticky; top: 0; z-index: 1000; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 1px 5px rgba(0,0,0,0.05); }
+        .back-btn { cursor: pointer; width: 40px; height: 40px; border-radius: 50%; background: var(--bg-color); display: flex; align-items: center; justify-content: center; color: var(--text-main); text-decoration: none; font-weight: bold; }
+        .page-title { font-size: 18px; font-weight: 800; }
+
+        .container { max-width: 800px; margin: 20px auto; padding: 0 20px; }
+
+        /* تنسيق اللوغو والتبديل */
+        .logo-container { margin-bottom: 30px; width: 100%; }
+        
+        /* 🔥 تم التعديل هنا لضمان التوسيط */
+        .welcome-logo { 
+            max-width: 160px;
+            height: auto; 
+            display: block; /* يجعله عنصراً مستقلاً */
+            margin-left: auto; /* هامش تلقائي من اليسار */
+            margin-right: auto; /* هامش تلقائي من اليمين = توسيط */
+        }
+        
+        /* إخفاء وإظهار حسب المود */
+        .img-dark { display: none; }
+        /* عندما يكون العنصر block، نحتاج للتأكد أن الـ display لا يتعارض */
+        .img-light { display: block; margin-left: auto; margin-right: auto; }
+
+        body.dark-mode .img-light { display: none; }
+        body.dark-mode .img-dark { display: block; margin-left: auto; margin-right: auto; }
+
+        .policy-card { background: var(--card-bg); border-radius: 20px; padding: 25px; margin-bottom: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); display: flex; flex-direction: column; gap: 15px; }
+        
+        .card-header { display: flex; align-items: center; gap: 15px; border-bottom: 1px solid rgba(0,0,0,0.05); padding-bottom: 15px; margin-bottom: 5px; }
+        .icon-box { width: 50px; height: 50px; background: var(--icon-bg); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: var(--accent-color); font-size: 24px; }
+        .card-title { font-size: 18px; font-weight: 800; margin: 0; }
+        
+        .card-body { font-size: 14px; color: var(--text-sub); line-height: 1.7; }
+        .highlight { color: var(--accent-color); font-weight: 700; }
+        ul { padding-right: 20px; margin: 10px 0; }
+        li { margin-bottom: 5px; }
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="index.html" class="back-btn">➜</a>
+        <div class="page-title">السياسات</div>
+        <div style="width: 40px;"></div>
+    </header>
+
+    <div class="container">
+        
+        <div class="logo-container">
+            <img src="https://raw.githubusercontent.com/yazankmail/home/refs/heads/main/%D9%A2%D9%A0%D9%A2%D9%A6%D9%A0%D9%A1%D9%A3%D9%A1_%D9%A2%D9%A1%D9%A4%D9%A7%D9%A3%D9%A5.png" class="welcome-logo img-light" alt="Wusooly Logo">
+            
+            <img src="https://raw.githubusercontent.com/yazankmail/home/refs/heads/main/%D9%A2%D9%A0%D9%A2%D9%A6%D9%A0%D9%A1%D9%A3%D9%A1_%D9%A2%D9%A1%D9%A4%D9%A7%D9%A1%D9%A4.png" class="welcome-logo img-dark" alt="Wusooly Logo Dark">
+        </div>
+
+        <div class="policy-card">
+            <div class="card-header">
+                <div class="icon-box">🚚</div>
+                <h3 class="card-title">سياسة الشحن والتوصيل</h3>
+            </div>
+            <div class="card-body">
+                <p>نحن في Wsooly نلتزم بتوصيل طلباتكم بأسرع وقت ممكن وبأعلى جودة تغليف.</p>
+                <ul>
+                    <li><strong>مناطق التوصيل:</strong> نقوم بالتوصيل إلى كافة مدن الضفة الغربية، القدس، والداخل المحتل.</li>
+                    <li><strong>مدة التوصيل:</strong> تستغرق عملية التوصيل عادة من <span class="highlight">2 إلى 5 أيام عمل</span> حسب المنطقة.</li>
+                    <li><strong>رسوم التوصيل:</strong> تظهر تكلفة التوصيل النهائية عند إتمام الطلب بناءً على موقعك الجغرافي.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="policy-card">
+            <div class="card-header">
+                <div class="icon-box">↺</div>
+                <h3 class="card-title">سياسة الاستبدال والترجيع</h3>
+            </div>
+            <div class="card-body">
+                <p>رضاكم هو هدفنا! إذا لم يكن المنتج كما توقعت، يمكنك طلب الاستبدال أو الإرجاع وفق الشروط التالية:</p>
+                <ul>
+                    <li>أن يكون المنتج بحالته الأصلية تماماً ولم يتم استخدامه.</li>
+                    <li>تقديم طلب الإرجاع خلال <span class="highlight">3 أيام</span> من تاريخ الاستلام.</li>
+                    <li>المنتجات المخفضة (العروض) قابلة للاستبدال فقط ولا يمكن إرجاعها.</li>
+                    <li>يتحمل العميل رسوم التوصيل الخاصة بعملية الاستبدال إلا في حال وجود عيب مصنعي.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="policy-card">
+            <div class="card-header">
+                <div class="icon-box">🔒</div>
+                <h3 class="card-title">سياسة الخصوصية والأمان</h3>
+            </div>
+            <div class="card-body">
+                <p>نحترم خصوصيتك ونلتزم بحماية بياناتك الشخصية. المعلومات التي نجمعها (مثل الاسم، رقم الهاتف، والعنوان) تستخدم فقط لغرض:</p>
+                <ul>
+                    <li>معالجة طلباتك وتوصيلها.</li>
+                    <li>التواصل معك بخصوص حالة الطلب.</li>
+                    <li>تحسين تجربتك في التسوق.</li>
+                </ul>
+                <p>نحن لا نشارك بياناتك مع أي طرف ثالث لأغراض تسويقية دون موافقتك الصريحة.</p>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        if (localStorage.getItem('theme') === 'dark') document.body.classList.add('dark-mode');
+    </script>
+</body>
+</html>
