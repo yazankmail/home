@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>تيشيرت - Wusooly</title>
+    <title>ملابس - Wusooly</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap');
         :root { --bg-color: #f8f9fa; --header-bg: #ffffff; --text-main: #333; --accent-color: #0056b3; --card-bg: #ffffff; --input-bg: #f9f9f9; --shadow-soft: 0 4px 20px rgba(0,0,0,0.06); }
@@ -26,12 +26,12 @@
 <body>
     <header>
         <a href="index.html" class="back-btn">➜</a>
-        <div class="page-title">تيشيرت</div>
+        <div class="page-title">ملابس</div>
         <div style="width: 40px;"></div>
     </header>
 
     <div id="product-container" class="product-grid">
-        <div class="loading-msg">جاري جلب المنتجات...</div>
+        <div class="loading-msg">جاري التحميل...</div>
     </div>
 
     <script> if (localStorage.getItem('theme') === 'dark') document.body.classList.add('dark-mode'); </script>
@@ -39,43 +39,29 @@
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
         import { getFirestore, collection, getDocs, query, where } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
-        
         const app = initializeApp({ apiKey: "AIzaSyBa0RwEcbVqWYAKeUFeZy2IDihaxUxtNKY", authDomain: "wusooly-1906b.firebaseapp.com", projectId: "wusooly-1906b" });
         const db = getFirestore(app);
-
-        // 🔥 يجب أن يطابق هذا الاسم ما اخترته في الأدمن بالضبط
-        const currentCategory = "تيشيرت"; 
+        
+        // 🔥 تم التغيير للبحث عن "ملابس" في قاعدة البيانات
+        const currentCategory = "ملابس"; 
 
         async function loadProducts() {
             const container = document.getElementById('product-container');
             try {
                 const q = query(collection(db, "products"), where("category", "==", currentCategory));
                 const querySnapshot = await getDocs(q);
-                
-                if (querySnapshot.empty) { 
-                    container.innerHTML = '<div class="loading-msg">لا توجد منتجات في هذا القسم حالياً 📭</div>'; 
-                    return; 
-                }
-                
+                if (querySnapshot.empty) { container.innerHTML = '<div class="loading-msg">لا توجد ملابس حالياً 📭</div>'; return; }
                 container.innerHTML = '';
                 querySnapshot.forEach((doc) => {
                     const p = doc.data();
-                    // كود ذكي لجلب الصورة سواء كانت مصفوفة جديدة أو نص قديم
                     const imageSrc = (p.images && p.images.length > 0) ? p.images[0] : (p.image || 'https://via.placeholder.com/150');
-                    
                     container.innerHTML += `
                     <div class="product-card" onclick="window.location.href='product_details.html?id=${doc.id}'">
                         <div class="img-container"><img src="${imageSrc}" class="product-img"></div>
-                        <div class="product-details">
-                            <div class="product-name">${p.name}</div>
-                            <div class="product-price">${p.price} ₪</div>
-                        </div>
+                        <div class="product-details"><div class="product-name">${p.name}</div><div class="product-price">₪${p.price}</div></div>
                     </div>`;
                 });
-            } catch (e) { 
-                console.error(e);
-                container.innerHTML = '<div class="loading-msg">حدث خطأ في الاتصال ⚠️</div>'; 
-            }
+            } catch (e) { container.innerHTML = '<div class="loading-msg">خطأ في الاتصال</div>'; }
         }
         loadProducts();
     </script>
