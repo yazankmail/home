@@ -5,9 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>الرئيسية - Acces</title>
     
-    <link rel="preload" as="image" href="https://raw.githubusercontent.com/yazankmail/ggg/refs/heads/main/800-4001.jpg" fetchpriority="high">
-    <link rel="preload" as="image" href="https://raw.githubusercontent.com/yazankmail/ggg/refs/heads/main/Acces_lightmode_logo.png" fetchpriority="high">
-    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
@@ -102,8 +99,8 @@
             box-shadow: 0 4px 15px rgba(0,0,0,0.1); 
             padding: 15px; 
             border: 1px solid rgba(255,255,255,0.1); 
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
             will-change: transform;
             transform: translate3d(0,0,0);
             -webkit-transform: translate3d(0,0,0);
@@ -127,7 +124,6 @@
         
         .cat-name { font-size: 14px; color: var(--text-main); font-weight: 700; white-space: nowrap; }
 
-        /* النوافذ المنبثقة */
         .search-overlay, .categories-overlay { 
             position: fixed; 
             left: 0; 
@@ -154,7 +150,6 @@
         .categories-grid-modal { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px 10px; overflow-y: auto; padding-bottom: 30px; }
         .categories-grid-modal .cat-item { min-width: auto; }
 
-        /* منطقة المنتجات */
         .product-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; padding: 0 20px; }
         
         .product-card { 
@@ -194,9 +189,7 @@
         .price { font-size: 16px; font-weight: 800; color: #ff4747; direction: ltr; }
         .add-btn-mini { width: 30px; height: 30px; border-radius: 50%; background: var(--text-main); color: var(--card-bg); display: flex; align-items: center; justify-content: center; font-size: 20px; font-weight: 500; cursor: pointer; line-height: 1; padding-bottom: 2px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); z-index: 3; }
 
-        /* ========================================= */
-        /* القائمة الجانبية (Sidebar) وتنسيقاتها */
-        /* ========================================= */
+        /* القائمة الجانبية (Sidebar) */
         .sidebar-overlay { 
             position: fixed; top: 0; left: 0; right: 0; bottom: 0; 
             background: rgba(0,0,0,0.5); z-index: 2000; 
@@ -228,14 +221,12 @@
         }
         .sidebar-link:hover, .sidebar-link:active { background-color: var(--input-bg); }
         
-        /* الأيقونات ذات اللون الأزرق الغامق الاحترافي */
         .sidebar-icon { 
             width: 24px; height: 24px; 
-            color: #0B2545; /* أزرق غامق جداً وفخم */
+            color: #0B2545; 
             display: flex; align-items: center; justify-content: center; 
         }
-        body.dark-mode .sidebar-icon { color: #4dabf7; /* توضيح اللون في الوضع الليلي */ }
-        /* ========================================= */
+        body.dark-mode .sidebar-icon { color: #4dabf7; }
 
         .floating-nav { position: fixed; bottom: 20px; left: 20px; right: 20px; background-color: var(--nav-bar-bg); height: 70px; border-radius: 25px; display: flex; justify-content: space-around; align-items: center; padding: 0 10px; box-shadow: 0 10px 40px rgba(0,0,0,0.15); z-index: 999; border: 1px solid rgba(0,0,0,0.05); transform: translateZ(0); }
         .nav-link { display: flex; flex-direction: column; align-items: center; justify-content: center; color: var(--nav-text); text-decoration: none; transition: 0.3s; gap: 4px; width: 25%; }
@@ -259,7 +250,7 @@
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
         </div>
         <a href="#" class="logo-link">
-            <img id="app-logo" src="https://raw.githubusercontent.com/yazankmail/ggg/refs/heads/main/Acces_lightmode_logo.png" alt="Acces" class="logo-img" fetchpriority="high">
+            <img id="app-logo" src="https://raw.githubusercontent.com/yazankmail/ggg/main/Acces_lightmode_logo.png?v=2" alt="Acces" class="logo-img">
         </a>
         <div class="header-actions">
             <a href="cart.html" class="icon-btn header-cart-icon">
@@ -275,10 +266,10 @@
     <div class="banner-container">
         <div class="slider-wrapper" id="promo-slider">
             <div class="slide active">
-                <img src="https://raw.githubusercontent.com/yazankmail/ggg/refs/heads/main/800-4001.jpg" alt="Promo 1" fetchpriority="high">
+                <img src="https://raw.githubusercontent.com/yazankmail/ggg/main/800-4001.jpg?v=2" alt="Promo 1">
             </div>
             <div class="slide">
-                <img src="https://raw.githubusercontent.com/yazankmail/ggg/refs/heads/main/800-4002.jpg" alt="Promo 2" loading="lazy">
+                <img src="https://raw.githubusercontent.com/yazankmail/ggg/main/800-4002.jpg?v=2" alt="Promo 2">
             </div>
             
             <div class="slider-dots">
@@ -293,36 +284,36 @@
     <div class="categories-wrapper">
         <div class="categories-track">
             <a href="bags.html" class="cat-item">
-                <div class="cat-icon"><img src="https://raw.githubusercontent.com/yazankmail/ggg/refs/heads/main/baags.png"></div>
+                <div class="cat-icon"><img src="https://raw.githubusercontent.com/yazankmail/ggg/main/baags.png?v=2"></div>
                 <div class="cat-name">شنط</div>
             </a>    
             <a href="tshirt.html" class="cat-item">
-                <div class="cat-icon"><img src="https://raw.githubusercontent.com/yazankmail/ggg/refs/heads/main/womwatch.png"></div>
+                <div class="cat-icon"><img src="https://raw.githubusercontent.com/yazankmail/ggg/main/womwatch.png?v=2"></div>
                 <div class="cat-name">ساعات نسائية</div>
             </a>
             <a href="shoes.html" class="cat-item">
-                <div class="cat-icon"><img src="https://raw.githubusercontent.com/yazankmail/ggg/refs/heads/main/Menwatch.png"></div>
+                <div class="cat-icon"><img src="https://raw.githubusercontent.com/yazankmail/ggg/main/Menwatch.png?v=2"></div>
                 <div class="cat-name">ساعات رجالية</div>
             </a>
             <a href="accessories.html" class="cat-item">
-                <div class="cat-icon"><img src="https://raw.githubusercontent.com/yazankmail/ggg/refs/heads/main/Generalacces.png"></div>
+                <div class="cat-icon"><img src="https://raw.githubusercontent.com/yazankmail/ggg/main/Generalacces.png?v=2"></div>
                 <div class="cat-name">اكسسوارات</div>
             </a>
 
             <a href="bags.html" class="cat-item">
-                <div class="cat-icon"><img src="https://raw.githubusercontent.com/yazankmail/ggg/refs/heads/main/baags.png"></div>
+                <div class="cat-icon"><img src="https://raw.githubusercontent.com/yazankmail/ggg/main/baags.png?v=2"></div>
                 <div class="cat-name">شنط</div>
             </a>    
             <a href="tshirt.html" class="cat-item">
-                <div class="cat-icon"><img src="https://raw.githubusercontent.com/yazankmail/ggg/refs/heads/main/womwatch.png"></div>
+                <div class="cat-icon"><img src="https://raw.githubusercontent.com/yazankmail/ggg/main/womwatch.png?v=2"></div>
                 <div class="cat-name">ساعات نسائية</div>
             </a>
             <a href="shoes.html" class="cat-item">
-                <div class="cat-icon"><img src="https://raw.githubusercontent.com/yazankmail/ggg/refs/heads/main/Menwatch.png"></div>
+                <div class="cat-icon"><img src="https://raw.githubusercontent.com/yazankmail/ggg/main/Menwatch.png?v=2"></div>
                 <div class="cat-name">ساعات رجالية</div>
             </a>
             <a href="accessories.html" class="cat-item">
-                <div class="cat-icon"><img src="https://raw.githubusercontent.com/yazankmail/ggg/refs/heads/main/Generalacces.png"></div>
+                <div class="cat-icon"><img src="https://raw.githubusercontent.com/yazankmail/ggg/main/Generalacces.png?v=2"></div>
                 <div class="cat-name">اكسسوارات</div>
             </a>
         </div>
@@ -364,19 +355,19 @@
         </div>
         <div class="categories-grid-modal">
             <a href="bags.html" class="cat-item">
-                <div class="cat-icon"><img src="https://raw.githubusercontent.com/yazankmail/ggg/refs/heads/main/baags.png" loading="lazy"></div>
+                <div class="cat-icon"><img src="https://raw.githubusercontent.com/yazankmail/ggg/main/baags.png?v=2"></div>
                 <div class="cat-name">شنط</div>
             </a>    
             <a href="tshirt.html" class="cat-item">
-                <div class="cat-icon"><img src="https://raw.githubusercontent.com/yazankmail/ggg/refs/heads/main/womwatch.png" loading="lazy"></div>
+                <div class="cat-icon"><img src="https://raw.githubusercontent.com/yazankmail/ggg/main/womwatch.png?v=2"></div>
                 <div class="cat-name">ساعات نسائية</div>
             </a>
             <a href="shoes.html" class="cat-item">
-                <div class="cat-icon"><img src="https://raw.githubusercontent.com/yazankmail/ggg/refs/heads/main/Menwatch.png" loading="lazy"></div>
+                <div class="cat-icon"><img src="https://raw.githubusercontent.com/yazankmail/ggg/main/Menwatch.png?v=2"></div>
                 <div class="cat-name">ساعات رجالية</div>
             </a>
             <a href="accessories.html" class="cat-item">
-                <div class="cat-icon"><img src="https://raw.githubusercontent.com/yazankmail/ggg/refs/heads/main/Generalacces.png" loading="lazy"></div>
+                <div class="cat-icon"><img src="https://raw.githubusercontent.com/yazankmail/ggg/main/Generalacces.png?v=2"></div>
                 <div class="cat-name">اكسسوارات</div>
             </a>
         </div>
@@ -385,7 +376,7 @@
     <div class="sidebar-overlay" id="sidebar-overlay" onclick="toggleSidebar()"></div>
     <div class="sidebar" id="sidebar">
         <div class="sidebar-header">
-            <img id="sidebar-logo" src="https://raw.githubusercontent.com/yazankmail/ggg/refs/heads/main/Acces_lightmode_logo.png" class="sidebar-logo" alt="Acces">
+            <img id="sidebar-logo" src="https://raw.githubusercontent.com/yazankmail/ggg/main/Acces_lightmode_logo.png?v=2" class="sidebar-logo" alt="Acces">
             <div class="close-search-btn" onclick="toggleSidebar()" style="width: 35px; height: 35px; border-radius: 50%; display: flex; align-items: center; justify-content: center;">✕</div>
         </div>
         <div class="sidebar-menu">
@@ -415,6 +406,7 @@
             </a>
         </div>
     </div>
+
     <div class="floating-nav">
         <a href="#" class="nav-link active"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg></a>
         <a href="#" class="nav-link" onclick="toggleSearch(event)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></a>
@@ -427,12 +419,12 @@
     <script>
         const imageConfig = {
             'app-logo': {
-                light: "https://raw.githubusercontent.com/yazankmail/ggg/refs/heads/main/Acces_lightmode_logo.png",
-                dark: "https://raw.githubusercontent.com/yazankmail/ggg/refs/heads/main/Acces_darkmode_logo.png"
+                light: "https://raw.githubusercontent.com/yazankmail/ggg/main/Acces_lightmode_logo.png?v=2",
+                dark: "https://raw.githubusercontent.com/yazankmail/ggg/main/Acces_darkmode_logo.png?v=2"
             },
             'sidebar-logo': {
-                light: "https://raw.githubusercontent.com/yazankmail/ggg/refs/heads/main/Acces_lightmode_logo.png",
-                dark: "https://raw.githubusercontent.com/yazankmail/ggg/refs/heads/main/Acces_darkmode_logo.png"
+                light: "https://raw.githubusercontent.com/yazankmail/ggg/main/Acces_lightmode_logo.png?v=2",
+                dark: "https://raw.githubusercontent.com/yazankmail/ggg/main/Acces_darkmode_logo.png?v=2"
             }
         };
 
@@ -464,7 +456,6 @@
             overlay.classList.toggle('active');
         }
 
-        // الكود المسؤول عن فتح وإغلاق القائمة الجانبية
         window.toggleSidebar = function() {
             document.getElementById('sidebar').classList.toggle('active');
             document.getElementById('sidebar-overlay').classList.toggle('active');
@@ -506,6 +497,18 @@
                     slides[currentSlide].classList.add('active');
                     dots[currentSlide].classList.add('active');
                 }, 5000); 
+            }
+        });
+
+        // كود تمرير المود عبر الرابط عند الانتقال لصفحات أخرى
+        document.addEventListener('click', function(e) {
+            const link = e.target.closest('a');
+            if (link && link.getAttribute('href') && link.getAttribute('href').endsWith('.html')) {
+                e.preventDefault();
+                const isDark = document.body.classList.contains('dark-mode');
+                const url = new URL(link.href, window.location.href);
+                url.searchParams.set('theme', isDark ? 'dark' : 'light');
+                window.location.href = url.href;
             }
         });
     </script>
