@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>من نحن؟ - Acces</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-color: #f8f9fa; --header-bg: #ffffff; --text-main: #333333; --text-sub: #666666;
+            --accent-color: #0056b3; --secondary-accent: #ff4747; --card-bg: #ffffff; --input-bg: #f9f9f9;
+            --nav-bar-bg: #ffffff; --nav-text: #999999; --nav-active: #0056b3;
+            --shadow-soft: 0 4px 20px rgba(0,0,0,0.05); --radius-lg: 20px;
+        }
+
+        body.dark-mode {
+            --bg-color: #121212; --header-bg: #1e1e1e; --text-main: #e0e0e0; --text-sub: #aaaaaa;
+            --accent-color: #4dabf7; --secondary-accent: #ff6b6b; --card-bg: #1e1e1e; --input-bg: #2c2c2c;
+            --nav-bar-bg: #1e1e1e; --nav-text: #666666; --nav-active: #ffffff;
+            --shadow-soft: 0 4px 20px rgba(0,0,0,0.3);
+        }
+
+        * { box-sizing: border-box; outline: none; -webkit-tap-highlight-color: transparent; }
+        
+        body, header, .info-card, .back-btn, .btn-no { 
+            transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease; 
+        }
+
+        body { 
+            font-family: 'Tajawal', sans-serif; 
+            margin: 0; 
+            background-color: var(--bg-color); 
+            color: var(--text-main); 
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+        }
+
+        /* --- الشريط العلوي --- */
+        header { 
+            padding: 15px 20px; 
+            background-color: var(--header-bg); 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            z-index: 100;
+            box-shadow: 0 1px 5px rgba(0,0,0,0.05);
+            position: sticky; top: 0;
+        }
+        body.dark-mode header { box-shadow: 0 1px 5px rgba(255,255,255,0.05); }
+
+        .back-btn { 
+            cursor: pointer; 
+            width: 40px; height: 40px; 
+            border-radius: 50%; 
+            background: var(--input-bg); 
+            display: flex; align-items: center; justify-content: center; 
+            color: var(--text-main); text-decoration: none; font-weight: bold; font-size: 18px;
+            border: 1px solid rgba(0,0,0,0.02);
+        }
+        body.dark-mode .back-btn { border-color: rgba(255,255,255,0.05); }
+        .page-title { font-size: 18px; font-weight: 800; color: var(--text-main); }
+
+        /* --- الحاوية الرئيسية --- */
+        .main-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px 20px;
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+            animation: fadeIn 0.4s ease forwards;
+        }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* --- اللوجو والعنوان --- */
+        .about-logo {
+            height: 50px;
+            object-fit: contain;
+            margin-bottom: 20px;
+        }
+        .big-question {
+            font-size: 26px;
+            font-weight: 800;
+            margin-top: 0;
+            margin-bottom: 30px;
+            text-align: center;
+            color: var(--text-main);
+        }
+
+        /* --- كرت المعلومات --- */
+        .info-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 25px;
+            width: 100%;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.04);
+            border: 1px solid rgba(0,0,0,0.02);
+            margin-bottom: 30px;
+        }
+        body.dark-mode .info-card { border-color: rgba(255,255,255,0.05); }
+
+        .info-card h3 {
+            margin-top: 0;
+            color: var(--accent-color);
+            font-size: 18px;
+            font-weight: 800;
+            margin-bottom: 15px;
+        }
+        .info-card p {
+            font-size: 15px;
+            color: var(--text-sub);
+            line-height: 1.8;
+            margin-bottom: 15px;
+            font-weight: 500;
+        }
+        .info-card p:last-child { margin-bottom: 0; }
+
+        /* --- الأزرار --- */
+        .chat-btn {
+            width: 100%; max-width: 300px; padding: 15px 0; border-radius: 15px;
+            font-size: 16px; font-weight: 800; cursor: pointer;
+            text-align: center; border: none; display: block;
+            font-family: 'Tajawal', sans-serif;
+        }
+        .btn-yes { background-color: var(--text-main); color: var(--card-bg); box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        .btn-no { background-color: var(--input-bg); color: var(--text-main); border: 1px solid rgba(0,0,0,0.05); }
+        body.dark-mode .btn-no { border-color: rgba(255,255,255,0.05); }
+        .chat-btn:active { transform: scale(0.97); }
+
+    </style>
+</head>
+<body>
+
+    <script>
+        (function() {
+            try {
+                const urlParams = new URLSearchParams(window.location.search);
+                const themeFromUrl = urlParams.get('theme');
+                const savedTheme = localStorage.getItem('theme');
+                
+                if (themeFromUrl === 'dark' || (!themeFromUrl && savedTheme === 'dark')) {
+                    document.body.classList.add('dark-mode');
+                }
+            } catch(e) {}
+        })();
+    </script>
+
+    <header>
+        <a href="index.html" class="back-btn">➜</a>
+        <div class="page-title">من نحن؟</div>
+        <div style="width: 40px;"></div> </header>
+
+    <div class="main-container">
+        
+        <img id="about-logo" src="https://cdn.jsdelivr.net/gh/yazankmail/ggg@main/Acces_lightmode_logo.png" class="about-logo" alt="Acces">
+        
+        <h1 class="big-question">المتجر الأقوى<br>في فلسطين 🇵🇸</h1>
+        
+        <div class="info-card">
+            <h3>أهلاً بك في Acces</h3>
+            <p>نحن متجر إلكتروني رائد متخصص في تقديم أحدث صيحات الموضة من الحقائب، الساعات، والإكسسوارات بأسعار منافسة وجودة لا تضاهى.</p>
+            <p>انطلقنا برؤية واضحة لتلبية احتياجات السوق الفلسطيني، ونسعى دائماً لتوفير تجربة تسوق مريحة، آمنة، وموثوقة لجميع عملائنا، مع ضمان سرعة التوصيل وخدمة عملاء استثنائية.</p>
+            <p>لأنك تستحقين الأفضل، نحن هنا لنكمل أناقتكِ بلمسة من التميز.</p>
+        </div>
+
+        <button class="chat-btn btn-yes" onclick="window.location.href='index.html'">ابدأ التسوق الآن</button>
+
+    </div>
+
+    <script>
+        // تغيير اللوجو بناءً على المود
+        function updateLogo() {
+            const isDark = document.body.classList.contains('dark-mode');
+            const logoEl = document.getElementById('about-logo');
+            if(logoEl) {
+                logoEl.src = isDark 
+                    ? "https://cdn.jsdelivr.net/gh/yazankmail/ggg@main/Acces_darkmode_logo.png" 
+                    : "https://cdn.jsdelivr.net/gh/yazankmail/ggg@main/Acces_lightmode_logo.png";
+            }
+        }
+        
+        // تشغيل التحديث عند تحميل الصفحة
+        document.addEventListener('DOMContentLoaded', updateLogo);
+
+        // إرسال المود عبر الرابط عند الانتقال
+        document.addEventListener('click', function(e) {
+            const link = e.target.closest('a');
+            // استثناء زر الرجوع لأنه مبرمج لينقل لصفحة html
+            if (link && link.getAttribute('href') && link.getAttribute('href').endsWith('.html')) {
+                e.preventDefault();
+                const isDark = document.body.classList.contains('dark-mode');
+                const url = new URL(link.href, window.location.href);
+                url.searchParams.set('theme', isDark ? 'dark' : 'light');
+                window.location.href = url.href;
+            }
+        });
+
+        // تطبيق نفس القاعدة على الأزرار التي تستخدم window.location
+        const originalHref = window.location.href;
+        const buttons = document.querySelectorAll('button[onclick*="window.location"]');
+        buttons.forEach(btn => {
+            const originalOnclick = btn.getAttribute('onclick');
+            btn.setAttribute('onclick', `
+                event.preventDefault();
+                const isDark = document.body.classList.contains('dark-mode');
+                const targetUrl = 'index.html'; // افتراضي للزر
+                window.location.href = targetUrl + '?theme=' + (isDark ? 'dark' : 'light');
+            `);
+        });
+    </script>
+</body>
+</html>
