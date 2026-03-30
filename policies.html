@@ -3,90 +3,176 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>السياسات - Wsooly</title>
+    <title>سياساتنا - Acces</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+    
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap');
-        
         :root {
-            --bg-color: #f8f9fa; --header-bg: #ffffff; --card-bg: #ffffff;
-            --text-main: #333; --text-sub: #666; --accent-color: #0056b3;
-            --icon-bg: #e3f2fd;
+            --bg-color: #f8f9fa; --header-bg: #ffffff; --text-main: #333333; --text-sub: #666666;
+            --accent-color: #0056b3; --secondary-accent: #ff4747; --card-bg: #ffffff; --input-bg: #f9f9f9;
+            --nav-bar-bg: #ffffff; --nav-text: #999999; --nav-active: #0056b3;
+            --shadow-soft: 0 4px 20px rgba(0,0,0,0.05); --radius-lg: 20px;
         }
 
         body.dark-mode {
-            --bg-color: #121212; --header-bg: #1e1e1e; --card-bg: #1e1e1e;
-            --text-main: #e0e0e0; --text-sub: #aaaaaa; --accent-color: #4dabf7;
-            --icon-bg: #1a2733;
+            --bg-color: #121212; --header-bg: #1e1e1e; --text-main: #e0e0e0; --text-sub: #aaaaaa;
+            --accent-color: #4dabf7; --secondary-accent: #ff6b6b; --card-bg: #1e1e1e; --input-bg: #2c2c2c;
+            --nav-bar-bg: #1e1e1e; --nav-text: #666666; --nav-active: #ffffff;
+            --shadow-soft: 0 4px 20px rgba(0,0,0,0.3);
         }
 
-        * { box-sizing: border-box; transition: 0.3s; }
-        body { font-family: 'Cairo', sans-serif; margin: 0; background: var(--bg-color); color: var(--text-main); padding-bottom: 50px; }
-
-        header { padding: 15px 20px; background: var(--header-bg); position: sticky; top: 0; z-index: 1000; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 1px 5px rgba(0,0,0,0.05); }
-        .back-btn { cursor: pointer; width: 40px; height: 40px; border-radius: 50%; background: var(--bg-color); display: flex; align-items: center; justify-content: center; color: var(--text-main); text-decoration: none; font-weight: bold; }
-        .page-title { font-size: 18px; font-weight: 800; }
-
-        .container { max-width: 800px; margin: 20px auto; padding: 0 20px; }
-
-        /* تنسيق اللوغو والتبديل */
-        .logo-container { margin-bottom: 30px; width: 100%; }
+        * { box-sizing: border-box; outline: none; -webkit-tap-highlight-color: transparent; }
         
-        /* 🔥 تم التعديل هنا لضمان التوسيط */
-        .welcome-logo { 
-            max-width: 160px;
-            height: auto; 
-            display: block; /* يجعله عنصراً مستقلاً */
-            margin-left: auto; /* هامش تلقائي من اليسار */
-            margin-right: auto; /* هامش تلقائي من اليمين = توسيط */
+        body, header, .policy-card, .back-btn, .icon-box { 
+            transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease; 
         }
+
+        body { 
+            font-family: 'Tajawal', sans-serif; 
+            margin: 0; 
+            background-color: var(--bg-color); 
+            color: var(--text-main); 
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+        }
+
+        /* --- الشريط العلوي --- */
+        header { 
+            padding: 15px 20px; 
+            background-color: var(--header-bg); 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            z-index: 100;
+            box-shadow: 0 1px 5px rgba(0,0,0,0.05);
+            position: sticky; top: 0;
+        }
+        body.dark-mode header { box-shadow: 0 1px 5px rgba(255,255,255,0.05); }
+
+        .back-btn { 
+            cursor: pointer; 
+            width: 40px; height: 40px; 
+            border-radius: 50%; 
+            background: var(--input-bg); 
+            display: flex; align-items: center; justify-content: center; 
+            color: var(--text-main); text-decoration: none; font-weight: bold; font-size: 18px;
+            border: 1px solid rgba(0,0,0,0.02);
+        }
+        body.dark-mode .back-btn { border-color: rgba(255,255,255,0.05); }
+        .page-title { font-size: 18px; font-weight: 800; color: var(--text-main); }
+
+        /* --- الحاوية الرئيسية --- */
+        .main-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 30px 20px 50px 20px;
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+            animation: fadeIn 0.4s ease forwards;
+        }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* --- اللوجو --- */
+        .logo-container { margin-bottom: 25px; width: 100%; display: flex; justify-content: center; }
+        .policy-logo { height: 45px; object-fit: contain; }
         
-        /* إخفاء وإظهار حسب المود */
         .img-dark { display: none; }
-        /* عندما يكون العنصر block، نحتاج للتأكد أن الـ display لا يتعارض */
-        .img-light { display: block; margin-left: auto; margin-right: auto; }
-
+        .img-light { display: block; }
         body.dark-mode .img-light { display: none; }
-        body.dark-mode .img-dark { display: block; margin-left: auto; margin-right: auto; }
+        body.dark-mode .img-dark { display: block; }
 
-        .policy-card { background: var(--card-bg); border-radius: 20px; padding: 25px; margin-bottom: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); display: flex; flex-direction: column; gap: 15px; }
+        .page-heading { font-size: 22px; font-weight: 800; margin-bottom: 25px; color: var(--text-main); text-align: center; }
+
+        /* --- كروت السياسات --- */
+        .policy-card { 
+            background: var(--card-bg); 
+            border-radius: 20px; 
+            padding: 20px; 
+            margin-bottom: 15px; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03); 
+            border: 1px solid rgba(0,0,0,0.02);
+            width: 100%;
+            display: flex; 
+            flex-direction: column; 
+            gap: 15px; 
+        }
+        body.dark-mode .policy-card { border-color: rgba(255,255,255,0.05); box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
         
-        .card-header { display: flex; align-items: center; gap: 15px; border-bottom: 1px solid rgba(0,0,0,0.05); padding-bottom: 15px; margin-bottom: 5px; }
-        .icon-box { width: 50px; height: 50px; background: var(--icon-bg); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: var(--accent-color); font-size: 24px; }
-        .card-title { font-size: 18px; font-weight: 800; margin: 0; }
+        .card-header { display: flex; align-items: center; gap: 15px; border-bottom: 1px solid rgba(0,0,0,0.05); padding-bottom: 15px; }
+        body.dark-mode .card-header { border-bottom-color: rgba(255,255,255,0.05); }
         
-        .card-body { font-size: 14px; color: var(--text-sub); line-height: 1.7; }
-        .highlight { color: var(--accent-color); font-weight: 700; }
+        /* الأيقونات الاحترافية الداعمة للآيفون */
+        .icon-box { 
+            width: 45px; height: 45px; 
+            background: var(--input-bg); 
+            border-radius: 12px; 
+            display: flex; align-items: center; justify-content: center; 
+            color: var(--accent-color); 
+            flex-shrink: 0; /* ✨ الحل السحري لمنع اختفاء الأيقونة في سفاري ✨ */
+        }
+        .icon-box svg { width: 22px; height: 22px; }
+
+        .card-title { font-size: 16px; font-weight: 800; margin: 0; color: var(--text-main); }
+        
+        .card-body { font-size: 13px; color: var(--text-sub); line-height: 1.8; font-weight: 500; }
+        .highlight { color: var(--secondary-accent); font-weight: 700; }
         ul { padding-right: 20px; margin: 10px 0; }
-        li { margin-bottom: 5px; }
+        li { margin-bottom: 8px; }
 
     </style>
 </head>
 <body>
 
+    <script>
+        (function() {
+            try {
+                const urlParams = new URLSearchParams(window.location.search);
+                const themeFromUrl = urlParams.get('theme');
+                const savedTheme = localStorage.getItem('theme');
+                
+                if (themeFromUrl === 'dark' || (!themeFromUrl && savedTheme === 'dark')) {
+                    document.body.classList.add('dark-mode');
+                }
+            } catch(e) {}
+        })();
+    </script>
+
     <header>
         <a href="index.html" class="back-btn">➜</a>
-        <div class="page-title">السياسات</div>
+        <div class="page-title">سياساتنا</div>
         <div style="width: 40px;"></div>
     </header>
 
-    <div class="container">
+    <div class="main-container">
         
         <div class="logo-container">
-            <img src="https://raw.githubusercontent.com/yazankmail/home/refs/heads/main/%D9%A2%D9%A0%D9%A2%D9%A6%D9%A0%D9%A1%D9%A3%D9%A1_%D9%A2%D9%A1%D9%A4%D9%A7%D9%A3%D9%A5.png" class="welcome-logo img-light" alt="Wusooly Logo">
-            
-            <img src="https://raw.githubusercontent.com/yazankmail/home/refs/heads/main/%D9%A2%D9%A0%D9%A2%D9%A6%D9%A0%D9%A1%D9%A3%D9%A1_%D9%A2%D9%A1%D9%A4%D9%A7%D9%A1%D9%A4.png" class="welcome-logo img-dark" alt="Wusooly Logo Dark">
+            <img src="https://cdn.jsdelivr.net/gh/yazankmail/ggg@main/Acces_lightmode_logo.png" class="policy-logo img-light" alt="Acces Logo">
+            <img src="https://cdn.jsdelivr.net/gh/yazankmail/ggg@main/Acces_darkmode_logo.png" class="policy-logo img-dark" alt="Acces Logo Dark">
         </div>
+
+        <h1 class="page-heading">القواعد والسياسات</h1>
 
         <div class="policy-card">
             <div class="card-header">
-                <div class="icon-box">🚚</div>
+                <div class="icon-box">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13"></rect><polygon points="16 8 20 8 23 11 23 16 16 16"></polygon><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle></svg>
+                </div>
                 <h3 class="card-title">سياسة الشحن والتوصيل</h3>
             </div>
             <div class="card-body">
-                <p>نحن في Wsooly نلتزم بتوصيل طلباتكم بأسرع وقت ممكن وبأعلى جودة تغليف.</p>
+                <p>نلتزم في المتجر بتوصيل طلباتكم بأسرع وقت ممكن وبأعلى جودة تغليف لضمان سلامة المنتج.</p>
                 <ul>
                     <li><strong>مناطق التوصيل:</strong> نقوم بالتوصيل إلى كافة مدن الضفة الغربية، القدس، والداخل المحتل.</li>
-                    <li><strong>مدة التوصيل:</strong> تستغرق عملية التوصيل عادة من <span class="highlight">2 إلى 5 أيام عمل</span> حسب المنطقة.</li>
+                    <li><strong>مدة التوصيل:</strong> تستغرق عملية التوصيل عادة من <span class="highlight">2 إلى 5 أيام عمل</span>.</li>
                     <li><strong>رسوم التوصيل:</strong> تظهر تكلفة التوصيل النهائية عند إتمام الطلب بناءً على موقعك الجغرافي.</li>
                 </ul>
             </div>
@@ -94,40 +180,87 @@
 
         <div class="policy-card">
             <div class="card-header">
-                <div class="icon-box">↺</div>
+                <div class="icon-box">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"></polyline><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path></svg>
+                </div>
                 <h3 class="card-title">سياسة الاستبدال والترجيع</h3>
             </div>
             <div class="card-body">
                 <p>رضاكم هو هدفنا! إذا لم يكن المنتج كما توقعت، يمكنك طلب الاستبدال أو الإرجاع وفق الشروط التالية:</p>
                 <ul>
-                    <li>أن يكون المنتج بحالته الأصلية تماماً ولم يتم استخدامه.</li>
+                    <li>أن يكون المنتج بحالته الأصلية تماماً، بملصقاته، ولم يتم استخدامه.</li>
                     <li>تقديم طلب الإرجاع خلال <span class="highlight">3 أيام</span> من تاريخ الاستلام.</li>
-                    <li>المنتجات المخفضة (العروض) قابلة للاستبدال فقط ولا يمكن إرجاعها.</li>
-                    <li>يتحمل العميل رسوم التوصيل الخاصة بعملية الاستبدال إلا في حال وجود عيب مصنعي.</li>
+                    <li>المنتجات المخفضة (وقت العروض) قابلة للاستبدال فقط ولا يمكن إرجاعها.</li>
+                    <li>يتحمل العميل رسوم التوصيل لعملية الاستبدال إلا في حال وجود عيب مصنعي في المنتج.</li>
                 </ul>
             </div>
         </div>
 
         <div class="policy-card">
             <div class="card-header">
-                <div class="icon-box">🔒</div>
+                <div class="icon-box">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                </div>
                 <h3 class="card-title">سياسة الخصوصية والأمان</h3>
             </div>
             <div class="card-body">
-                <p>نحترم خصوصيتك ونلتزم بحماية بياناتك الشخصية. المعلومات التي نجمعها (مثل الاسم، رقم الهاتف، والعنوان) تستخدم فقط لغرض:</p>
+                <p>نحترم خصوصيتك ونلتزم أشد الالتزام بحماية بياناتك الشخصية التي تشاركها معنا.</p>
                 <ul>
-                    <li>معالجة طلباتك وتوصيلها.</li>
-                    <li>التواصل معك بخصوص حالة الطلب.</li>
-                    <li>تحسين تجربتك في التسوق.</li>
+                    <li>تُستخدم بياناتك (الاسم، رقم الهاتف، العنوان) لمعالجة الطلبات وتوصيلها فقط.</li>
+                    <li>نستخدم البيانات للتواصل معك بخصوص حالة طلبك وتقديم الدعم الفني.</li>
+                    <li>نحن <span class="highlight">لا نشارك</span> بياناتك مع أي طرف خارجي لأغراض إعلانية دون موافقتك.</li>
                 </ul>
-                <p>نحن لا نشارك بياناتك مع أي طرف ثالث لأغراض تسويقية دون موافقتك الصريحة.</p>
+            </div>
+        </div>
+
+        <div class="policy-card">
+            <div class="card-header">
+                <div class="icon-box">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect><line x1="1" y1="10" x2="23" y2="10"></line></svg>
+                </div>
+                <h3 class="card-title">سياسة الدفع والسداد</h3>
+            </div>
+            <div class="card-body">
+                <p>لتسهيل عملية التسوق، نوفر طرق دفع مرنة وآمنة تناسب الجميع:</p>
+                <ul>
+                    <li><strong>الدفع عند الاستلام:</strong> وهي الطريقة المعتمدة حالياً، حيث تدفع قيمة الطلب نقداً للمندوب عند استلام شحنتك يداً بيد.</li>
+                    <li>الرجاء تجهيز المبلغ المطلوب بدقة لتسهيل وتسريع عملية التسليم من قبل شركة الشحن.</li>
+                    <li>جميع الأسعار المعروضة في المتجر بعملة (الشيكل) وهي نهائية وشاملة للضرائب.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="policy-card">
+            <div class="card-header">
+                <div class="icon-box">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg>
+                </div>
+                <h3 class="card-title">سياسة إلغاء وتعديل الطلبات</h3>
+            </div>
+            <div class="card-body">
+                <p>نحن نتفهم أنك قد تغير رأيك، لذا قمنا بوضع سياسة مرنة لإلغاء أو تعديل الطلبات:</p>
+                <ul>
+                    <li>يمكنك إلغاء أو تعديل الطلب (إضافة/حذف منتجات أو تغيير العنوان) خلال <span class="highlight">12 ساعة</span> من تأكيد الطلب.</li>
+                    <li>لا يمكن إلغاء الطلب بعد تسليمه لشركة الشحن (خروجه للتوصيل).</li>
+                    <li>في حال رفض استلام الطلب بعد شحنه دون سبب مقنع، قد يتم إيقاف ميزة "الدفع عند الاستلام" لحسابك في الطلبات المستقبلية.</li>
+                </ul>
             </div>
         </div>
 
     </div>
 
     <script>
-        if (localStorage.getItem('theme') === 'dark') document.body.classList.add('dark-mode');
+        // إرسال المود عبر الرابط عند الانتقال لصفحة أخرى لضمان ثبات المود
+        document.addEventListener('click', function(e) {
+            const link = e.target.closest('a');
+            if (link && link.getAttribute('href') && link.getAttribute('href').endsWith('.html')) {
+                e.preventDefault();
+                const isDark = document.body.classList.contains('dark-mode');
+                const url = new URL(link.href, window.location.href);
+                url.searchParams.set('theme', isDark ? 'dark' : 'light');
+                window.location.href = url.href;
+            }
+        });
     </script>
 </body>
 </html>
