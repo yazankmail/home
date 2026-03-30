@@ -3,60 +3,149 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>شروط الاستخدام - Wusooly</title>
+    <title>شروط الاستخدام - Acces</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+    
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap');
-        
         :root {
-            --bg-color: #f8f9fa; --header-bg: #ffffff; --card-bg: #ffffff;
-            --text-main: #333; --text-sub: #666; --accent-color: #0056b3;
-            --border-color: #eee;
+            --bg-color: #f8f9fa; --header-bg: #ffffff; --text-main: #333333; --text-sub: #666666;
+            --accent-color: #0056b3; --secondary-accent: #ff4747; --card-bg: #ffffff; --input-bg: #f9f9f9;
+            --nav-bar-bg: #ffffff; --nav-text: #999999; --nav-active: #0056b3;
+            --shadow-soft: 0 4px 20px rgba(0,0,0,0.05); --radius-lg: 20px;
         }
 
         body.dark-mode {
-            --bg-color: #121212; --header-bg: #1e1e1e; --card-bg: #1e1e1e;
-            --text-main: #e0e0e0; --text-sub: #aaaaaa; --accent-color: #4dabf7;
-            --border-color: #333;
+            --bg-color: #121212; --header-bg: #1e1e1e; --text-main: #e0e0e0; --text-sub: #aaaaaa;
+            --accent-color: #4dabf7; --secondary-accent: #ff6b6b; --card-bg: #1e1e1e; --input-bg: #2c2c2c;
+            --nav-bar-bg: #1e1e1e; --nav-text: #666666; --nav-active: #ffffff;
+            --shadow-soft: 0 4px 20px rgba(0,0,0,0.3);
         }
 
-        * { box-sizing: border-box; transition: 0.3s; }
-        body { font-family: 'Cairo', sans-serif; margin: 0; background: var(--bg-color); color: var(--text-main); padding-bottom: 50px; line-height: 1.8; }
-
-        header { padding: 15px 20px; background: var(--header-bg); position: sticky; top: 0; z-index: 1000; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 1px 5px rgba(0,0,0,0.05); }
-        .back-btn { cursor: pointer; width: 40px; height: 40px; border-radius: 50%; background: var(--bg-color); display: flex; align-items: center; justify-content: center; color: var(--text-main); text-decoration: none; font-weight: bold; }
-        .page-title { font-size: 18px; font-weight: 800; }
-
-        .container { max-width: 800px; margin: 20px auto; padding: 0 20px; }
+        * { box-sizing: border-box; outline: none; -webkit-tap-highlight-color: transparent; }
         
-        .logo-area { text-align: center; margin-bottom: 30px; }
-        .logo-img { height: 50px; object-fit: contain; } /* اللوغو العلوي الصغير */
-        
-        .content-card { background: var(--card-bg); border-radius: 20px; padding: 25px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); margin-bottom: 20px; border: 1px solid var(--border-color); }
-        
-        /* تنسيق اللوغو داخل البطاقة (بديل العنوان) */
-        .welcome-logo { 
-            display: block; 
-            margin: 0 auto 20px auto; 
-            max-width: 180px; /* حجم مناسب */
-            height: auto; 
+        body, header, .content-card, .back-btn, .icon-box { 
+            transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease; 
         }
+
+        body { 
+            font-family: 'Tajawal', sans-serif; 
+            margin: 0; 
+            background-color: var(--bg-color); 
+            color: var(--text-main); 
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+        }
+
+        /* --- الشريط العلوي --- */
+        header { 
+            padding: 15px 20px; 
+            background-color: var(--header-bg); 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            z-index: 100;
+            box-shadow: 0 1px 5px rgba(0,0,0,0.05);
+            position: sticky; top: 0;
+        }
+        body.dark-mode header { box-shadow: 0 1px 5px rgba(255,255,255,0.05); }
+
+        .back-btn { 
+            cursor: pointer; 
+            width: 40px; height: 40px; 
+            border-radius: 50%; 
+            background: var(--input-bg); 
+            display: flex; align-items: center; justify-content: center; 
+            color: var(--text-main); text-decoration: none; font-weight: bold; font-size: 18px;
+            border: 1px solid rgba(0,0,0,0.02);
+        }
+        body.dark-mode .back-btn { border-color: rgba(255,255,255,0.05); }
+        .page-title { font-size: 18px; font-weight: 800; color: var(--text-main); }
+
+        /* --- الحاوية الرئيسية --- */
+        .main-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 30px 20px 50px 20px;
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+            animation: fadeIn 0.4s ease forwards;
+        }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* --- اللوجو --- */
+        .logo-container { margin-bottom: 20px; width: 100%; display: flex; justify-content: center; }
+        .terms-logo { height: 45px; object-fit: contain; }
         
-        /* منطق التبديل بين اللوغو الفاتح والداكن */
         .img-dark { display: none; }
         .img-light { display: block; }
-
         body.dark-mode .img-light { display: none; }
         body.dark-mode .img-dark { display: block; }
 
-        h2 { font-size: 18px; font-weight: 700; margin-top: 25px; margin-bottom: 10px; padding-bottom: 10px; border-bottom: 1px solid var(--border-color); }
-        p { color: var(--text-sub); font-size: 14px; margin-bottom: 15px; text-align: justify; }
-        ul { padding-right: 20px; color: var(--text-sub); font-size: 14px; }
+        .page-heading { font-size: 22px; font-weight: 800; margin-bottom: 25px; color: var(--text-main); text-align: center; }
+
+        /* --- كرت المحتوى --- */
+        .content-card { 
+            background: var(--card-bg); 
+            border-radius: 20px; 
+            padding: 25px; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03); 
+            border: 1px solid rgba(0,0,0,0.02);
+            width: 100%;
+        }
+        body.dark-mode .content-card { border-color: rgba(255,255,255,0.05); box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
+
+        .intro-text { font-size: 14px; color: var(--text-sub); line-height: 1.8; margin-bottom: 25px; text-align: center; font-weight: 500; }
+
+        /* --- تنسيق الشروط --- */
+        .term-section { margin-bottom: 25px; }
+        .term-section:last-child { margin-bottom: 0; }
+        
+        .term-header { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+        
+        .icon-box { 
+            width: 35px; height: 35px; 
+            background: var(--input-bg); 
+            border-radius: 10px; 
+            display: flex; align-items: center; justify-content: center; 
+            color: var(--accent-color); 
+            flex-shrink: 0; /* منع اختفاء الأيقونة في سفاري الآيفون */
+        }
+        .icon-box svg { width: 18px; height: 18px; }
+
+        .term-title { font-size: 16px; font-weight: 800; margin: 0; color: var(--text-main); }
+        
+        .term-body { font-size: 13px; color: var(--text-sub); line-height: 1.8; font-weight: 500; }
+        ul { padding-right: 20px; margin: 10px 0; }
         li { margin-bottom: 8px; }
 
-        .last-update { text-align: center; font-size: 12px; color: var(--text-sub); margin-top: 30px; }
+        .last-update { text-align: center; font-size: 12px; color: var(--text-sub); margin-top: 30px; font-weight: bold; }
+
     </style>
 </head>
 <body>
+
+    <script>
+        (function() {
+            try {
+                const urlParams = new URLSearchParams(window.location.search);
+                const themeFromUrl = urlParams.get('theme');
+                const savedTheme = localStorage.getItem('theme');
+                
+                if (themeFromUrl === 'dark' || (!themeFromUrl && savedTheme === 'dark')) {
+                    document.body.classList.add('dark-mode');
+                }
+            } catch(e) {}
+        })();
+    </script>
 
     <header>
         <a href="index.html" class="back-btn">➜</a>
@@ -64,57 +153,93 @@
         <div style="width: 40px;"></div>
     </header>
 
-    <div class="container">
-        <div class="logo-area">
-            <span style="font-size: 40px;">⚖️</span>
+    <div class="main-container">
+        
+        <div class="logo-container">
+            <img src="https://cdn.jsdelivr.net/gh/yazankmail/ggg@main/Acces_lightmode_logo.png" class="terms-logo img-light" alt="Acces Logo">
+            <img src="https://cdn.jsdelivr.net/gh/yazankmail/ggg@main/Acces_darkmode_logo.png" class="terms-logo img-dark" alt="Acces Logo Dark">
         </div>
+
+        <h1 class="page-heading">الشروط والأحكام</h1>
 
         <div class="content-card">
-            
-            <div style="text-align: center; margin-bottom: 20px;">
-                <img src="https://raw.githubusercontent.com/yazankmail/home/refs/heads/main/%D9%A2%D9%A0%D9%A2%D9%A6%D9%A0%D9%A1%D9%A3%D9%A1_%D9%A2%D9%A1%D9%A4%D9%A7%D9%A3%D9%A5.png" class="welcome-logo img-light" alt="Wusooly Logo">
-                
-                <img src="https://raw.githubusercontent.com/yazankmail/home/refs/heads/main/%D9%A2%D9%A0%D9%A2%D9%A6%D9%A0%D9%A1%D9%A3%D9%A1_%D9%A2%D9%A1%D9%A4%D9%A7%D9%A1%D9%A4.png" class="welcome-logo img-dark" alt="Wusooly Logo Dark">
+            <p class="intro-text">يرجى قراءة شروط الاستخدام هذه بعناية. باستخدامك لخدمات <strong>Acces</strong>، فإنك توافق على الالتزام التام بهذه الشروط.</p>
+
+            <div class="term-section">
+                <div class="term-header">
+                    <div class="icon-box"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg></div>
+                    <h2 class="term-title">1. الحساب والتسجيل</h2>
+                </div>
+                <div class="term-body">
+                    <p>للاستفادة من خدماتنا، قد تحتاج إلى إنشاء حساب. أنت مسؤول عن الحفاظ على سرية معلومات حسابك وكلمة المرور.</p>
+                    <ul>
+                        <li>يجب أن تكون البيانات المقدمة دقيقة وحديثة لتسهيل الشحن.</li>
+                        <li>يمنع استخدام أسماء مستعارة مسيئة أو تنتحل شخصية الآخرين.</li>
+                    </ul>
+                </div>
             </div>
 
-            <p>يرجى قراءة شروط الاستخدام هذه بعناية قبل البدء باستخدام موقعنا وتطبيقنا. باستخدامك لخدمات Wusooly، فإنك توافق على الالتزام بهذه الشروط والأحكام.</p>
+            <div class="term-section">
+                <div class="term-header">
+                    <div class="icon-box"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7.01" y2="7"></line></svg></div>
+                    <h2 class="term-title">2. المنتجات والأسعار</h2>
+                </div>
+                <div class="term-body">
+                    <p>نسعى دائماً لعرض المنتجات بأكبر قدر من الدقة، ومع ذلك، قد تختلف الألوان قليلاً حسب شاشتك. جميع الأسعار المعروضة نهائية ومطابقة لما ستدفعه.</p>
+                </div>
+            </div>
 
-            <h2>1. الحساب والتسجيل</h2>
-            <p>للاستفادة من خدماتنا، قد تحتاج إلى إنشاء حساب. أنت مسؤول عن الحفاظ على سرية معلومات حسابك وكلمة المرور، وتتحمل المسؤولية الكاملة عن جميع الأنشطة التي تحدث تحت حسابك.</p>
-            <ul>
-                <li>يجب أن تكون البيانات المقدمة دقيقة وحديثة.</li>
-                <li>يمنع استخدام أسماء مستعارة مسيئة أو تنتحل شخصية الآخرين.</li>
-            </ul>
+            <div class="term-section">
+                <div class="term-header">
+                    <div class="icon-box"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg></div>
+                    <h2 class="term-title">3. حقوق الملكية الفكرية</h2>
+                </div>
+                <div class="term-body">
+                    <p>جميع المحتويات الموجودة على متجر Acces، بما في ذلك النصوص، التصاميم، الشعارات، والصور، هي ملكية حصرية لـ Acces ومحمية بموجب القوانين.</p>
+                </div>
+            </div>
 
-            <h2>2. المنتجات والأسعار</h2>
-            <p>نسعى دائماً لعرض ألوان وصور المنتجات بأكبر قدر من الدقة، ومع ذلك، لا يمكننا ضمان تطابق ألوان شاشتك تماماً مع المنتج الحقيقي. جميع الأسعار المعروضة تشمل الضرائب المطبقة ما لم يذكر خلاف ذلك، وهي قابلة للتغيير دون إشعار مسبق.</p>
+            <div class="term-section">
+                <div class="term-header">
+                    <div class="icon-box"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"></line></svg></div>
+                    <h2 class="term-title">4. الاستخدام المحظور</h2>
+                </div>
+                <div class="term-body">
+                    <p>يمنع استخدام الموقع لأي غرض غير قانوني، ويشمل ذلك:</p>
+                    <ul>
+                        <li>نشر أي محتوى ضار، مسيء، أو ينتهك حقوق الآخرين.</li>
+                        <li>محاولة التلاعب بالأنظمة الأمنية للمتجر أو الطلبات الوهمية.</li>
+                    </ul>
+                </div>
+            </div>
 
-            <h2>3. حقوق الملكية الفكرية</h2>
-            <p>جميع المحتويات الموجودة على Wusooly، بما في ذلك النصوص، التصاميم، الشعارات، الأيقونات، الصور، والبرمجيات، هي ملكية حصرية لـ Wusooly ومحمية بموجب قوانين حقوق النشر والعلامات التجارية.</p>
+            <div class="term-section">
+                <div class="term-header">
+                    <div class="icon-box"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg></div>
+                    <h2 class="term-title">5. إخلاء المسؤولية</h2>
+                </div>
+                <div class="term-body">
+                    <p>نحن نقدم الخدمات بأعلى معايير الجودة، ولا نتحمل أي أضرار ناتجة عن سوء استخدام العميل للمنتج بعد استلامه أو عدم تقيده بتعليمات الاستخدام.</p>
+                </div>
+            </div>
 
-            <h2>4. الاستخدام المحظور</h2>
-            <p>يمنع استخدام الموقع لأي غرض غير قانوني أو غير مصرح به. يشمل ذلك، على سبيل المثال لا الحصر:</p>
-            <ul>
-                <li>نشر أي محتوى ضار، مسيء، أو ينتهك حقوق الآخرين.</li>
-                <li>محاولة اختراق الموقع أو التلاعب بالأنظمة الأمنية.</li>
-                <li>استخدام طرق آلية (Bots) لجمع البيانات دون إذن.</li>
-            </ul>
-
-            <h2>5. تحديد المسؤولية</h2>
-            <p>لا تتحمل Wusooly أي مسؤولية عن أي أضرار مباشرة أو غير مباشرة ناتجة عن استخدامك أو عدم قدرتك على استخدام خدماتنا. نحن نقدم الخدمات "كما هي" دون أي ضمانات صريحة أو ضمنية.</p>
-
-            <h2>6. التعديلات على الشروط</h2>
-            <p>نحتفظ بالحق في تعديل هذه الشروط في أي وقت. سيتم نشر التغييرات في هذه الصفحة، ويعتبر استمرارك في استخدام الموقع بعد التعديلات موافقة عليها.</p>
         </div>
 
-        <div class="last-update">آخر تحديث: 3 فبراير 2026</div>
+        <div class="last-update">آخر تحديث: أبريل 2026</div>
     </div>
 
     <script>
-        // التحقق من الوضع الليلي عند التحميل
-        if (localStorage.getItem('theme') === 'dark') {
-            document.body.classList.add('dark-mode');
-        }
+        // إرسال المود عبر الرابط عند الانتقال لصفحة أخرى لضمان ثبات المود
+        document.addEventListener('click', function(e) {
+            const link = e.target.closest('a');
+            if (link && link.getAttribute('href') && link.getAttribute('href').endsWith('.html')) {
+                e.preventDefault();
+                const isDark = document.body.classList.contains('dark-mode');
+                const url = new URL(link.href, window.location.href);
+                url.searchParams.set('theme', isDark ? 'dark' : 'light');
+                window.location.href = url.href;
+            }
+        });
     </script>
 </body>
 </html>
