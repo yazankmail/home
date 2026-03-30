@@ -3,10 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>الرئيسية - Wusooly</title>
+    <title>الرئيسية - Acces</title>
+    
+    <link rel="preload" as="image" href="https://raw.githubusercontent.com/yazankmail/ggg/refs/heads/main/800-4001.jpg" fetchpriority="high">
+    <link rel="preload" as="image" href="https://raw.githubusercontent.com/yazankmail/ggg/refs/heads/main/Acces_lightmode_logo.png" fetchpriority="high">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+    
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap');
-        
         :root {
             --bg-color: #f8f9fa; --header-bg: #ffffff; --text-main: #333333; --text-sub: #666666;
             --accent-color: #0056b3; --secondary-accent: #ff4747; --card-bg: #ffffff; --input-bg: #f9f9f9;
@@ -21,77 +27,239 @@
             --shadow-soft: 0 4px 20px rgba(0,0,0,0.3);
         }
 
-        * { box-sizing: border-box; transition: background-color 0.3s, color 0.3s; -webkit-tap-highlight-color: transparent; }
-        body { font-family: 'Cairo', sans-serif; margin: 0; background-color: var(--bg-color); color: var(--text-main); padding-bottom: 100px; overflow-x: hidden; }
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        body, header, .product-card, .search-box, .cat-icon, .search-overlay, .categories-overlay, .floating-nav, .icon-btn, .filter-btn, .sidebar { 
+            transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease; 
+        }
+
+        body { font-family: 'Tajawal', sans-serif; margin: 0; background-color: var(--bg-color); color: var(--text-main); padding-bottom: 100px; overflow-x: hidden; }
         a { text-decoration: none; color: inherit; }
 
         header { padding: 15px 20px; background-color: var(--header-bg); position: sticky; top: 0; z-index: 1000; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 1px 5px rgba(0,0,0,0.05); }
-        .logo-img { height: 28px; width: auto; object-fit: contain; }
-        .header-actions { display: flex; gap: 15px; align-items: center; }
-        .icon-btn { cursor: pointer; color: var(--text-main); display: flex; align-items: center; justify-content: center; width: 35px; height: 35px; border-radius: 50%; background: var(--input-bg); }
+        
+        .logo-link { position: absolute; left: 50%; transform: translateX(-50%); display: flex; align-items: center; justify-content: center; z-index: 10; }
+        .logo-img { height: 42px; max-width: 160px; width: auto; object-fit: contain; }
+
+        .header-actions { display: flex; gap: 15px; align-items: center; z-index: 20; position: relative; }
+        .icon-btn { cursor: pointer; color: var(--text-main); display: flex; align-items: center; justify-content: center; width: 35px; height: 35px; border-radius: 50%; background: var(--input-bg); position: relative; z-index: 20; }
         .icon-btn svg { width: 20px; height: 20px; stroke-width: 2; }
 
         .moon-icon { display: block; } .sun-icon { display: none; }
         body.dark-mode .moon-icon { display: none; } body.dark-mode .sun-icon { display: block; }
 
-        .search-container { padding: 15px 20px; }
         .search-box { background: var(--input-bg); border-radius: var(--radius-lg); padding: 14px 20px; display: flex; align-items: center; gap: 10px; border: 1px solid rgba(0,0,0,0.05); }
-        .search-box input { border: none; background: transparent; width: 100%; outline: none; font-family: 'Cairo'; color: var(--text-main); font-size: 15px; font-weight: 600; }
+        .search-box input { border: none; background: transparent; width: 100%; outline: none; font-family: 'Tajawal', sans-serif; color: var(--text-main); font-size: 15px; font-weight: 600; }
         .search-box svg { color: var(--text-sub); width: 22px; }
 
-        .banner-container { padding: 0 20px; margin-bottom: 25px; }
-        .promo-card { background: linear-gradient(135deg, #0056b3, #4dabf7); border-radius: 25px; padding: 25px; display: flex; justify-content: space-between; align-items: center; position: relative; overflow: hidden; height: 160px; box-shadow: 0 10px 30px rgba(0, 86, 179, 0.3); }
-        .promo-text { position: relative; z-index: 2; max-width: 60%; }
-        .promo-text h2 { margin: 0 0 8px; font-size: 20px; color: #ffffff; font-weight: 800; line-height: 1.3; }
-        .promo-text p { margin: 0 0 15px; font-size: 12px; color: rgba(255,255,255,0.9); font-weight: 600; }
-        .shop-now-btn { background: #ffffff; color: #0056b3; padding: 8px 20px; border-radius: 50px; font-size: 12px; font-weight: bold; cursor: pointer; display: inline-block; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
-        .promo-img { height: 115%; position: absolute; left: -10px; bottom: -15px; object-fit: cover; z-index: 1; transform: scaleX(-1); }
+        .banner-container { padding: 20px 20px; margin-bottom: 5px; transform: translateZ(0); }
+        .slider-wrapper { position: relative; border-radius: 25px; overflow: hidden; height: 160px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); background: var(--input-bg); transform: translateZ(0); }
+        .slide { position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; transition: opacity 0.8s ease-in-out; will-change: opacity; }
+        .slide.active { opacity: 1; z-index: 1; }
+        .slide img { width: 100%; height: 100%; object-fit: cover; }
+        
+        .slider-dots { position: absolute; bottom: 12px; left: 50%; transform: translateX(-50%); display: flex; gap: 6px; z-index: 2; }
+        .dot { width: 8px; height: 8px; background: rgba(255, 255, 255, 0.5); border-radius: 50%; transition: 0.3s cubic-bezier(0.2, 0.8, 0.2, 1); }
+        .dot.active { background: #ffffff; width: 24px; border-radius: 10px; }
 
         .section-title { padding: 0 20px; font-size: 18px; font-weight: 800; margin-bottom: 15px; display: flex; justify-content: space-between; align-items: center; }
-        .section-title span { font-size: 13px; color: var(--accent-color); font-weight: 600; cursor: pointer; }
+        .section-title span { font-size: 13px; color: var(--accent-color); font-weight: 700; cursor: pointer; }
 
-        .categories-scroll { display: flex; gap: 15px; padding: 0 20px; overflow-x: auto; scrollbar-width: none; margin-bottom: 30px; }
-        .categories-scroll::-webkit-scrollbar { display: none; }
+        .filter-btn { display: flex; align-items: center; justify-content: center; width: 35px; height: 35px; background: var(--input-bg); border-radius: 50%; cursor: pointer; color: var(--text-main); border: 1px solid rgba(0,0,0,0.02); }
+        body.dark-mode .filter-btn { border-color: rgba(255,255,255,0.05); }
+        .filter-btn:active { transform: scale(0.9); }
+
+        .categories-wrapper { overflow: hidden; width: 100%; margin-bottom: 30px; position: relative; direction: rtl; transform: translateZ(0); }
+        .categories-wrapper::before, .categories-wrapper::after { content: ''; position: absolute; top: 0; width: 30px; height: 100%; z-index: 2; pointer-events: none; }
+        .categories-wrapper::before { right: 0; background: linear-gradient(to left, var(--bg-color), transparent); }
+        .categories-wrapper::after { left: 0; background: linear-gradient(to right, var(--bg-color), transparent); }
+        
+        .categories-track { 
+            display: inline-flex; width: max-content; gap: 15px; padding: 0 15px; 
+            animation: scroll-rtl 18s linear infinite; 
+            will-change: transform; 
+            transform: translate3d(0,0,0);
+            -webkit-transform: translate3d(0,0,0);
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+        }
+        .categories-track:hover, .categories-track:active { animation-play-state: paused; }
+        
+        @keyframes scroll-rtl {
+            0% { transform: translate3d(0, 0, 0); }
+            100% { transform: translate3d(50%, 0, 0); } 
+        }
+
         .cat-item { display: flex; flex-direction: column; align-items: center; gap: 8px; min-width: 70px; cursor: pointer; text-decoration: none; }
-        .cat-icon { width: 65px; height: 65px; background: var(--card-bg); border-radius: 20px; display: flex; align-items: center; justify-content: center; box-shadow: var(--shadow-soft); padding: 15px; border: 1px solid rgba(0,0,0,0.03); }
-        .cat-icon img { width: 100%; height: 100%; object-fit: contain; }
-        body.dark-mode .cat-icon img:not(.dynamic-icon) { filter: brightness(0) invert(1); }
-        .cat-name { font-size: 13px; color: var(--text-main); font-weight: 700; white-space: nowrap; }
+        
+        .cat-icon { 
+            width: 65px; 
+            height: 65px; 
+            background: rgba(20, 20, 20, 0.6); 
+            border-radius: 20px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1); 
+            padding: 15px; 
+            border: 1px solid rgba(255,255,255,0.1); 
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            will-change: transform;
+            transform: translate3d(0,0,0);
+            -webkit-transform: translate3d(0,0,0);
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+        }
+        
+        .cat-icon img { 
+            width: 100%; 
+            height: 100%; 
+            object-fit: contain; 
+            filter: drop-shadow(0px 4px 5px rgba(0, 0, 0, 0.6)); 
+            transform: translate3d(0,0,0);
+            backface-visibility: hidden;
+        }
+        
+        body.dark-mode .cat-icon {
+            background: rgba(0, 0, 0, 0.75); 
+            border-color: rgba(255, 255, 255, 0.05);
+        }
+        
+        .cat-name { font-size: 14px; color: var(--text-main); font-weight: 700; white-space: nowrap; }
 
+        /* النوافذ المنبثقة */
+        .search-overlay, .categories-overlay { 
+            position: fixed; 
+            left: 0; 
+            right: 0; 
+            bottom: -100%; 
+            background-color: var(--nav-bar-bg); 
+            padding: 20px; 
+            border-radius: 30px 30px 0 0; 
+            box-shadow: 0 -10px 40px rgba(0,0,0,0.15); 
+            z-index: 1002; 
+            transition: bottom 0.4s cubic-bezier(0.2, 0.8, 0.2, 1); 
+            display: flex; 
+            flex-direction: column; 
+            border: 1px solid rgba(0,0,0,0.05); 
+        }
+        .categories-overlay { height: 60vh; }
+        .search-overlay { z-index: 1001; align-items: center; gap: 15px; flex-direction: row; }
+        body.dark-mode .search-overlay, body.dark-mode .categories-overlay { border-color: rgba(255,255,255,0.05); }
+        
+        .search-overlay.active, .categories-overlay.active { bottom: 0; }
+
+        .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-shrink: 0; }
+        .modal-header h3 { margin: 0; font-size: 18px; font-weight: 800; color: var(--text-main); }
+        .categories-grid-modal { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px 10px; overflow-y: auto; padding-bottom: 30px; }
+        .categories-grid-modal .cat-item { min-width: auto; }
+
+        /* منطقة المنتجات */
         .product-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; padding: 0 20px; }
-        .product-card { background: var(--card-bg); border-radius: 20px; padding: 10px; position: relative; box-shadow: var(--shadow-soft); transition: transform 0.2s; border: 1px solid var(--input-bg); cursor: pointer; }
+        
+        .product-card { 
+            background: var(--card-bg); 
+            border-radius: 20px; 
+            padding: 12px; 
+            position: relative; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.04); 
+            transition: transform 0.2s; 
+            border: 1px solid rgba(0,0,0,0.02); 
+            cursor: pointer; 
+            transform: translateZ(0); 
+            display: flex; 
+            flex-direction: column;
+            min-width: 0; 
+        }
+        body.dark-mode .product-card { border-color: rgba(255,255,255,0.05); }
         .product-card:active { transform: scale(0.98); }
-        .product-img-wrapper { position: relative; width: 100%; height: 160px; border-radius: 15px; overflow: hidden; margin-bottom: 12px; background: var(--input-bg); }
-        .product-img { width: 100%; height: 100%; object-fit: cover; }
-        .fav-icon { position: absolute; top: 10px; right: 10px; background: rgba(255,255,255,0.9); width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 16px; cursor: pointer; color: #ff4747; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
-        .product-info h3 { font-size: 14px; margin: 0 0 5px; color: var(--text-main); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-weight: 700; }
-        .product-info p { font-size: 11px; color: var(--text-sub); margin: 0 0 8px; }
-        .price-row { display: flex; justify-content: space-between; align-items: center; }
-        .price { font-size: 16px; font-weight: 800; color: var(--secondary-accent); }
-        .add-btn-mini { background: var(--text-main); color: var(--bg-color); width: 32px; height: 32px; border-radius: 10px; display: flex; align-items: center; justify-content: center; cursor: pointer; }
-        .add-btn-mini svg { width: 18px; height: 18px; stroke-width: 2.5; }
 
-        .floating-nav { position: fixed; bottom: 20px; left: 20px; right: 20px; background-color: var(--nav-bar-bg); height: 70px; border-radius: 25px; display: flex; justify-content: space-around; align-items: center; padding: 0 10px; box-shadow: 0 10px 40px rgba(0,0,0,0.15); z-index: 999; border: 1px solid rgba(0,0,0,0.05); }
-        .nav-link { display: flex; flex-direction: column; align-items: center; justify-content: center; color: var(--nav-text); text-decoration: none; transition: 0.3s; gap: 4px; }
+        .product-img-wrapper { 
+            position: relative; 
+            width: 100%; 
+            padding-top: 100%; 
+            background: var(--input-bg); 
+            border-radius: 15px; 
+            overflow: hidden; 
+            margin-bottom: 12px; 
+        }
+        .product-img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; }
+        .fav-icon { position: absolute; top: 10px; left: 10px; width: 28px; height: 28px; background: rgba(255,255,255,0.9); border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 5px rgba(0,0,0,0.1); color: #ccc; font-size: 16px; z-index: 2; }
+        
+        .product-info { display: flex; flex-direction: column; flex-grow: 1; min-width: 0; }
+        .product-info h3 { font-size: 14px; margin: 0 0 4px; color: var(--text-main); font-weight: 800; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-align: right; }
+        .product-info p { font-size: 11px; color: var(--text-sub); margin: 0 0 12px; font-weight: 600; text-align: right; }
+        
+        .price-row { display: flex; justify-content: space-between; align-items: center; margin-top: auto; }
+        .price { font-size: 16px; font-weight: 800; color: #ff4747; direction: ltr; }
+        .add-btn-mini { width: 30px; height: 30px; border-radius: 50%; background: var(--text-main); color: var(--card-bg); display: flex; align-items: center; justify-content: center; font-size: 20px; font-weight: 500; cursor: pointer; line-height: 1; padding-bottom: 2px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); z-index: 3; }
+
+        /* ========================================= */
+        /* القائمة الجانبية (Sidebar) وتنسيقاتها */
+        /* ========================================= */
+        .sidebar-overlay { 
+            position: fixed; top: 0; left: 0; right: 0; bottom: 0; 
+            background: rgba(0,0,0,0.5); z-index: 2000; 
+            opacity: 0; visibility: hidden; transition: 0.3s ease; 
+        }
+        .sidebar-overlay.active { opacity: 1; visibility: visible; }
+        
+        .sidebar { 
+            position: fixed; top: 0; right: -280px; width: 280px; height: 100%; 
+            background-color: var(--header-bg); z-index: 2001; 
+            transition: right 0.3s cubic-bezier(0.2, 0.8, 0.2, 1); 
+            box-shadow: -5px 0 15px rgba(0,0,0,0.1); 
+            display: flex; flex-direction: column; padding: 20px; 
+            border-left: 1px solid rgba(0,0,0,0.05);
+        }
+        body.dark-mode .sidebar { border-left-color: rgba(255,255,255,0.05); }
+        .sidebar.active { right: 0; }
+        
+        .sidebar-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; border-bottom: 1px solid rgba(0,0,0,0.05); padding-bottom: 15px; }
+        body.dark-mode .sidebar-header { border-bottom-color: rgba(255,255,255,0.05); }
+        .sidebar-logo { height: 35px; object-fit: contain; }
+        
+        .sidebar-menu { display: flex; flex-direction: column; gap: 10px; }
+        .sidebar-link { 
+            display: flex; align-items: center; gap: 15px; 
+            font-size: 16px; font-weight: 700; color: var(--text-main); 
+            text-decoration: none; padding: 12px; border-radius: 15px; 
+            transition: background-color 0.2s; 
+        }
+        .sidebar-link:hover, .sidebar-link:active { background-color: var(--input-bg); }
+        
+        /* الأيقونات ذات اللون الأزرق الغامق الاحترافي */
+        .sidebar-icon { 
+            width: 24px; height: 24px; 
+            color: #0B2545; /* أزرق غامق جداً وفخم */
+            display: flex; align-items: center; justify-content: center; 
+        }
+        body.dark-mode .sidebar-icon { color: #4dabf7; /* توضيح اللون في الوضع الليلي */ }
+        /* ========================================= */
+
+        .floating-nav { position: fixed; bottom: 20px; left: 20px; right: 20px; background-color: var(--nav-bar-bg); height: 70px; border-radius: 25px; display: flex; justify-content: space-around; align-items: center; padding: 0 10px; box-shadow: 0 10px 40px rgba(0,0,0,0.15); z-index: 999; border: 1px solid rgba(0,0,0,0.05); transform: translateZ(0); }
+        .nav-link { display: flex; flex-direction: column; align-items: center; justify-content: center; color: var(--nav-text); text-decoration: none; transition: 0.3s; gap: 4px; width: 25%; }
         .nav-link.active { color: var(--nav-active); }
         .nav-link svg { width: 26px; height: 26px; stroke-width: 2; fill: none; stroke: currentColor; }
         
+        .close-search-btn { background: var(--input-bg); width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; color: var(--text-main); font-weight: bold; flex-shrink: 0; }
+
         @media (max-width: 768px) { .header-cart-icon { display: none !important; } }
         @media (min-width: 769px) { .floating-nav { display: none; } }
 
-        .toast { visibility: hidden; min-width: 250px; background-color: #333; color: #fff; text-align: center; border-radius: 50px; padding: 12px; position: fixed; z-index: 2000; left: 50%; bottom: 110px; transform: translateX(-50%); font-size: 14px; opacity: 0; transition: opacity 0.3s; box-shadow: 0 5px 20px rgba(0,0,0,0.2); }
+        .toast { visibility: hidden; min-width: 250px; background-color: #333; color: #fff; text-align: center; border-radius: 50px; padding: 12px; position: fixed; z-index: 2000; left: 50%; bottom: 110px; transform: translateX(-50%); font-size: 14px; opacity: 0; transition: opacity 0.3s; box-shadow: 0 5px 20px rgba(0,0,0,0.2); font-weight: bold; }
         .toast.show { visibility: visible; opacity: 1; }
-        .loading-products { text-align: center; color: var(--text-sub); width: 100%; grid-column: span 2; padding: 20px; }
+        .loading-products { text-align: center; color: var(--text-sub); width: 100%; grid-column: span 2; padding: 20px; font-weight: bold; }
     </style>
 </head>
 <body>
 
     <header>
-        <div class="icon-btn" onclick="alert('القائمة')">
+        <div class="icon-btn" onclick="toggleSidebar()">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
         </div>
         <a href="#" class="logo-link">
-            <img id="app-logo" src="https://raw.githubusercontent.com/yazankmail/home/refs/heads/main/%D9%A2%D9%A0%D9%A2%D9%A6%D9%A0%D9%A1%D9%A3%D9%A1_%D9%A2%D9%A1%D9%A4%D9%A7%D9%A3%D9%A5.png" alt="Wusooly" class="logo-img">
+            <img id="app-logo" src="https://raw.githubusercontent.com/yazankmail/ggg/refs/heads/main/Acces_lightmode_logo.png" alt="Acces" class="logo-img" fetchpriority="high">
         </a>
         <div class="header-actions">
             <a href="cart.html" class="icon-btn header-cart-icon">
@@ -104,59 +272,152 @@
         </div>
     </header>
 
-    <div class="search-container">
-        <div class="search-box">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-            <input type="text" placeholder="ابحث عن منتج...">
-        </div>
-    </div>
-
     <div class="banner-container">
-        <div class="promo-card">
-            <div class="promo-text">
-                <h2>أزياء الصيف<br>الجديدة ✨</h2>
-                <p>خصومات تصل إلى 70%</p>
-                <div class="shop-now-btn">اكتشف الآن</div>
+        <div class="slider-wrapper" id="promo-slider">
+            <div class="slide active">
+                <img src="https://raw.githubusercontent.com/yazankmail/ggg/refs/heads/main/800-4001.jpg" alt="Promo 1" fetchpriority="high">
             </div>
-            <img src="https://purepng.com/public/uploads/large/purepng.com-women-shoppingwomenpeoplepersonsfemaleshopping-1121525086721q81n2.png" class="promo-img" alt="Fashion">
+            <div class="slide">
+                <img src="https://raw.githubusercontent.com/yazankmail/ggg/refs/heads/main/800-4002.jpg" alt="Promo 2" loading="lazy">
+            </div>
+            
+            <div class="slider-dots">
+                <span class="dot active"></span>
+                <span class="dot"></span>
+            </div>
         </div>
     </div>
 
-    <div class="section-title">التصنيفات <span>عرض الكل</span></div>
-    <div class="categories-scroll">
-        <a href="tshirt.html" class="cat-item">
-            <div class="cat-icon"><img id="cat-tshirt-img" class="dynamic-icon" src="https://i.ibb.co/V0K4tK8N/image.png"></div>
-            <div class="cat-name">ملابس</div>
-        </a>
-        <a href="gifts.html" class="cat-item">
-            <div class="cat-icon"><img id="cat-gift-img" class="dynamic-icon" src="https://raw.githubusercontent.com/yazankmail/home/refs/heads/main/Gift_Green.png"></div>
-            <div class="cat-name">بكجات هدايا</div>
-        </a>
-        <a href="accessories.html" class="cat-item">
-            <div class="cat-icon"><img id="cat-access-img" class="dynamic-icon" src="https://raw.githubusercontent.com/yazankmail/home/refs/heads/main/Ecc_Green.png"></div>
-            <div class="cat-name">اكسسوارات</div>
-        </a>
-        <a href="bags.html" class="cat-item">
-            <div class="cat-icon"><img id="cat-bags-img" class="dynamic-icon" src="https://raw.githubusercontent.com/yazankmail/home/refs/heads/main/Bags_Green.png"></div>
-            <div class="cat-name">شنط</div>
-        </a>
-        <a href="shoes.html" class="cat-item">
-            <div class="cat-icon"><img id="cat-shoes-img" class="dynamic-icon" src="https://raw.githubusercontent.com/yazankmail/home/refs/heads/main/shoes1_green.png"></div>
-            <div class="cat-name">أحذية</div>
-        </a>
-        <a href="electronics.html" class="cat-item">
-            <div class="cat-icon"><img id="cat-electronics-img" class="dynamic-icon" src="https://raw.githubusercontent.com/yazankmail/home/refs/heads/main/Elkton_Green.png"></div>
-            <div class="cat-name">إلكترونيات</div>
-        </a>
+    <div class="section-title">الأصناف <span onclick="toggleCategoriesModal()">عرض الكل</span></div>
+    
+    <div class="categories-wrapper">
+        <div class="categories-track">
+            <a href="bags.html" class="cat-item">
+                <div class="cat-icon"><img src="https://raw.githubusercontent.com/yazankmail/ggg/refs/heads/main/baags.png"></div>
+                <div class="cat-name">شنط</div>
+            </a>    
+            <a href="tshirt.html" class="cat-item">
+                <div class="cat-icon"><img src="https://raw.githubusercontent.com/yazankmail/ggg/refs/heads/main/womwatch.png"></div>
+                <div class="cat-name">ساعات نسائية</div>
+            </a>
+            <a href="shoes.html" class="cat-item">
+                <div class="cat-icon"><img src="https://raw.githubusercontent.com/yazankmail/ggg/refs/heads/main/Menwatch.png"></div>
+                <div class="cat-name">ساعات رجالية</div>
+            </a>
+            <a href="accessories.html" class="cat-item">
+                <div class="cat-icon"><img src="https://raw.githubusercontent.com/yazankmail/ggg/refs/heads/main/Generalacces.png"></div>
+                <div class="cat-name">اكسسوارات</div>
+            </a>
+
+            <a href="bags.html" class="cat-item">
+                <div class="cat-icon"><img src="https://raw.githubusercontent.com/yazankmail/ggg/refs/heads/main/baags.png"></div>
+                <div class="cat-name">شنط</div>
+            </a>    
+            <a href="tshirt.html" class="cat-item">
+                <div class="cat-icon"><img src="https://raw.githubusercontent.com/yazankmail/ggg/refs/heads/main/womwatch.png"></div>
+                <div class="cat-name">ساعات نسائية</div>
+            </a>
+            <a href="shoes.html" class="cat-item">
+                <div class="cat-icon"><img src="https://raw.githubusercontent.com/yazankmail/ggg/refs/heads/main/Menwatch.png"></div>
+                <div class="cat-name">ساعات رجالية</div>
+            </a>
+            <a href="accessories.html" class="cat-item">
+                <div class="cat-icon"><img src="https://raw.githubusercontent.com/yazankmail/ggg/refs/heads/main/Generalacces.png"></div>
+                <div class="cat-name">اكسسوارات</div>
+            </a>
+        </div>
     </div>
 
-    <div class="section-title">وصل حديثاً <span>فلتر</span></div>
+    <div class="section-title">
+        المنتجات المتميزة 
+        <div class="filter-btn" onclick="alert('سيتم إضافة وظيفة الفلتر لاحقاً')">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="4" y1="21" x2="4" y2="14"></line>
+                <line x1="4" y1="10" x2="4" y2="3"></line>
+                <line x1="12" y1="21" x2="12" y2="12"></line>
+                <line x1="12" y1="8" x2="12" y2="3"></line>
+                <line x1="20" y1="21" x2="20" y2="16"></line>
+                <line x1="20" y1="12" x2="20" y2="3"></line>
+                <line x1="1" y1="14" x2="7" y2="14"></line>
+                <line x1="9" y1="8" x2="15" y2="8"></line>
+                <line x1="17" y1="16" x2="23" y2="16"></line>
+            </svg>
+        </div>
+    </div>
+    
     <div id="dynamic-products" class="product-grid">
         <div class="loading-products">جاري تحميل المنتجات... 📦</div>
     </div>
 
+    <div id="search-overlay" class="search-overlay">
+        <div class="search-box" style="flex-grow: 1;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            <input type="text" id="bottom-search-input" placeholder="عن ماذا تبحث؟...">
+        </div>
+        <div class="close-search-btn" onclick="toggleSearch(event)">✕</div>
+    </div>
+
+    <div id="categories-overlay" class="categories-overlay">
+        <div class="modal-header">
+            <h3>كل الأصناف</h3>
+            <div class="close-search-btn" onclick="toggleCategoriesModal()">✕</div>
+        </div>
+        <div class="categories-grid-modal">
+            <a href="bags.html" class="cat-item">
+                <div class="cat-icon"><img src="https://raw.githubusercontent.com/yazankmail/ggg/refs/heads/main/baags.png" loading="lazy"></div>
+                <div class="cat-name">شنط</div>
+            </a>    
+            <a href="tshirt.html" class="cat-item">
+                <div class="cat-icon"><img src="https://raw.githubusercontent.com/yazankmail/ggg/refs/heads/main/womwatch.png" loading="lazy"></div>
+                <div class="cat-name">ساعات نسائية</div>
+            </a>
+            <a href="shoes.html" class="cat-item">
+                <div class="cat-icon"><img src="https://raw.githubusercontent.com/yazankmail/ggg/refs/heads/main/Menwatch.png" loading="lazy"></div>
+                <div class="cat-name">ساعات رجالية</div>
+            </a>
+            <a href="accessories.html" class="cat-item">
+                <div class="cat-icon"><img src="https://raw.githubusercontent.com/yazankmail/ggg/refs/heads/main/Generalacces.png" loading="lazy"></div>
+                <div class="cat-name">اكسسوارات</div>
+            </a>
+        </div>
+    </div>
+
+    <div class="sidebar-overlay" id="sidebar-overlay" onclick="toggleSidebar()"></div>
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <img id="sidebar-logo" src="https://raw.githubusercontent.com/yazankmail/ggg/refs/heads/main/Acces_lightmode_logo.png" class="sidebar-logo" alt="Acces">
+            <div class="close-search-btn" onclick="toggleSidebar()" style="width: 35px; height: 35px; border-radius: 50%; display: flex; align-items: center; justify-content: center;">✕</div>
+        </div>
+        <div class="sidebar-menu">
+            <a href="we.html" class="sidebar-link">
+                <div class="sidebar-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+                </div>
+                من نحن؟
+            </a>
+            <a href="policies.html" class="sidebar-link">
+                <div class="sidebar-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                </div>
+                سياساتنا
+            </a>
+            <a href="terms.html" class="sidebar-link">
+                <div class="sidebar-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                </div>
+                شروط الأستخدام
+            </a>
+            <a href="report.html" class="sidebar-link">
+                <div class="sidebar-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15.05 5A5 5 0 0 1 19 8.95M15.05 1A9 9 0 0 1 23 8.94m-1 7.98v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+                </div>
+                مركز المساعدة
+            </a>
+        </div>
+    </div>
     <div class="floating-nav">
         <a href="#" class="nav-link active"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg></a>
+        <a href="#" class="nav-link" onclick="toggleSearch(event)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></a>
         <a href="cart.html" class="nav-link"><svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg></a>
         <a href="profile.html" class="nav-link"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg></a>
     </div>
@@ -166,15 +427,13 @@
     <script>
         const imageConfig = {
             'app-logo': {
-                light: "https://raw.githubusercontent.com/yazankmail/home/refs/heads/main/%D9%A2%D9%A0%D9%A2%D9%A6%D9%A0%D9%A1%D9%A3%D9%A1_%D9%A2%D9%A1%D9%A4%D9%A7%D9%A3%D9%A5.png",
-                dark: "https://raw.githubusercontent.com/yazankmail/home/refs/heads/main/%D9%A2%D9%A0%D9%A2%D9%A6%D9%A0%D9%A1%D9%A3%D9%A1_%D9%A2%D9%A1%D9%A4%D9%A7%D9%A1%D9%A4.png"
+                light: "https://raw.githubusercontent.com/yazankmail/ggg/refs/heads/main/Acces_lightmode_logo.png",
+                dark: "https://raw.githubusercontent.com/yazankmail/ggg/refs/heads/main/Acces_darkmode_logo.png"
             },
-            'cat-tshirt-img': { light: "https://i.ibb.co/V0K4tK8N/image.png", dark: "https://i.ibb.co/bMZ3sLgR/image.png" },
-            'cat-gift-img': { light: "https://raw.githubusercontent.com/yazankmail/home/refs/heads/main/Gift_Green.png", dark: "https://raw.githubusercontent.com/yazankmail/home/refs/heads/main/Gift_yellow.png" },
-            'cat-access-img': { light: "https://raw.githubusercontent.com/yazankmail/home/refs/heads/main/Ecc_Green.png", dark: "https://raw.githubusercontent.com/yazankmail/home/refs/heads/main/Ecc_yellow.png" },
-            'cat-bags-img': { light: "https://raw.githubusercontent.com/yazankmail/home/refs/heads/main/Bags_Green.png", dark: "https://raw.githubusercontent.com/yazankmail/home/refs/heads/main/Bags_yellow.png" },
-            'cat-shoes-img': { light: "https://raw.githubusercontent.com/yazankmail/home/refs/heads/main/shoes1_green.png", dark: "https://raw.githubusercontent.com/yazankmail/home/refs/heads/main/shoes1_yellow.png" },
-            'cat-electronics-img': { light: "https://raw.githubusercontent.com/yazankmail/home/refs/heads/main/Elkton_Green.png", dark: "https://raw.githubusercontent.com/yazankmail/home/refs/heads/main/Elkton_yellow.png" }
+            'sidebar-logo': {
+                light: "https://raw.githubusercontent.com/yazankmail/ggg/refs/heads/main/Acces_lightmode_logo.png",
+                dark: "https://raw.githubusercontent.com/yazankmail/ggg/refs/heads/main/Acces_darkmode_logo.png"
+            }
         };
 
         function updateImages(isDark) {
@@ -191,12 +450,32 @@
             updateImages(isDark);
         }
 
+        window.toggleSearch = function(e) {
+            if(e) e.preventDefault();
+            const overlay = document.getElementById('search-overlay');
+            overlay.classList.toggle('active');
+            if(overlay.classList.contains('active')) {
+                setTimeout(() => document.getElementById('bottom-search-input').focus(), 100);
+            }
+        }
+
+        window.toggleCategoriesModal = function() {
+            const overlay = document.getElementById('categories-overlay');
+            overlay.classList.toggle('active');
+        }
+
+        // الكود المسؤول عن فتح وإغلاق القائمة الجانبية
+        window.toggleSidebar = function() {
+            document.getElementById('sidebar').classList.toggle('active');
+            document.getElementById('sidebar-overlay').classList.toggle('active');
+        }
+
         window.addToCart = function(name, price, image) {
-            let cart = JSON.parse(localStorage.getItem('wusooly_cart')) || [];
+            let cart = JSON.parse(localStorage.getItem('Acces_cart')) || [];
             let existingItem = cart.find(item => item.name === name);
             if (existingItem) existingItem.qty += 1;
             else cart.push({ name: name, price: price, image: image, qty: 1 });
-            localStorage.setItem('wusooly_cart', JSON.stringify(cart));
+            localStorage.setItem('Acces_cart', JSON.stringify(cart));
             const toast = document.getElementById("toast");
             toast.className = "toast show";
             setTimeout(() => { toast.className = toast.className.replace("show", ""); }, 3000);
@@ -211,6 +490,23 @@
             else document.body.classList.remove('dark-mode');
             
             updateImages(isDark);
+
+            let currentSlide = 0;
+            const slides = document.querySelectorAll('.slide');
+            const dots = document.querySelectorAll('.dot');
+            const totalSlides = slides.length;
+
+            if(totalSlides > 0) {
+                setInterval(() => {
+                    slides[currentSlide].classList.remove('active');
+                    dots[currentSlide].classList.remove('active');
+                    
+                    currentSlide = (currentSlide + 1) % totalSlides;
+                    
+                    slides[currentSlide].classList.add('active');
+                    dots[currentSlide].classList.add('active');
+                }, 5000); 
+            }
         });
     </script>
 
@@ -248,19 +544,20 @@
                     const imageSrc = (p.images && p.images.length > 0) ? p.images[0] : (p.image || 'https://via.placeholder.com/150');
                     
                     const html = `
-                    <div class="product-card" onclick="window.location.href='product_details.html?id=${doc.id}'">
-                        <div class="fav-icon">♡</div>
-                        <div class="product-img-wrapper">
-                            <img src="${imageSrc}" class="product-img">
+                    <div class="product-card" style="padding: 12px; display: flex; flex-direction: column; background: var(--card-bg); border-radius: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.04); border: 1px solid rgba(0,0,0,0.02); min-width: 0; transition: background-color 0.2s ease, border-color 0.2s ease;" onclick="window.location.href='product_details.html?id=${doc.id}'">
+                        
+                        <div style="position: relative; width: 100%; padding-top: 100%; background: var(--input-bg); border-radius: 15px; overflow: hidden; transform: translateZ(0);">
+                            <img src="${imageSrc}" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: contain;" loading="lazy">
+                            <div style="position: absolute; top: 10px; left: 10px; width: 28px; height: 28px; background: rgba(255,255,255,0.9); border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 5px rgba(0,0,0,0.1); color: #ccc; font-size: 16px; z-index: 2;">♡</div>
                         </div>
-                        <div class="product-info">
-                            <h3>${p.name}</h3>
-                            <p>${p.category}</p>
-                            <div class="price-row">
-                                <div class="price">₪${p.price}</div>
-                                <div class="add-btn-mini">
-                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-                                </div>
+                        
+                        <div style="margin-top: 15px; display: flex; flex-direction: column; flex-grow: 1; min-width: 0;">
+                            <h3 style="font-size: 15px; margin: 0 0 4px; color: var(--text-main); font-weight: 800; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-align: right; transition: color 0.2s ease;">${p.name}</h3>
+                            <p style="font-size: 12px; color: var(--text-sub); margin: 0 0 15px; font-weight: 600; text-align: right; transition: color 0.2s ease;">${p.category}</p>
+                            
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: auto;">
+                                <div onclick="event.stopPropagation(); window.addToCart('${p.name}', ${p.price}, '${imageSrc}')" style="width: 32px; height: 32px; border-radius: 50%; background: var(--text-main); color: var(--card-bg); display: flex; align-items: center; justify-content: center; font-size: 20px; cursor: pointer; font-weight: 500; line-height: 1; padding-bottom: 2px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); transition: background-color 0.2s ease, color 0.2s ease;">+</div>
+                                <div style="font-size: 17px; font-weight: 800; color: #ff4747; direction: ltr;">₪${p.price}</div>
                             </div>
                         </div>
                     </div>`;
