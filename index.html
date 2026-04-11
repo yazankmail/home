@@ -230,15 +230,14 @@
         }
         .sidebar-link:hover, .sidebar-link:active { background-color: var(--input-bg); }
         
-        /* التعديل الجوهري لمنع اختفاء الأيقونات في الآيفون */
         .sidebar-icon { 
             width: 24px; height: 24px; 
             color: #0B2545; 
             display: flex; align-items: center; justify-content: center; 
-            flex-shrink: 0; /* هذا الكود يمنع سفاري من سحق حجم الأيقونة */
+            flex-shrink: 0; 
         }
         .sidebar-icon svg {
-            width: 100%; height: 100%; /* إعطاء أبعاد صريحة للأيقونة */
+            width: 100%; height: 100%; 
         }
         body.dark-mode .sidebar-icon { color: #4dabf7; }
         /* ===================================== */
@@ -528,8 +527,9 @@
     </script>
 
     <script type="module">
+        // تم إضافة setDoc و doc و increment إلى مكتبة الاستيراد
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-        import { getFirestore, collection, getDocs, limit, query } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+        import { getFirestore, collection, getDocs, limit, query, setDoc, doc, increment } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyBa0RwEcbVqWYAKeUFeZy2IDihaxUxtNKY",
@@ -542,6 +542,23 @@
 
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
+
+        // كود حساب الزوار الذكي
+        async function recordVisit() {
+            // نتحقق إذا كان الزائر جديداً في هذه الجلسة (لمنع زيادة العداد عند تحديث الصفحة)
+            if (!sessionStorage.getItem('acces_visited')) {
+                sessionStorage.setItem('acces_visited', 'true');
+                try {
+                    const statsRef = doc(db, "statistics", "visitors");
+                    // إضافة +1 لعدد الزوار (مع إنشاء الملف إن لم يكن موجوداً)
+                    await setDoc(statsRef, { count: increment(1) }, { merge: true });
+                } catch (e) {
+                    console.log("خطأ في تسجيل الزيارة:", e);
+                }
+            }
+        }
+        // تشغيل الدالة فور دخول الزائر
+        recordVisit();
 
         async function fetchProducts() {
             const container = document.getElementById('dynamic-products');
